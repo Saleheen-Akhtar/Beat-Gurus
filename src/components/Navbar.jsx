@@ -16,20 +16,27 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
-        <a href="#" className="logo">BEAT <span className="gold">GURUS</span></a>
+        <a href="#" className="logo">
+          BEAT <span className="gold-text">GURUS</span>
+        </a>
 
         <div className={`nav-links ${isOpen ? 'active' : ''}`}>
-          <a href="#home" onClick={() => setIsOpen(false)}>Home</a>
-          <a href="#about" onClick={() => setIsOpen(false)}>About</a>
-          <a href="#services" onClick={() => setIsOpen(false)}>Services</a>
-          <a href="#instruments" onClick={() => setIsOpen(false)}>Instruments</a>
-          <a href="#contact" className="btn-nav" onClick={() => setIsOpen(false)}>Book Now</a>
+          {['Home', 'About', 'Services', 'Gallery', 'Instruments'].map((item, index) => (
+             <a
+               key={index}
+               href={`#${item.toLowerCase()}`}
+               onClick={() => setIsOpen(false)}
+             >
+               {item}
+             </a>
+          ))}
+          <a href="#contact" className="btn-primary" onClick={() => setIsOpen(false)}>Book Now</a>
         </div>
 
         <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
-          <span className={isOpen ? 'open' : ''}></span>
-          <span className={isOpen ? 'open' : ''}></span>
-          <span className={isOpen ? 'open' : ''}></span>
+          <span style={{ transform: isOpen ? 'rotate(45deg) translate(5px, 6px)' : 'none' }}></span>
+          <span style={{ opacity: isOpen ? 0 : 1 }}></span>
+          <span style={{ transform: isOpen ? 'rotate(-45deg) translate(5px, -6px)' : 'none' }}></span>
         </div>
       </div>
     </nav>
