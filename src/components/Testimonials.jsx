@@ -48,46 +48,6 @@ const Testimonials = () => {
           ))}
         </div>
       </div>
-
-      <style jsx>{`
-        .testimonials-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 40px;
-        }
-        .review-card {
-          background: #111;
-          padding: 40px;
-          border-radius: 16px;
-          border: 1px solid rgba(255,255,255,0.05);
-          text-align: center;
-          position: relative;
-        }
-        .quote-icon {
-          font-size: 4rem;
-          color: var(--gold);
-          opacity: 0.2;
-          line-height: 1;
-          margin-bottom: -20px;
-        }
-        .review-text {
-          font-size: 1.1rem;
-          font-style: italic;
-          color: #ddd;
-          margin-bottom: 25px;
-        }
-        .review-author h4 {
-          color: var(--gold);
-          margin-bottom: 5px;
-          font-family: var(--font-main);
-          font-weight: 700;
-        }
-        .review-author span {
-          color: #888;
-          font-size: 0.9rem;
-          text-transform: uppercase;
-        }
-      `}</style>
     </section>
   );
 };

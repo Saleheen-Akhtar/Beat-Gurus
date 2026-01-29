@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,32 +15,52 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <div className="container nav-container">
-        <a href="#" className="logo">
-          BEAT <span className="gold-text">GURUS</span>
-        </a>
+    <>
+      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+        <div className="container nav-container">
+          <a href="#" className="logo">BEAT<span className="gold-text">GURUS</span></a>
 
-        <div className={`nav-links ${isOpen ? 'active' : ''}`}>
-          {['Home', 'About', 'Services', 'Gallery', 'Instruments'].map((item, index) => (
-             <a
-               key={index}
-               href={`#${item.toLowerCase()}`}
-               onClick={() => setIsOpen(false)}
-             >
-               {item}
-             </a>
-          ))}
-          <a href="#contact" className="btn-primary" onClick={() => setIsOpen(false)}>Book Now</a>
+          <button className="menu-btn" onClick={() => setIsOpen(true)}>
+            <span className="menu-text">Menu</span>
+            <FaBars />
+          </button>
         </div>
+      </nav>
 
-        <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
-          <span style={{ transform: isOpen ? 'rotate(45deg) translate(5px, 6px)' : 'none' }}></span>
-          <span style={{ opacity: isOpen ? 0 : 1 }}></span>
-          <span style={{ transform: isOpen ? 'rotate(-45deg) translate(5px, -6px)' : 'none' }}></span>
-        </div>
-      </div>
-    </nav>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="menu-overlay"
+            initial={{ y: "-100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-100%" }}
+            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+          >
+            <div className="menu-header container">
+              <a href="#" className="logo-white">BEAT GURUS</a>
+              <button className="close-btn" onClick={() => setIsOpen(false)}>
+                <FaTimes />
+              </button>
+            </div>
+
+            <div className="menu-links container">
+              {['Home', 'About', 'Services', 'Work', 'Contact'].map((item, index) => (
+                <motion.a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  onClick={() => setIsOpen(false)}
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 + (index * 0.1) }}
+                >
+                  {item}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

@@ -3,58 +3,27 @@ import { motion } from 'framer-motion';
 
 const Services = () => {
   const services = [
-    {
-      icon: "🏢",
-      title: "Corporate Events",
-      desc: "High-energy performances designed to electrify company gatherings, launches, and galas."
-    },
-    {
-      icon: "💍",
-      title: "Weddings",
-      desc: "Unforgettable entertainment for receptions, cocktail parties, and sangeets, blending tradition with groove."
-    },
-    {
-      icon: "🎉",
-      title: "Cultural Festivals",
-      desc: "We bring the beat to the streets and stages, from the Bangalore Wine Festival to global cultural evenings."
-    },
-    {
-      icon: "🥁",
-      title: "Workshops",
-      desc: "Interactive Djembe drumming workshops led by Ganesh Govindswamy for team building and music lovers."
-    }
+    { title: "Corporate Events", desc: "High-energy performances for galas & launches" },
+    { title: "Private Weddings", desc: "Traditional rhythms meet modern groove" },
+    { title: "Music Festivals", desc: "Main stage performances worldwide" },
+    { title: "Drum Workshops", desc: "Interactive team building sessions" }
   ];
 
   return (
-    <section id="services" className="section bg-darker">
+    <section id="services" className="services-list-section">
       <div className="container">
-        <motion.div
-          className="section-header"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2>Our <span className="gold">Services</span></h2>
-          <div className="line"></div>
-        </motion.div>
-
-        <div className="services-grid">
-          {services.map((service, index) => (
-            <motion.div
-              className="service-card"
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className="icon">{service.icon}</div>
-              <h3>{service.title}</h3>
-              <p>{service.desc}</p>
-            </motion.div>
-          ))}
-        </div>
+        {services.map((service, index) => (
+          <motion.div
+            key={index}
+            className="service-row"
+            initial={{ opacity: 0, borderBottomColor: "rgba(255,255,255,0.1)" }}
+            whileInView={{ opacity: 1, borderBottomColor: "rgba(212, 175, 55, 0.5)" }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+          >
+            <h2 className="service-title">{service.title}</h2>
+            <p className="service-desc">{service.desc}</p>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
