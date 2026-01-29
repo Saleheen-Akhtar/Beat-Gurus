@@ -36,7 +36,7 @@ const Showcase = () => {
   return (
     <section id="work" className="showcase-section">
       <div className="container">
-        <div className="showcase-header">
+        <div className="section-header">
           <h2 className="section-title">Selected <span className="gold-text">Work</span></h2>
         </div>
 

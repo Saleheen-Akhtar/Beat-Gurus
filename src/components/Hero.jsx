@@ -12,7 +12,7 @@ const Hero = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} className="hero-section">
+    <section ref={ref} className="hero-section" id="home">
       <motion.div style={{ y, opacity }} className="hero-bg">
         <video
           autoPlay
