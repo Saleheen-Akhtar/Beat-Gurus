@@ -14,6 +14,7 @@ const Hero = () => {
   return (
     <section ref={ref} className="hero-section" id="home">
       <motion.div style={{ y, opacity }} className="hero-bg">
+        {/* Placeholder video - in a real scenario, this would be a custom Beat Gurus performance clip */}
         <video
           autoPlay
           loop
@@ -33,9 +34,9 @@ const Hero = () => {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="hero-title"
           >
-            Rhythm <br/>
-            <span className="stroke-text">Of The</span> <br/>
-            Soul
+            BEAT <br/>
+            <span className="stroke-text">GURUS</span> <br/>
+            RHYTHM
           </motion.h1>
         </div>
 
@@ -45,7 +46,7 @@ const Hero = () => {
           transition={{ delay: 1, duration: 1 }}
           className="hero-footer"
         >
-          <p>Bangalore's Premier Fusion Percussion</p>
+          <p>The Pulse of Bangalore | West African Djembe Fusion</p>
           <div className="scroll-indicator">Scroll</div>
         </motion.div>
       </div>

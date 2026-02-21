@@ -12,8 +12,7 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2>Who We <span className="gold">Are</span></h2>
-          <div className="line"></div>
+          <h2>Who We <span className="gold-text">Are</span></h2>
         </motion.div>
 
         <div className="about-grid">
@@ -25,8 +24,17 @@ const About = () => {
             transition={{ duration: 0.6 }}
           >
             <h3>The Beat Gurus Legacy</h3>
-            <p>Based in Bangalore, <strong>Beat Gurus</strong> stands as a testament to the vibrant music scene of the city. Founded by <strong>Ganesh Govindswamy</strong> and <strong>Prashanth Muralidhar</strong>, this dynamic band finds its rhythm through the captivating sounds of the <em>Djembe</em>, a traditional hand drum originating from West Africa.</p>
-            <p>Our passion for music transcends boundaries, leading us to grace prestigious international stages such as the <strong>BBC World Travel Awards</strong> and the <strong>International Cultural Evening in Norway</strong>. Emanating from the cultural melting pot of Bangalore, Beat Gurus is a force to be reckoned with.</p>
+            <p>
+              Based in Bangalore, <strong>Beat Gurus</strong> stands as a testament to the vibrant music scene of the city.
+              Founded by <strong className="gold-text">Ganesh Govindswamy</strong> and <strong className="gold-text">Prashanth Muralidhar</strong>,
+              this dynamic band finds its rhythm through the captivating sounds of the <em>Djembe</em>, a traditional hand drum originating from West Africa.
+            </p>
+            <br />
+            <p>
+              Our passion for music transcends boundaries, leading us to grace prestigious international stages such as the
+              <strong> BBC World Travel Awards</strong> and the <strong>International Cultural Evening in Norway</strong>.
+              Emanating from the cultural melting pot of Bangalore, Beat Gurus is a force to be reckoned with.
+            </p>
           </motion.div>
 
           <motion.div
@@ -47,6 +55,10 @@ const About = () => {
             <div className="stat-box">
               <span className="number">1000+</span>
               <span className="label">Shows</span>
+            </div>
+            <div className="stat-box">
+              <span className="number">∞</span>
+              <span className="label">Energy</span>
             </div>
           </motion.div>
         </div>

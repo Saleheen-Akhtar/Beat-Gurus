@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const VideoSection = () => {
   return (
-    <section className="section bg-black video-section">
+    <section className="section video-section">
       <div className="container">
         <div className="video-wrapper">
           <div className="video-text">
@@ -13,7 +13,7 @@ const VideoSection = () => {
                viewport={{ once: true }}
                transition={{ duration: 0.8 }}
             >
-              Feel the <span className="gold-text">Pulse</span>
+              Feel the <span className="gold-text">Heat</span>
             </motion.h2>
             <motion.p
                initial={{ opacity: 0, x: -50 }}
@@ -21,18 +21,19 @@ const VideoSection = () => {
                viewport={{ once: true }}
                transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Watch the magic unfold live. From intimate gatherings to massive festival stages, our rhythm connects souls.
+              Experience the raw energy of Beat Gurus live. From intimate gatherings to massive festival stages, our rhythm connects souls and transcends borders.
             </motion.p>
             <motion.a
               href="https://www.youtube.com/results?search_query=beat+gurus+bangalore"
               target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5 }}
             >
-              Watch More on YouTube
+              Watch Performance
             </motion.a>
           </div>
 

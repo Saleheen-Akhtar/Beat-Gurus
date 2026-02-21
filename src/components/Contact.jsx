@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
 const Contact = () => {
   return (
@@ -12,8 +13,7 @@ const Contact = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2>Get In <span className="gold">Touch</span></h2>
-          <div className="line"></div>
+          <h2>Get In <span className="gold-text">Touch</span></h2>
         </motion.div>
 
         <div className="contact-wrapper">
@@ -24,12 +24,21 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h3>Contact Information</h3>
-            <p>Ready to bring the rhythm to your next event?</p>
+            <h3>Book the Beats</h3>
+            <p>Ready to ignite your event with the primal energy of Beat Gurus?</p>
             <ul className="info-list">
-              <li><strong>Location:</strong> Jayanagar, Bangalore, India</li>
-              <li><strong>Email:</strong> bookings@beatgurus.org</li>
-              <li><strong>Phone:</strong> +91 98450 12345</li>
+              <li>
+                <strong><FaMapMarkerAlt /></strong>
+                <span>Bangalore, India</span>
+              </li>
+              <li>
+                <strong><FaEnvelope /></strong>
+                <span>contact@beatgurus.org</span>
+              </li>
+              <li>
+                <strong><FaPhone /></strong>
+                <span>+91 98450 12345</span>
+              </li>
             </ul>
           </motion.div>
 
@@ -49,14 +58,15 @@ const Contact = () => {
             <div className="form-group">
               <select>
                 <option>Event Type</option>
-                <option>Corporate</option>
-                <option>Wedding</option>
-                <option>Festival</option>
+                <option>Corporate Gala</option>
+                <option>Wedding / Private</option>
+                <option>Music Festival</option>
+                <option>International Tour</option>
                 <option>Other</option>
               </select>
             </div>
             <div className="form-group">
-              <textarea rows="5" placeholder="Message" required></textarea>
+              <textarea rows="5" placeholder="Tell us about your event..." required></textarea>
             </div>
             <button type="submit" className="btn-primary">Send Message</button>
           </motion.form>

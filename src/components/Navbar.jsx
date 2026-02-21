@@ -31,10 +31,10 @@ const Navbar = () => {
         {isOpen && (
           <motion.div
             className="menu-overlay"
-            initial={{ y: "-100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "-100%" }}
-            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
           >
             <div className="menu-header container">
               <a href="#" className="logo-white">BEAT GURUS</a>
@@ -44,14 +44,14 @@ const Navbar = () => {
             </div>
 
             <div className="menu-links container">
-              {['Home', 'About', 'Services', 'Work', 'Contact'].map((item, index) => (
+              {['Home', 'About', 'Services', 'Gallery', 'Contact'].map((item, index) => (
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
                   onClick={() => setIsOpen(false)}
-                  initial={{ y: 50, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 + (index * 0.1) }}
+                  initial={{ x: -50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.1 + (index * 0.1) }}
                 >
                   {item}
                 </motion.a>

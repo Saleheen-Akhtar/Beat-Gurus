@@ -5,23 +5,19 @@ const Instruments = () => {
   const instruments = [
     {
       name: "Djembe",
-      desc: "The heart of our sound. A goblet-shaped hand drum from West Africa capable of a wide range of tones."
+      desc: "The heartbeat of our sound. This West African goblet drum delivers the primal energy that defines Beat Gurus."
+    },
+    {
+      name: "Indian Percussion",
+      desc: "Integrating the complex rhythmic structures of the Kanjira and Tabla to bridge cultures."
     },
     {
       name: "Didgeridoo",
-      desc: "An ancient wind instrument developed by Indigenous Australians, adding deep, drone-like textures."
+      desc: "Ancient Australian wind instrument adding deep, resonant drone textures to the mix."
     },
     {
-      name: "Congas & Bongos",
-      desc: "Afro-Cuban drums that add complex layers and high-pitched accents to our rhythm."
-    },
-    {
-      name: "Kanjira",
-      desc: "A South Indian frame drum, bridging our African influences with our Indian roots."
-    },
-    {
-      name: "Flute",
-      desc: "Melodic winds that soar above the percussion, creating a trance-like fusion atmosphere."
+      name: "World Drums",
+      desc: "From Congas to Bongos, layering Afro-Cuban grooves over our foundation."
     }
   ];
 
@@ -35,8 +31,7 @@ const Instruments = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2>Our <span className="gold">Arsenal</span></h2>
-          <div className="line"></div>
+          <h2>Sonic <span className="gold-text">Arsenal</span></h2>
         </motion.div>
 
         <div className="instruments-grid">
@@ -44,8 +39,8 @@ const Instruments = () => {
             <motion.div
               className="instrument-item"
               key={index}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >

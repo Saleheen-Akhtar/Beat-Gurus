@@ -23,10 +23,15 @@ const Testimonials = () => {
   return (
     <section className="section">
       <div className="container">
-        <div className="section-header">
-          <h2>What They <span className="gold-text">Say</span></h2>
-          <div className="line"></div>
-        </div>
+        <motion.div
+          className="section-header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2>Hear the <span className="gold-text">Roar</span></h2>
+        </motion.div>
 
         <div className="testimonials-grid">
           {reviews.map((review, index) => (
@@ -39,7 +44,7 @@ const Testimonials = () => {
               transition={{ duration: 0.6, delay: index * 0.2 }}
             >
               <div className="quote-icon">❝</div>
-              <p className="review-text">{review.text}</p>
+              <p className="review-text">"{review.text}"</p>
               <div className="review-author">
                 <h4>{review.author}</h4>
                 <span>{review.role}</span>

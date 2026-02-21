@@ -3,8 +3,7 @@ import { motion } from 'framer-motion';
 
 const USP = () => {
   return (
-    <section className="usp-section">
-      <div className="usp-overlay"></div>
+    <section id="usp" className="usp-section">
       <div className="container usp-content">
         <motion.h2
           initial={{ opacity: 0, scale: 0.9 }}
@@ -12,7 +11,7 @@ const USP = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          The <span className="gold">Raw</span> Experience
+          Music is the <span className="gold-text">Great Uniter</span>
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -20,6 +19,8 @@ const USP = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
+          "An incredible force."
+          <br /><br />
           We renounce electronic instruments to focus purely on the raw energy of acoustic percussion.
           A unique fusion of West African beats and Indian rhythms that leaves audiences spellbound.
         </motion.p>
