@@ -47,37 +47,76 @@ const Showcase = () => {
           <h2 className="section-title" style={{ margin: 0 }}>LIVE <span style={{ color: 'var(--earth-red)' }}>MOMENTS</span></h2>
         </motion.div>
 
-        <div className="masonry-grid" style={{ display: 'flex', flexDirection: 'column', gap: '80px' }}>
+        <div className="horizontal-scroll-container" style={{
+          display: 'flex',
+          overflowX: 'auto',
+          gap: '40px',
+          paddingBottom: '40px',
+          scrollbarWidth: 'none', // Firefox
+          msOverflowStyle: 'none' // IE and Edge
+        }}>
+          {/* Hide webkit scrollbar in index.css */}
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              className={`project-card`}
-              initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              className="gallery-card"
+              initial={{ opacity: 0, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-150px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
               style={{
-                display: 'grid',
-                gridTemplateColumns: index % 2 === 0 ? '1fr 1fr' : '1fr 1fr',
-                gap: '40px',
-                alignItems: 'center',
-                direction: index % 2 === 0 ? 'ltr' : 'rtl'
+                minWidth: 'clamp(300px, 40vw, 500px)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '20px'
               }}
             >
-              <div className="img-wrapper" style={{ borderRadius: '0px', height: '60vh', border: 'none', overflow: 'hidden' }}>
+              <div className="img-wrapper" style={{
+                height: '60vh',
+                border: '4px solid var(--text-dark)',
+                boxShadow: '8px 8px 0px var(--text-dark)',
+                overflow: 'hidden',
+                position: 'relative',
+                background: 'var(--text-dark)'
+              }}>
                 <motion.img
                   src={project.img}
                   alt={project.title}
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.8 }}
-                  style={{ filter: 'grayscale(100%) contrast(1.2) brightness(0.9)', width: '100%', height: '100%', objectFit: 'cover' }}
+                  style={{
+                    filter: 'grayscale(80%) sepia(20%) contrast(1.2) brightness(0.9)',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    opacity: 0.8
+                  }}
                 />
+                <div className="overlay-content" style={{
+                  position: 'absolute',
+                  top: 0, left: 0, right: 0, bottom: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  opacity: 0,
+                  background: 'rgba(26, 5, 5, 0.4)',
+                  transition: 'opacity 0.3s ease'
+                }}>
+                  <span style={{
+                    fontFamily: 'var(--font-accent)',
+                    color: 'var(--bg-sand)',
+                    fontSize: '2.5rem',
+                    transform: 'rotate(-5deg)'
+                  }}>View</span>
+                </div>
               </div>
 
-              <div className="project-info-text" style={{ padding: '40px', direction: 'ltr' }}>
-                <span className="accent-text" style={{ fontSize: '2rem', marginBottom: '20px' }}>{project.category}</span>
-                <h3 style={{ color: 'var(--text-dark)', fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 1, marginBottom: '20px' }}>{project.title}</h3>
-                <div style={{ width: '50px', height: '4px', background: 'var(--earth-red)' }}></div>
+              <div className="project-info-text" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                  <h3 style={{ color: 'var(--text-dark)', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', lineHeight: 1, marginBottom: '10px', textTransform: 'uppercase' }}>{project.title}</h3>
+                  <span style={{ color: 'var(--earth-red)', fontFamily: 'var(--font-main)', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>{project.category}</span>
+                </div>
+                <span className="accent-text" style={{ fontSize: '1.5rem', color: 'var(--text-grey)' }}>0{index + 1}</span>
               </div>
             </motion.div>
           ))}
