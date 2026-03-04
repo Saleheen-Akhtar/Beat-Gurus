@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { TextReveal } from './TextReveal';
 
 const Showcase = () => {
   const projects = [
@@ -36,16 +37,14 @@ const Showcase = () => {
   return (
     <section id="work" className="showcase-section">
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          style={{ display: 'flex', alignItems: 'flex-start', gap: '20px', marginBottom: '80px' }}
-        >
-          <span className="accent-text" style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', marginTop: '-10px' }}>02.</span>
-          <h2 className="section-title" style={{ margin: 0 }}>LIVE <span style={{ color: 'var(--earth-red)' }}>MOMENTS</span></h2>
-        </motion.div>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px', marginBottom: '80px' }}>
+          <TextReveal>
+            <span className="accent-text" style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', marginTop: '-10px' }}>02.</span>
+          </TextReveal>
+          <TextReveal delay={0.1}>
+            <h2 className="section-title" style={{ margin: 0 }}>LIVE <span style={{ color: 'var(--earth-red)' }}>MOMENTS</span></h2>
+          </TextReveal>
+        </div>
 
         <div className="horizontal-scroll-container" style={{
           display: 'flex',

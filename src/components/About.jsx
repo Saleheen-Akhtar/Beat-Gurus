@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { TextReveal } from './TextReveal';
 
 const About = () => {
   return (
@@ -7,16 +8,14 @@ const About = () => {
       <div className="container" style={{ position: 'relative' }}>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '50px' }}>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}
-          >
-            <span className="accent-text" style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', marginTop: '-10px' }}>01.</span>
-            <h2 style={{ fontSize: 'clamp(4rem, 10vw, 8rem)', color: 'var(--text-dark)' }}>OUR <span style={{ color: 'var(--earth-red)' }}>LEGACY</span></h2>
-          </motion.div>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
+            <TextReveal>
+              <span className="accent-text" style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', marginTop: '-10px' }}>01.</span>
+            </TextReveal>
+            <TextReveal delay={0.1}>
+              <h2 style={{ fontSize: 'clamp(4rem, 10vw, 8rem)', color: 'var(--text-dark)', margin: 0 }}>OUR <span style={{ color: 'var(--earth-red)' }}>LEGACY</span></h2>
+            </TextReveal>
+          </div>
 
           <div className="about-grid" style={{ gridTemplateColumns: '1.2fr 1fr', alignItems: 'start' }}>
             <motion.div

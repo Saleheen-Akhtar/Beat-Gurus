@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 
+import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -14,6 +15,8 @@ import Contact from './components/Contact';
 import GlobalBackground from './components/GlobalBackground';
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -40,17 +43,22 @@ function App() {
 
   return (
     <div className="app">
-      <GlobalBackground />
-      <Navbar />
-      <Hero />
-      <About />
-      <Showcase />
-      <Services />
-      <VideoSection />
-      <USP />
-      <Instruments />
-      <Testimonials />
-      <Contact />
+      <Preloader onComplete={() => setLoading(false)} />
+      {!loading && (
+        <>
+          <GlobalBackground />
+          <Navbar />
+          <Hero />
+          <About />
+          <Showcase />
+          <Services />
+          <VideoSection />
+          <USP />
+          <Instruments />
+          <Testimonials />
+          <Contact />
+        </>
+      )}
     </div>
   );
 }

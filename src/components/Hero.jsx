@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { TextReveal } from './TextReveal';
 
 const Hero = () => {
   const ref = useRef(null);
@@ -33,24 +34,18 @@ const Hero = () => {
           >
             feel the rhythm of
           </motion.span>
-          <motion.h1
-            initial={{ y: 150, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-            style={{ y: yTitle, marginLeft: '-1vw' }}
-            className="hero-title"
-          >
-            BEAT<br/><span style={{ color: 'var(--earth-red)' }}>GURUS</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="hero-subtitle"
-            style={{ color: 'var(--text-grey)', fontSize: 'clamp(1rem, 2vw, 1.5rem)', maxWidth: '500px', marginTop: '30px', fontWeight: '600' }}
-          >
-            Raw acoustic energy. Renouncing electronic instruments for the pure power of West African & Indian percussion.
-          </motion.p>
+          <motion.div style={{ y: yTitle, marginLeft: '-1vw' }} className="hero-title">
+            <TextReveal delay={0.3}>BEAT</TextReveal><br/>
+            <TextReveal delay={0.4} style={{ color: 'var(--earth-red)' }}>GURUS</TextReveal>
+          </motion.div>
+          <TextReveal delay={0.6}>
+            <p
+              className="hero-subtitle"
+              style={{ color: 'var(--text-grey)', fontSize: 'clamp(1rem, 2vw, 1.5rem)', maxWidth: '500px', marginTop: '30px', fontWeight: '600' }}
+            >
+              Raw acoustic energy. Renouncing electronic instruments for the pure power of West African & Indian percussion.
+            </p>
+          </TextReveal>
 
           <motion.a
              href="#about"
