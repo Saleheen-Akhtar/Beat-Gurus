@@ -48,8 +48,8 @@ const Contact = () => {
               <input type="email" placeholder="Your Email" required style={{ color: 'var(--text-dark)', borderColor: 'var(--text-dark)' }} />
             </div>
             <div className="form-group">
-              <select style={{ color: 'var(--text-dark)', borderColor: 'var(--text-dark)', backgroundColor: 'transparent' }}>
-                <option value="" disabled selected>Event Type</option>
+              <select defaultValue="" style={{ color: 'var(--text-dark)', borderColor: 'var(--text-dark)', backgroundColor: 'transparent' }}>
+                <option value="" disabled>Event Type</option>
                 <option value="corporate">Corporate</option>
                 <option value="wedding">Wedding</option>
                 <option value="festival">Festival</option>

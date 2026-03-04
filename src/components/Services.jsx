@@ -13,14 +13,14 @@ const Services = () => {
     <section id="services" className="services-list-section">
       <div className="container">
         <motion.div
-          className="section-header"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
+          style={{ display: 'flex', alignItems: 'flex-start', gap: '20px', marginBottom: '80px' }}
         >
-          <h2 className="section-title">Our <span style={{ color: 'var(--earth-red)' }}>Offerings</span></h2>
-          <div className="line" style={{ background: 'var(--text-dark)' }}></div>
+          <span className="accent-text" style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', marginTop: '-10px' }}>04.</span>
+          <h2 className="section-title" style={{ margin: 0 }}>OUR <span style={{ color: 'var(--earth-red)' }}>OFFERINGS</span></h2>
         </motion.div>
 
         {services.map((service, index) => (

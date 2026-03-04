@@ -12,6 +12,7 @@ import Instruments from './components/Instruments';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import GlobalBackground from './components/GlobalBackground';
 
 function App() {
   useEffect(() => {
@@ -40,6 +41,7 @@ function App() {
 
   return (
     <div className="app">
+      <GlobalBackground />
       <Navbar />
       <Hero />
       <About />
