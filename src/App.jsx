@@ -11,7 +11,6 @@ import USP from './components/USP';
 import Instruments from './components/Instruments';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
-import Footer from './components/Footer';
 import GlobalBackground from './components/GlobalBackground';
 
 function App() {
@@ -52,7 +51,6 @@ function App() {
       <Instruments />
       <Testimonials />
       <Contact />
-      <Footer />
     </div>
   );
 }
