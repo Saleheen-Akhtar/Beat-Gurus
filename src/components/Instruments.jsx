@@ -30,13 +30,13 @@ const Instruments = () => {
       <div className="container">
         <motion.div
           className="section-header"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
         >
-          <h2>Our <span className="gold">Arsenal</span></h2>
-          <div className="line"></div>
+          <h2>Our <span style={{ color: 'var(--earth-red)' }}>Arsenal</span></h2>
+          <div className="line" style={{ background: 'var(--text-dark)' }}></div>
         </motion.div>
 
         <div className="instruments-grid">
@@ -44,13 +44,14 @@ const Instruments = () => {
             <motion.div
               className="instrument-item"
               key={index}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: index * 0.15, type: 'spring', stiffness: 100 }}
+              whileHover={{ scale: 1.05 }}
             >
-              <h3>{inst.name}</h3>
-              <p>{inst.desc}</p>
+              <h3 style={{ borderBottom: '2px dashed var(--earth-red)', paddingBottom: '10px', display: 'inline-block' }}>{inst.name}</h3>
+              <p style={{ marginTop: '10px', fontSize: '1.1rem' }}>{inst.desc}</p>
             </motion.div>
           ))}
         </div>

@@ -16,9 +16,9 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} style={{ backgroundColor: scrolled ? 'var(--gold)' : 'transparent', borderBottom: scrolled ? '2px solid var(--text-dark)' : 'none' }}>
         <div className="container nav-container">
-          <a href="#" className="logo">BEAT<span className="gold-text">GURUS</span></a>
+          <a href="#" className="logo" style={{ color: 'var(--text-dark)' }}>BEAT<span style={{ color: 'var(--earth-red)' }}>GURUS</span></a>
 
           <button className="menu-btn" onClick={() => setIsOpen(true)}>
             <span className="menu-text">Menu</span>

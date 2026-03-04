@@ -36,25 +36,43 @@ const Showcase = () => {
   return (
     <section id="work" className="showcase-section">
       <div className="container">
-        <div className="section-header">
-          <h2 className="section-title">Selected <span className="gold-text">Work</span></h2>
-        </div>
+        <motion.div
+          className="section-header"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="section-title">Selected <span style={{ color: 'var(--earth-red)' }}>Work</span></h2>
+          <div className="line" style={{ background: 'var(--text-dark)', width: '100px', height: '4px', marginBottom: '40px' }}></div>
+        </motion.div>
 
         <div className="masonry-grid">
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <motion.div
               key={project.id}
               className={`project-card ${project.size}`}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, y: 100, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: index * 0.2, ease: "easeOut" }}
+              style={{
+                border: '4px solid var(--text-dark)',
+                boxShadow: '8px 8px 0px var(--text-dark)',
+                borderRadius: '0px'
+              }}
             >
-              <div className="img-wrapper">
-                <img src={project.img} alt={project.title} />
-                <div className="project-info">
-                  <h3>{project.title}</h3>
-                  <span>{project.category}</span>
+              <div className="img-wrapper" style={{ borderRadius: '0px' }}>
+                <motion.img
+                  src={project.img}
+                  alt={project.title}
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.6 }}
+                  style={{ filter: 'grayscale(80%) sepia(30%) hue-rotate(340deg)' }}
+                />
+                <div className="project-info" style={{ background: 'rgba(235, 220, 185, 0.9)', padding: '20px', border: '2px solid var(--text-dark)', left: '20px', bottom: '20px' }}>
+                  <h3 style={{ color: 'var(--text-dark)' }}>{project.title}</h3>
+                  <span style={{ color: 'var(--earth-red)', fontWeight: 'bold' }}>{project.category}</span>
                 </div>
               </div>
             </motion.div>
