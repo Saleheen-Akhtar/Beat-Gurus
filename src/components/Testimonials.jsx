@@ -23,26 +23,33 @@ const Testimonials = () => {
   return (
     <section className="section">
       <div className="container">
-        <div className="section-header">
-          <h2>What They <span className="gold-text">Say</span></h2>
-          <div className="line"></div>
-        </div>
+        <motion.div
+          className="section-header"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2>What They <span style={{ color: 'var(--earth-red)' }}>Say</span></h2>
+          <div className="line" style={{ background: 'var(--text-dark)' }}></div>
+        </motion.div>
 
         <div className="testimonials-grid">
           {reviews.map((review, index) => (
             <motion.div
               key={index}
               className="review-card"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              initial={{ opacity: 0, y: 50, rotate: index % 2 === 0 ? -2 : 2 }}
+              whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: index * 0.2, type: "spring" }}
+              whileHover={{ y: -10, boxShadow: '12px 12px 0px rgba(0,0,0,0.15)' }}
             >
-              <div className="quote-icon">❝</div>
-              <p className="review-text">{review.text}</p>
-              <div className="review-author">
+              <div className="quote-icon" style={{ color: 'var(--text-dark)', opacity: 0.1 }}>❝</div>
+              <p className="review-text" style={{ fontWeight: 'bold' }}>"{review.text}"</p>
+              <div className="review-author" style={{ borderTop: '2px solid var(--text-dark)', paddingTop: '15px', marginTop: '15px' }}>
                 <h4>{review.author}</h4>
-                <span>{review.role}</span>
+                <span style={{ color: 'var(--text-grey)' }}>{review.role}</span>
               </div>
             </motion.div>
           ))}

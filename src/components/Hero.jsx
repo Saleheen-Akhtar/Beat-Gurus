@@ -8,45 +8,73 @@ const Hero = () => {
     offset: ["start start", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const yTitle = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  // Parallax for decorative elements
+  const yShape1 = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+  const yShape2 = useTransform(scrollYProgress, [0, 1], ["0%", "80%"]);
+
   return (
-    <section ref={ref} className="hero-section" id="home">
-      <motion.div style={{ y, opacity }} className="hero-bg">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="hero-video"
-          src="https://joy1.videvo.net/videvo_files/video/free/2019-11/large_watermarked/190301_1_25_11_preview.mp4"
-        ></video>
-        <div className="overlay"></div>
+    <section ref={ref} className="hero-section" id="home" style={{ overflow: 'visible', paddingBottom: '0' }}>
+
+      {/* Background Graphic instead of simple circle */}
+      <motion.div style={{ y: yShape2, opacity, position: 'absolute', right: '5%', top: '10%', zIndex: -1 }}>
+        <h1 style={{ fontSize: '40vw', color: 'var(--gold)', WebkitTextStroke: 'none', opacity: 0.5, lineHeight: 0.8 }}>B</h1>
       </motion.div>
 
-      <div className="container hero-content">
-        <div className="hero-text-wrapper">
+      <div className="container hero-content" style={{ zIndex: 10, alignItems: 'flex-start', justifyContent: 'center' }}>
+        <div className="hero-text-wrapper" style={{ textAlign: 'left', marginTop: '10vh' }}>
+          <motion.span
+             className="accent-text"
+             initial={{ opacity: 0, x: -50 }}
+             animate={{ opacity: 1, x: 0 }}
+             transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            feel the rhythm of
+          </motion.span>
           <motion.h1
-            initial={{ y: 100, opacity: 0 }}
+            initial={{ y: 150, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+            style={{ y: yTitle, marginLeft: '-1vw' }}
             className="hero-title"
           >
-            Rhythm <br/>
-            <span className="stroke-text">Of The</span> <br/>
-            Soul
+            BEAT<br/><span style={{ color: 'var(--earth-red)' }}>GURUS</span>
           </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="hero-subtitle"
+            style={{ color: 'var(--text-grey)', fontSize: 'clamp(1rem, 2vw, 1.5rem)', maxWidth: '500px', marginTop: '30px', fontWeight: '600' }}
+          >
+            Raw acoustic energy. Renouncing electronic instruments for the pure power of West African & Indian percussion.
+          </motion.p>
+
+          <motion.a
+             href="#about"
+             className="btn-primary"
+             initial={{ opacity: 0, y: 20 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ delay: 1 }}
+             style={{ display: 'inline-block', marginTop: '40px' }}
+          >
+             Discover the Sound
+          </motion.a>
         </div>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
+          transition={{ delay: 1.5, duration: 1 }}
           className="hero-footer"
+          style={{ color: 'var(--text-dark)', fontWeight: 'bold', width: '100%', left: 0, padding: '0 5vw', boxSizing: 'border-box' }}
         >
-          <p>Bangalore's Premier Fusion Percussion</p>
-          <div className="scroll-indicator">Scroll</div>
+          <p style={{fontFamily: 'var(--font-display)', fontSize: '1.2rem', letterSpacing: '2px'}}>BANGALORE, INDIA</p>
+          <div className="scroll-indicator" style={{ display: 'flex', alignItems: 'center', gap: '15px', fontFamily: 'var(--font-display)', letterSpacing: '2px' }}>
+            SCROLL <span style={{ display: 'inline-block', width: '2px', height: '40px', background: 'var(--earth-red)' }}></span>
+          </div>
         </motion.div>
       </div>
     </section>
