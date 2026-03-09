@@ -1,125 +1,176 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaArrowRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+
+const projects = [
+  { id: 1, title: 'BBC World Awards', category: 'International', img: 'https://images.unsplash.com/photo-1524230659092-07f99a75c013?q=80&w=1200&auto=format&fit=crop', desc: 'Award-winning percussion at the global stage' },
+  { id: 2, title: 'Wine Festival', category: 'Cultural', img: 'https://images.unsplash.com/photo-1543443258-92b04ad5ec6b?q=80&w=1200&auto=format&fit=crop', desc: 'Rhythmic energy at Bangalore\'s finest festivals' },
+  { id: 3, title: 'Corporate Gala', category: 'Event', img: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1200&auto=format&fit=crop', desc: 'High-energy performances for prestigious events' },
+  { id: 4, title: 'Norway Cultural Evening', category: 'International', img: 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?q=80&w=1200&auto=format&fit=crop', desc: 'Cross-cultural fusion on international stages' },
+  { id: 5, title: 'Gather & Groove', category: 'Team Building', img: 'https://images.unsplash.com/photo-1529518969858-8baa65152fc8?q=80&w=1200&auto=format&fit=crop', desc: 'Interactive drum circles that unite teams' },
+];
 
 const Showcase = () => {
-  const projects = [
-    {
-      id: 1,
-      title: "BBC World Awards",
-      category: "International",
-      img: "https://images.unsplash.com/photo-1514525253440-b393452e8d03?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      size: "large"
-    },
-    {
-      id: 2,
-      title: "Wine Festival",
-      category: "Cultural",
-      img: "https://images.unsplash.com/photo-1464375117522-1311d6a5b81f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
-      size: "small"
-    },
-    {
-      id: 3,
-      title: "Corporate Gala",
-      category: "Event",
-      img: "https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
-      size: "small"
-    },
-    {
-      id: 4,
-      title: "Norway Cultural Evening",
-      category: "International",
-      img: "https://images.unsplash.com/photo-1533174072545-e8d4aa97edf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      size: "large"
-    }
-  ];
+  const [active, setActive] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  const next = useCallback(() => {
+    setDirection(1);
+    setActive((prev) => (prev + 1) % projects.length);
+  }, []);
+
+  const prev = useCallback(() => {
+    setDirection(-1);
+    setActive((prev) => (prev - 1 + projects.length) % projects.length);
+  }, []);
+
+  const goTo = useCallback((i) => {
+    setDirection(i > active ? 1 : -1);
+    setActive(i);
+  }, [active]);
+
+  // Auto-advance
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    const timer = setInterval(next, 4500);
+    return () => clearInterval(timer);
+  }, [isAutoPlaying, next]);
+
+  // Pause on hover
+  const pause = () => setIsAutoPlaying(false);
+  const resume = () => setIsAutoPlaying(true);
+
+  // Get visible cards (prev, active, next)
+  const getIndex = (offset) => (active + offset + projects.length) % projects.length;
+
+  const slideVariants = {
+    enter: (dir) => ({ x: dir > 0 ? '100%' : '-100%', scale: 0.85, opacity: 0, rotateY: dir > 0 ? 15 : -15 }),
+    center: { x: 0, scale: 1, opacity: 1, rotateY: 0, zIndex: 10 },
+    exit: (dir) => ({ x: dir > 0 ? '-100%' : '100%', scale: 0.85, opacity: 0, rotateY: dir > 0 ? -15 : 15, zIndex: 0 }),
+  };
 
   return (
     <section id="work" className="showcase-section">
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          style={{ display: 'flex', alignItems: 'flex-start', gap: '20px', marginBottom: '80px' }}
-        >
-          <span className="accent-text" style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', marginTop: '-10px' }}>02.</span>
-          <h2 className="section-title" style={{ margin: 0 }}>LIVE <span style={{ color: 'var(--earth-red)' }}>MOMENTS</span></h2>
-        </motion.div>
+        <div className="showcase-header">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-120px' }}
+            transition={{ duration: 0.7 }}
+          >
+            <p className="section-eyebrow">02 Live Moments</p>
+            <h2 style={{ margin: 0 }}>LIVE <span style={{ color: 'var(--earth-red)' }}>MOMENTS</span></h2>
+          </motion.div>
 
-        <div className="horizontal-scroll-container" style={{
-          display: 'flex',
-          overflowX: 'auto',
-          gap: '40px',
-          paddingBottom: '40px',
-          scrollbarWidth: 'none', // Firefox
-          msOverflowStyle: 'none' // IE and Edge
-        }}>
-          {/* Hide webkit scrollbar in index.css */}
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              className="gallery-card"
-              initial={{ opacity: 0, x: 100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-150px" }}
-              transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
-              style={{
-                minWidth: 'clamp(300px, 40vw, 500px)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '20px'
-              }}
+          <div className="showcase-controls">
+            <div className="showcase-nav-arrows">
+              <button onClick={() => { pause(); prev(); }} className="showcase-arrow-btn" aria-label="Previous" data-cursor-hover>
+                <FaChevronLeft size={14} />
+              </button>
+              <button onClick={() => { pause(); next(); }} className="showcase-arrow-btn" aria-label="Next" data-cursor-hover>
+                <FaChevronRight size={14} />
+              </button>
+            </div>
+            <motion.a
+              href="https://www.youtube.com/results?search_query=beat+gurus+bangalore"
+              target="_blank"
+              rel="noreferrer"
+              className="btn-outline"
+              whileHover={{ scale: 1.04 }}
             >
-              <div className="img-wrapper" style={{
-                height: '60vh',
-                border: '4px solid var(--text-dark)',
-                boxShadow: '8px 8px 0px var(--text-dark)',
-                overflow: 'hidden',
-                position: 'relative',
-                background: 'var(--text-dark)'
-              }}>
-                <motion.img
-                  src={project.img}
-                  alt={project.title}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.8 }}
-                  style={{
-                    filter: 'grayscale(80%) sepia(20%) contrast(1.2) brightness(0.9)',
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    opacity: 0.8
-                  }}
-                />
-                <div className="overlay-content" style={{
-                  position: 'absolute',
-                  top: 0, left: 0, right: 0, bottom: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  opacity: 0,
-                  background: 'rgba(26, 5, 5, 0.4)',
-                  transition: 'opacity 0.3s ease'
-                }}>
-                  <span style={{
-                    fontFamily: 'var(--font-accent)',
-                    color: 'var(--bg-sand)',
-                    fontSize: '2.5rem',
-                    transform: 'rotate(-5deg)'
-                  }}>View</span>
-                </div>
-              </div>
+              View All <FaArrowRight size={11} />
+            </motion.a>
+          </div>
+        </div>
+      </div>
 
-              <div className="project-info-text" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div>
-                  <h3 style={{ color: 'var(--text-dark)', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', lineHeight: 1, marginBottom: '10px', textTransform: 'uppercase' }}>{project.title}</h3>
-                  <span style={{ color: 'var(--earth-red)', fontFamily: 'var(--font-main)', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>{project.category}</span>
-                </div>
-                <span className="accent-text" style={{ fontSize: '1.5rem', color: 'var(--text-grey)' }}>0{index + 1}</span>
+      {/* Main Carousel */}
+      <div className="showcase-carousel" onMouseEnter={pause} onMouseLeave={resume}>
+        {/* Side preview cards */}
+        <div className="showcase-side-card showcase-side-left" onClick={() => { pause(); prev(); }} data-cursor-hover>
+          <img src={projects[getIndex(-1)].img} alt={projects[getIndex(-1)].title} />
+          <div className="showcase-side-overlay" />
+        </div>
+
+        {/* Active card */}
+        <div className="showcase-main-card" style={{ perspective: '1200px' }}>
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={projects[active].id}
+              className="showcase-active-card"
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <img src={projects[active].img} alt={projects[active].title} />
+              <div className="showcase-card-info">
+                <motion.span
+                  className="showcase-card-cat"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  {projects[active].category}
+                </motion.span>
+                <motion.h3
+                  className="showcase-card-title"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35 }}
+                >
+                  {projects[active].title}
+                </motion.h3>
+                <motion.p
+                  className="showcase-card-desc"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  {projects[active].desc}
+                </motion.p>
               </div>
+              <span className="showcase-card-num">0{active + 1}</span>
             </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Right preview */}
+        <div className="showcase-side-card showcase-side-right" onClick={() => { pause(); next(); }} data-cursor-hover>
+          <img src={projects[getIndex(1)].img} alt={projects[getIndex(1)].title} />
+          <div className="showcase-side-overlay" />
+        </div>
+      </div>
+
+      {/* Dots + counter */}
+      <div className="showcase-footer">
+        <span className="showcase-counter">
+          0{active + 1} <span className="showcase-counter-sep">/</span> 0{projects.length}
+        </span>
+        <div className="showcase-dots">
+          {projects.map((_, i) => (
+            <button
+              key={i}
+              className={`showcase-dot${i === active ? ' active' : ''}`}
+              onClick={() => { pause(); goTo(i); }}
+              aria-label={`Go to slide ${i + 1}`}
+              data-cursor-hover
+            />
           ))}
+        </div>
+        {/* Progress bar */}
+        <div className="showcase-progress-track">
+          <motion.div
+            className="showcase-progress-fill"
+            key={active}
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: isAutoPlaying ? 1 : 0 }}
+            transition={{ duration: isAutoPlaying ? 4.5 : 0, ease: 'linear' }}
+          />
         </div>
       </div>
     </section>

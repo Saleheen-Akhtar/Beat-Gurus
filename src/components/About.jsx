@@ -1,59 +1,126 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
+const tags = ['BBC World Award', 'Norway Cultural Evening', 'Wine Festivals', 'Corporate Galas', 'International Stages'];
+
+const stats = [
+  { end: 20, suffix: '+', label: 'Years', desc: 'Two decades of live performance, refining the craft on stages worldwide.' },
+  { end: 25, suffix: '+', label: 'Countries', desc: 'From Bangalore to Oslo, our rhythm speaks every language.' },
+  { end: 500, suffix: '+', label: 'Shows', desc: 'Corporate galas, festivals, weddings — each one unforgettable.' },
+];
+
+const CountUp = ({ end, suffix, inView }) => {
+  const [count, setCount] = useState(0);
+  const hasRun = useRef(false);
+
+  useEffect(() => {
+    if (!inView || hasRun.current) return;
+    hasRun.current = true;
+    const duration = 1600;
+    const start = performance.now();
+    const step = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * end));
+      if (progress < 1) requestAnimationFrame(step);
+      else setCount(end);
+    };
+    requestAnimationFrame(step);
+  }, [inView, end]);
+
+  return <>{count}{suffix}</>;
+};
+
 const About = () => {
+  const statsRef = useRef(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = statsRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setInView(true); },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="about" className="section">
-      <div className="container" style={{ position: 'relative' }}>
+  <section id="about" className="about-section">
+    <div className="container">
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '50px' }}>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}
-          >
-            <span className="accent-text" style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', marginTop: '-10px' }}>01.</span>
-            <h2 style={{ fontSize: 'clamp(4rem, 10vw, 8rem)', color: 'var(--text-dark)' }}>OUR <span style={{ color: 'var(--earth-red)' }}>LEGACY</span></h2>
-          </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-120px' }}
+        transition={{ duration: 0.7 }}
+      >
+        <p className="section-eyebrow">01 Our Legacy</p>
+        <h2>OUR <span style={{ color: 'var(--earth-red)' }}>LEGACY</span></h2>
+      </motion.div>
 
-          <div className="about-grid" style={{ gridTemplateColumns: '1.2fr 1fr', alignItems: 'start' }}>
-            <motion.div
-              className="about-text"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            >
-              <h3 style={{ fontSize: '2.5rem', marginBottom: '30px' }}>Born in Bangalore,<br/>Heard Worldwide.</h3>
-              <p style={{ fontSize: '1.2rem', color: 'var(--text-grey)', marginBottom: '20px' }}>Founded by <strong style={{ color: 'var(--text-dark)' }}>Ganesh Govindswamy</strong> and <strong style={{ color: 'var(--text-dark)' }}>Prashanth Muralidhar</strong>, this dynamic band finds its rhythm through the captivating sounds of the <em>Djembe</em>, a traditional hand drum originating from West Africa.</p>
-              <p style={{ fontSize: '1.2rem', color: 'var(--text-grey)' }}>Our passion for music transcends boundaries, leading us to grace prestigious international stages such as the <strong style={{ color: 'var(--text-dark)' }}>BBC World Travel Awards</strong> and the <strong style={{ color: 'var(--text-dark)' }}>International Cultural Evening in Norway</strong>.</p>
-            </motion.div>
+      <div className="about-grid">
 
-            <motion.div
-              className="about-stats"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-              style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}
-            >
-              <div className="stat-box" style={{ borderTop: 'none', padding: 0 }}>
-                <span className="accent-text" style={{ fontSize: '1.5rem', transform: 'rotate(-2deg)' }}>performing for</span>
-                <span className="number" style={{ fontSize: '6rem', lineHeight: 1 }}>20+</span>
-                <span className="label" style={{ color: 'var(--text-dark)', fontWeight: 'bold', fontSize: '1.2rem' }}>YEARS</span>
-              </div>
-              <div className="stat-box" style={{ borderTop: 'none', padding: 0 }}>
-                 <span className="accent-text" style={{ fontSize: '1.5rem', transform: 'rotate(2deg)' }}>across</span>
-                <span className="number" style={{ fontSize: '6rem', lineHeight: 1, color: 'var(--gold)' }}>25+</span>
-                <span className="label" style={{ color: 'var(--text-dark)', fontWeight: 'bold', fontSize: '1.2rem' }}>COUNTRIES</span>
-              </div>
-            </motion.div>
+        {/* Left: story */}
+        <motion.div
+          className="about-left"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+        >
+          <h3>Born in Bangalore,<br />Heard Worldwide.</h3>
+          <p>
+            Founded by <strong style={{ color: 'var(--text-dark)' }}>Ganesh Govindswamy</strong>, Beat Gurus channels the captivating
+            power of the <em>Djembe</em> — a traditional hand drum from West Africa —
+            blended with rich Indian rhythmic heritage.
+          </p>
+          <p>
+            Our passion for music transcends boundaries, gracing prestigious stages from the{' '}
+            <strong style={{ color: 'var(--text-dark)' }}>BBC World Travel Awards</strong> to the{' '}
+            <strong style={{ color: 'var(--text-dark)' }}>International Cultural Evening in Norway</strong>.
+          </p>
+          <div className="about-tags">
+            {tags.map(t => (
+              <span key={t} className="about-tag">{t}</span>
+            ))}
           </div>
-        </div>
+        </motion.div>
+
+        {/* Right: stats */}
+        <motion.div
+          ref={statsRef}
+          className="about-right"
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
+        >
+          {stats.map((s, i) => (
+            <motion.div
+              key={s.label}
+              className="stat-row-item"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.6, delay: 0.3 + i * 0.12 }}
+            >
+              <span className="stat-big-num">
+                <CountUp end={s.end} suffix={s.suffix} inView={inView} />
+              </span>
+              <div>
+                <p className="stat-label-text">{s.label}</p>
+                <p className="stat-desc-text">{s.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
-    </section>
+    </div>
+  </section>
   );
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { FaInstagram, FaFacebookF, FaYoutube, FaPhone } from 'react-icons/fa';
 
 const Contact = () => {
   return (
@@ -100,7 +101,7 @@ const Contact = () => {
           <div className="credit-block">
             <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--earth-red)', fontSize: '1.5rem', marginBottom: '15px' }}>STARRING</h4>
             <p style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', color: 'var(--text-dark)', lineHeight: 1.6 }}>
-              <strong>The Founders</strong> - Ganesh Govindswamy & Prashanth Muralidhar.<br/><br/>
+              <strong>The Founders</strong> - Ganesh Govindswamy.<br/><br/>
               <strong>The Tribe</strong> - Our fellow musicians, keeping the heartbeat alive on every stage.
             </p>
           </div>
@@ -119,6 +120,17 @@ const Contact = () => {
               In smoky clubs, sun-drenched festival grounds, and grand corporate galas across the globe.<br/><br/>
               <em>Based in Bangalore, India.</em>
             </p>
+            <div style={{ display: 'flex', gap: '14px', marginTop: '20px' }}>
+              <a href="https://www.instagram.com/beatgurus/" target="_blank" rel="noreferrer" aria-label="Instagram" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid var(--text-dark)', color: 'var(--text-dark)', transition: 'all 0.3s ease' }}>
+                <FaInstagram size={16} />
+              </a>
+              <a href="https://www.facebook.com/beatgurus" target="_blank" rel="noreferrer" aria-label="Facebook" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid var(--text-dark)', color: 'var(--text-dark)', transition: 'all 0.3s ease' }}>
+                <FaFacebookF size={16} />
+              </a>
+              <a href="https://www.youtube.com/results?search_query=beat+gurus+bangalore" target="_blank" rel="noreferrer" aria-label="YouTube" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid var(--text-dark)', color: 'var(--text-dark)', transition: 'all 0.3s ease' }}>
+                <FaYoutube size={16} />
+              </a>
+            </div>
           </div>
         </motion.div>
 
@@ -136,7 +148,7 @@ const Contact = () => {
           fontWeight: 'bold',
           color: 'var(--text-dark)'
         }}>
-          <span>© Copyright Beat Gurus</span>
+          <span>&copy; {new Date().getFullYear()} Beat Gurus. All Rights Reserved.</span>
           <span style={{ color: 'var(--earth-red)' }}>Raw Acoustic Energy</span>
         </div>
 
