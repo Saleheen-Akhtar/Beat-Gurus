@@ -1,66 +1,48 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Instruments = () => {
-  const instruments = [
-    {
-      name: "Djembe",
-      desc: "The heart of our sound. A goblet-shaped hand drum from West Africa capable of a wide range of tones."
-    },
-    {
-      name: "Didgeridoo",
-      desc: "An ancient wind instrument developed by Indigenous Australians, adding deep, drone-like textures."
-    },
-    {
-      name: "Congas & Bongos",
-      desc: "Afro-Cuban drums that add complex layers and high-pitched accents to our rhythm."
-    },
-    {
-      name: "Kanjira",
-      desc: "A South Indian frame drum, bridging our African influences with our Indian roots."
-    },
-    {
-      name: "Flute",
-      desc: "Melodic winds that soar above the percussion, creating a trance-like fusion atmosphere."
-    }
-  ];
+const instruments = [
+  { name: 'Djembe', desc: 'The heart of our sound. A goblet-shaped hand drum from West Africa capable of a wide range of tones, from deep bass to crisp slap.', icon: '\uD83E\uDD41' },
+  { name: 'Didgeridoo', desc: 'An ancient wind instrument of Indigenous Australians, adding deep, mesmerising drone-like textures beneath the percussion.', icon: '\uD83C\uDFB5' },
+  { name: 'Congas & Bongos', desc: 'Afro-Cuban drums adding complex layers and high-pitched rhythmic accents to the ensemble\'s groove.', icon: '\uD83E\uDD41' },
+  { name: 'Kanjira', desc: 'A South Indian frame drum bridging our African influences with our Indian roots, delivering intricate rhythmic patterns.', icon: '\uD83C\uDFB6' },
+  { name: 'Cajon', desc: 'A Peruvian box drum delivering deep bass kicks and snappy tones, adding versatile percussive depth to every performance.', icon: '\uD83E\uDD41' },
+  { name: 'Flute', desc: 'Melodic winds soaring above the percussion, creating a trance-like cross-cultural fusion atmosphere.', icon: '\uD83C\uDFBB' },
+];
 
-  return (
-    <section id="instruments" className="section">
-      <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          style={{ display: 'flex', alignItems: 'flex-start', gap: '20px', marginBottom: '80px' }}
-        >
-          <span className="accent-text" style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', marginTop: '-10px' }}>03.</span>
-          <h2 className="section-title" style={{ margin: 0 }}>THE <span style={{ color: 'var(--earth-red)' }}>INSTRUMENTS</span></h2>
-        </motion.div>
+const Instruments = () => (
+  <section id="instruments" className="instruments-section">
+    <div className="container">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-120px' }}
+        transition={{ duration: 0.7 }}
+      >
+        <p className="section-eyebrow">05 The Arsenal</p>
+        <h2 style={{ margin: 0 }}>THE <span style={{ color: 'var(--earth-red)' }}>INSTRUMENTS</span></h2>
+      </motion.div>
 
-        <div className="instruments-grid">
-          {instruments.map((inst, index) => (
-            <motion.div
-              className="instrument-item"
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ scale: 1.02 }}
-            >
-              <h3 style={{ fontSize: '2rem', display: 'flex', alignItems: 'center', gap: '15px' }}>
-                <span style={{ fontSize: '1rem', color: 'var(--earth-red)' }}>/0{index + 1}</span>
-                {inst.name}
-              </h3>
-              <p style={{ marginTop: '20px', fontSize: '1.2rem', color: 'var(--text-grey)' }}>{inst.desc}</p>
-            </motion.div>
-          ))}
-        </div>
+      <div className="instruments-grid">
+        {instruments.map((inst, i) => (
+          <motion.div
+            key={i}
+            className="instrument-card"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.65, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ y: -4 }}
+          >
+            <span className="instrument-card-num">/0{i + 1}</span>
+            <span className="instrument-card-icon">{inst.icon}</span>
+            <h3 className="instrument-card-name">{inst.name}</h3>
+            <p className="instrument-card-desc">{inst.desc}</p>
+          </motion.div>
+        ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Instruments;
