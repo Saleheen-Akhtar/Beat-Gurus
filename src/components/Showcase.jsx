@@ -61,7 +61,7 @@ const Showcase = () => {
             transition={{ duration: 0.7 }}
           >
             <p className="section-eyebrow">02 Live Moments</p>
-            <h2 style={{ margin: 0 }}>LIVE <span style={{ color: 'var(--earth-red)' }}>MOMENTS</span></h2>
+            <h2 style={{ margin: 0 }}>LIVE <span style={{ color: 'var(--gold)' }}>MOMENTS</span></h2>
           </motion.div>
 
           <div className="showcase-controls">

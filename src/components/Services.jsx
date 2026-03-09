@@ -22,10 +22,10 @@ const Services = () => (
         style={{ marginBottom: '20px' }}
       >
         <p className="section-eyebrow">03 Our Offerings</p>
-        <h2 style={{ margin: 0 }}>OUR <span style={{ color: 'var(--earth-red)' }}>OFFERINGS</span></h2>
+        <h2 style={{ margin: 0 }}>OUR <span style={{ color: 'var(--gold)' }}>OFFERINGS</span></h2>
       </motion.div>
 
-      <div style={{ borderTop: '1px solid rgba(36,26,22,0.18)', marginTop: '60px' }}>
+      <div style={{ borderTop: '1px solid rgba(17, 17, 17, 0.18)', marginTop: '60px' }}>
         {services.map((s, i) => (
           <motion.div
             key={i}

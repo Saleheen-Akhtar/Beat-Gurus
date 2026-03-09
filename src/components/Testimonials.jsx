@@ -22,7 +22,7 @@ const reviews = [
     author: 'Music Magazine',
     role: 'Editorial Review',
     initials: 'MM',
-    accent: '#6b4226',
+    accent: '#111111',
   },
   {
     text: 'The BBC World Awards performance was breathtaking. They brought a warmth and authenticity that elevated the entire evening to something truly special.',
@@ -96,7 +96,7 @@ const Testimonials = () => {
             transition={{ duration: 0.7 }}
           >
             <p className="section-eyebrow">06 Voices</p>
-            <h2 style={{ margin: 0 }}>WHAT THEY <span style={{ color: 'var(--earth-red)' }}>SAY</span></h2>
+            <h2 style={{ margin: 0 }}>WHAT THEY <span style={{ color: 'var(--gold)' }}>SAY</span></h2>
           </motion.div>
 
           <div className="testi-nav">
