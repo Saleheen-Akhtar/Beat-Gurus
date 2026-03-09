@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaArrowRight, FaPlay } from 'react-icons/fa';
+import logoImg from '../../images/logo.png';
 
 const Hero = () => {
   const ref = useRef(null);
@@ -68,7 +69,7 @@ const Hero = () => {
             transition={{ delay: 0.3, duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
           >
             <img
-              src="/images/logo.png"
+              src={logoImg}
               alt="Beat Gurus"
               className="hero-logo"
             />
