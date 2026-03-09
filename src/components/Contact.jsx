@@ -28,7 +28,7 @@ const Contact = () => {
             marginBottom: '20px'
           }}>
             Connect With<br/>
-            <span style={{ color: 'var(--earth-red)' }}>Beat Gurus</span>
+            <span style={{ color: 'var(--gold)' }}>Beat Gurus</span>
           </h2>
           <p style={{
             fontSize: 'clamp(1.2rem, 2vw, 1.8rem)',
@@ -99,7 +99,7 @@ const Contact = () => {
           }}
         >
           <div className="credit-block">
-            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--earth-red)', fontSize: '1.5rem', marginBottom: '15px' }}>STARRING</h4>
+            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--gold)', fontSize: '1.5rem', marginBottom: '15px' }}>STARRING</h4>
             <p style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', color: 'var(--text-dark)', lineHeight: 1.6 }}>
               <strong>The Founders</strong> - Ganesh Govindswamy.<br/><br/>
               <strong>The Tribe</strong> - Our fellow musicians, keeping the heartbeat alive on every stage.
@@ -107,7 +107,7 @@ const Contact = () => {
           </div>
 
           <div className="credit-block">
-            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--earth-red)', fontSize: '1.5rem', marginBottom: '15px' }}>DIRECTED BY PASSION</h4>
+            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--gold)', fontSize: '1.5rem', marginBottom: '15px' }}>DIRECTED BY PASSION</h4>
             <p style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', color: 'var(--text-dark)', lineHeight: 1.6 }}>
               <strong>Produced By:</strong> Countless hours in practice rooms and on the road.<br/><br/>
               <strong>Soundtrack:</strong> Djembe, Didgeridoo, and Raw Indian Percussion.
@@ -115,7 +115,7 @@ const Contact = () => {
           </div>
 
           <div className="credit-block">
-            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--earth-red)', fontSize: '1.5rem', marginBottom: '15px' }}>FILMED ON LOCATION</h4>
+            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--gold)', fontSize: '1.5rem', marginBottom: '15px' }}>FILMED ON LOCATION</h4>
             <p style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', color: 'var(--text-dark)', lineHeight: 1.6 }}>
               In smoky clubs, sun-drenched festival grounds, and grand corporate galas across the globe.<br/><br/>
               <em>Based in Bangalore, India.</em>
@@ -149,7 +149,7 @@ const Contact = () => {
           color: 'var(--text-dark)'
         }}>
           <span>&copy; {new Date().getFullYear()} Beat Gurus. All Rights Reserved.</span>
-          <span style={{ color: 'var(--earth-red)' }}>Raw Acoustic Energy</span>
+          <span style={{ color: 'var(--gold)' }}>Raw Acoustic Energy</span>
         </div>
 
       </div>

@@ -20,7 +20,7 @@ const Instruments = () => (
         transition={{ duration: 0.7 }}
       >
         <p className="section-eyebrow">05 The Arsenal</p>
-        <h2 style={{ margin: 0 }}>THE <span style={{ color: 'var(--earth-red)' }}>INSTRUMENTS</span></h2>
+        <h2 style={{ margin: 0 }}>THE <span style={{ color: 'var(--gold)' }}>INSTRUMENTS</span></h2>
       </motion.div>
 
       <div className="instruments-grid">

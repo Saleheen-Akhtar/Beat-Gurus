@@ -62,7 +62,7 @@ const USP = () => (
       <div className="usp-bottom-track">
         {[...words, ...words].map((w, i) => (
           <span key={i} className={`usp-marquee-item${i % 4 === 1 ? ' lit' : ''}`}>
-            {w} <span style={{ color: 'var(--earth-red)', opacity: 0.5 }}>&bull;</span>
+            {w} <span style={{ color: 'var(--gold)', opacity: 0.5 }}>&bull;</span>
           </span>
         ))}
       </div>

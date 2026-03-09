@@ -59,7 +59,7 @@ const About = () => {
         transition={{ duration: 0.7 }}
       >
         <p className="section-eyebrow">01 Our Legacy</p>
-        <h2>OUR <span style={{ color: 'var(--earth-red)' }}>LEGACY</span></h2>
+        <h2>OUR <span style={{ color: 'var(--gold)' }}>LEGACY</span></h2>
       </motion.div>
 
       <div className="about-grid">

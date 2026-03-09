@@ -19,7 +19,7 @@ const VideoSection = () => {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="section-eyebrow">04 Watch Live</p>
-          <h2>Feel the <span style={{ color: 'var(--earth-red)' }}>Pulse</span></h2>
+          <h2>Feel the <span style={{ color: 'var(--gold)' }}>Pulse</span></h2>
           <p>
             Watch the magic unfold live. From intimate gatherings to massive festival stages,
             our rhythm connects souls across every culture and continent.

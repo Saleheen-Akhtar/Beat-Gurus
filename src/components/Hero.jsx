@@ -67,8 +67,11 @@ const Hero = () => {
             animate={{ y: 0, opacity: 1, clipPath: 'inset(0% 0 0% 0)' }}
             transition={{ delay: 0.3, duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="hero-title-line">BEAT</span>
-            <span className="hero-title-line outlined">GURUS</span>
+            <img
+              src="/images/logo.png"
+              alt="Beat Gurus"
+              className="hero-logo"
+            />
           </motion.div>
         </motion.div>
 
