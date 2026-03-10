@@ -562,7 +562,7 @@ p {
   color: transparent;
 }
 .hero-logo {
-  max-width: clamp(280px, 55vw, 900px);
+  max-width: clamp(220px, 46vw, 720px);
   height: auto;
   display: block;
 }
@@ -1563,6 +1563,9 @@ p {
     letter-spacing: 2px;
     max-width: 90vw;
     padding: 0 16px;
+  }
+  .hero-logo {
+    max-width: clamp(200px, 78vw, 460px);
   }
   .hero-buttons {
     flex-direction: column;
