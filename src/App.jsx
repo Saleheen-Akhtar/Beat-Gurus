@@ -35,6 +35,8 @@ function App() {
 
     // Custom cursor (only when any connected input device supports a fine pointer)
     const hasFinePointer = window.matchMedia('(any-pointer: fine)').matches;
+    // Custom cursor (only for devices that actually have a fine pointer)
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     cursorEnabled.current = hasFinePointer;
 
