@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Fonts loaded via index.html <link> for better performance */
 
 :root {
@@ -14,6 +18,15 @@
   --section-padding: 140px;
   --container-padding: 5vw;
   --ease-premium: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* shadcn CSS variables — space-separated RGB channels for Tailwind v3 opacity modifiers */
+  --background: 244 242 105;
+  --foreground: 17 17 17;
+  --card: 245 230 200;
+  --card-foreground: 17 17 17;
+  --muted: 237 224 188;
+  --muted-foreground: 42 42 42;
+  --border: 17 17 17;
 }
 
 @media (max-width: 768px) {
