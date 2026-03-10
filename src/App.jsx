@@ -20,6 +20,7 @@ function App() {
   const ring = useRef({ x: 0, y: 0 });
   const rafId = useRef(null);
   const cursorEnabled = useRef(false);
+  const activelyRendering = useRef(false);
 
   useEffect(() => {
     // Smooth scroll
@@ -44,32 +45,17 @@ function App() {
       ringRef.current?.classList.add('is-hidden');
     }
 
-    const onMove = (e) => {
-      if (!cursorEnabled.current) return;
-      if (e.pointerType === 'touch') {
-        dotRef.current?.classList.add('is-hidden');
-        ringRef.current?.classList.add('is-hidden');
-        return;
-      }
-      mouse.current = { x: e.clientX, y: e.clientY };
-      dotRef.current?.classList.remove('is-hidden');
-      ringRef.current?.classList.remove('is-hidden');
-    };
-    const onLeave = () => {
-      dotRef.current?.classList.add('is-hidden');
-      ringRef.current?.classList.add('is-hidden');
-    };
-    const onPointerOut = (e) => {
-      if (e.relatedTarget == null) onLeave();
-    };
-
-    window.addEventListener('pointermove', onMove);
-    document.addEventListener('pointerout', onPointerOut);
-    window.addEventListener('blur', onLeave);
-
     const lerp = (a, b, t) => a + (b - a) * t;
+    const stopCursorLoop = () => {
+      activelyRendering.current = false;
+      if (rafId.current != null) {
+        cancelAnimationFrame(rafId.current);
+        rafId.current = null;
+      }
+    };
+
     const tick = () => {
-      if (!cursorEnabled.current) return;
+      if (!cursorEnabled.current || !activelyRendering.current) return;
       ring.current.x = lerp(ring.current.x, mouse.current.x, reduceMotion ? 1 : 0.1);
       ring.current.y = lerp(ring.current.y, mouse.current.y, reduceMotion ? 1 : 0.1);
       if (dotRef.current) {
@@ -83,9 +69,43 @@ function App() {
       rafId.current = requestAnimationFrame(tick);
     };
 
-    if (cursorEnabled.current) {
+    const startCursorLoopIfNeeded = () => {
+      if (!cursorEnabled.current || activelyRendering.current) return;
+      activelyRendering.current = true;
       rafId.current = requestAnimationFrame(tick);
-    }
+    };
+
+    const onMove = (e) => {
+      if (!cursorEnabled.current) return;
+
+      if (e.pointerType === 'touch') {
+        dotRef.current?.classList.add('is-hidden');
+        ringRef.current?.classList.add('is-hidden');
+        stopCursorLoop();
+        return;
+      }
+
+      if (e.pointerType === 'mouse' || e.pointerType === 'pen') {
+        mouse.current = { x: e.clientX, y: e.clientY };
+        dotRef.current?.classList.remove('is-hidden');
+        ringRef.current?.classList.remove('is-hidden');
+        startCursorLoopIfNeeded();
+      }
+    };
+    const onLeave = () => {
+      dotRef.current?.classList.add('is-hidden');
+      ringRef.current?.classList.add('is-hidden');
+      stopCursorLoop();
+    };
+    const onPointerOut = (e) => {
+      if (e.relatedTarget == null) onLeave();
+    };
+
+    window.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerout', onPointerOut);
+    window.addEventListener('blur', onLeave);
+
+    startCursorLoopIfNeeded();
 
     // Hover state via event delegation (handles dynamically rendered elements)
     const onOver = (e) => {
@@ -111,7 +131,7 @@ function App() {
       window.removeEventListener('pointermove', onMove);
       document.removeEventListener('pointerout', onPointerOut);
       window.removeEventListener('blur', onLeave);
-      cancelAnimationFrame(rafId.current);
+      stopCursorLoop();
       document.removeEventListener('mouseover', onOver);
       document.removeEventListener('mouseout', onOut);
     };
