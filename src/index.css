@@ -100,6 +100,11 @@ body::before {
   border-color: var(--gold);
 }
 
+.cursor-dot.is-hidden,
+.cursor-ring.is-hidden {
+  opacity: 0;
+}
+
 /* ---- SCROLLBAR ---- */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg-sand); }
@@ -557,7 +562,7 @@ p {
   color: transparent;
 }
 .hero-logo {
-  max-width: clamp(280px, 55vw, 900px);
+  max-width: clamp(200px, 42vw, 640px);
   height: auto;
   display: block;
 }
@@ -1515,7 +1520,7 @@ p {
 ================================================================ */
 
 /* Disable custom cursor on touch devices */
-@media (pointer: coarse) {
+@media (any-pointer: coarse) and (not (any-pointer: fine)) {
   html, body { cursor: auto; }
   button { cursor: pointer; }
   .cursor-dot, .cursor-ring { display: none !important; }
@@ -1525,8 +1530,7 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cursor-dot, .cursor-ring { display: none !important; }
-  html, body { cursor: auto; }
+  .cursor-dot, .cursor-ring { transition: none !important; }
 }
 
 @media (max-width: 1024px) {
@@ -1558,6 +1562,9 @@ p {
     letter-spacing: 2px;
     max-width: 90vw;
     padding: 0 16px;
+  }
+  .hero-logo {
+    max-width: clamp(180px, 70vw, 400px);
   }
   .hero-buttons {
     flex-direction: column;
