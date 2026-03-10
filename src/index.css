@@ -100,6 +100,11 @@ body::before {
   border-color: var(--gold);
 }
 
+.cursor-dot.is-hidden,
+.cursor-ring.is-hidden {
+  opacity: 0;
+}
+
 /* ---- SCROLLBAR ---- */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg-sand); }
@@ -557,7 +562,7 @@ p {
   color: transparent;
 }
 .hero-logo {
-  max-width: clamp(280px, 55vw, 900px);
+  max-width: clamp(200px, 42vw, 640px);
   height: auto;
   display: block;
 }
@@ -1558,6 +1563,9 @@ p {
     letter-spacing: 2px;
     max-width: 90vw;
     padding: 0 16px;
+  }
+  .hero-logo {
+    max-width: clamp(180px, 70vw, 400px);
   }
   .hero-buttons {
     flex-direction: column;
