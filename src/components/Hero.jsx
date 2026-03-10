@@ -1,27 +1,50 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useRef, useEffect } from 'react';
+import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
 import { FaArrowRight, FaPlay } from 'react-icons/fa';
 import logoImg from '../../images/logo.png';
 
 const Hero = () => {
   const ref = useRef(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const frameRef = useRef(null);
+  const pendingPointerRef = useRef({ x: 0, y: 0 });
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const yTitle = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
   const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
+  const watermarkX = useTransform(mouseX, (value) => value * -1);
+  const watermarkY = useTransform(mouseY, (value) => value * -1);
+  const titleX = useTransform(mouseX, (value) => value * 0.4);
+  const titleY = useTransform(mouseY, (value) => value * 0.4);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const flushPointerUpdate = () => {
+      frameRef.current = null;
+      mouseX.set(pendingPointerRef.current.x);
+      mouseY.set(pendingPointerRef.current.y);
+    };
+
+    const handlePointerMove = (e) => {
       const { innerWidth, innerHeight } = window;
-      setMousePosition({
+      pendingPointerRef.current = {
         x: (e.clientX / innerWidth - 0.5) * 30,
         y: (e.clientY / innerHeight - 0.5) * 30,
-      });
+      };
+
+      if (frameRef.current === null) {
+        frameRef.current = window.requestAnimationFrame(flushPointerUpdate);
+      }
     };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+    window.addEventListener('pointermove', handlePointerMove);
+
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
+    };
+  }, [mouseX, mouseY]);
 
   return (
     <section ref={ref} id="home" className="hero-section">
@@ -43,7 +66,7 @@ const Hero = () => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 0.04, scale: 1 }}
         transition={{ delay: 0.1, duration: 1.5, ease: 'easeOut' }}
-        style={{ x: mousePosition.x * -1, y: mousePosition.y * -1 }}
+        style={{ x: watermarkX, y: watermarkY }}
       >
         <span>BG</span>
       </motion.div>
@@ -63,7 +86,7 @@ const Hero = () => {
         <motion.div style={{ y: yTitle }} className="hero-title-wrap">
           <motion.div
             className="hero-title-row"
-            style={{ x: mousePosition.x * 0.4, y: mousePosition.y * 0.4 }}
+            style={{ x: titleX, y: titleY }}
             initial={{ y: 40, opacity: 0, clipPath: 'inset(0% 0 100% 0)' }}
             animate={{ y: 0, opacity: 1, clipPath: 'inset(0% 0 0% 0)' }}
             transition={{ delay: 0.3, duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
