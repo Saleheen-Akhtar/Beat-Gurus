@@ -1520,7 +1520,7 @@ p {
 ================================================================ */
 
 /* Disable custom cursor on touch devices */
-@media (pointer: coarse) {
+@media (any-pointer: coarse) and (not (any-pointer: fine)) {
   html, body { cursor: auto; }
   button { cursor: pointer; }
   .cursor-dot, .cursor-ring { display: none !important; }
@@ -1530,8 +1530,7 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cursor-dot, .cursor-ring { display: none !important; }
-  html, body { cursor: auto; }
+  .cursor-dot, .cursor-ring { transition: none !important; }
 }
 
 @media (max-width: 1024px) {

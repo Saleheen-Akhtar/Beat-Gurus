@@ -59,11 +59,17 @@ function App() {
       dotRef.current?.classList.add('is-hidden');
       ringRef.current?.classList.add('is-hidden');
     };
+    const onPointerOut = (e) => {
+      if (e.relatedTarget == null) onLeave();
+    };
+
     window.addEventListener('pointermove', onMove);
-    document.addEventListener('pointerleave', onLeave);
+    document.addEventListener('pointerout', onPointerOut);
+    window.addEventListener('blur', onLeave);
 
     const lerp = (a, b, t) => a + (b - a) * t;
     const tick = () => {
+      if (!cursorEnabled.current) return;
       ring.current.x = lerp(ring.current.x, mouse.current.x, reduceMotion ? 1 : 0.1);
       ring.current.y = lerp(ring.current.y, mouse.current.y, reduceMotion ? 1 : 0.1);
       if (dotRef.current) {
@@ -76,7 +82,10 @@ function App() {
       }
       rafId.current = requestAnimationFrame(tick);
     };
-    rafId.current = requestAnimationFrame(tick);
+
+    if (cursorEnabled.current) {
+      rafId.current = requestAnimationFrame(tick);
+    }
 
     // Hover state via event delegation (handles dynamically rendered elements)
     const onOver = (e) => {
@@ -100,7 +109,8 @@ function App() {
       lenis.destroy();
       cancelAnimationFrame(lenisRafId);
       window.removeEventListener('pointermove', onMove);
-      document.removeEventListener('pointerleave', onLeave);
+      document.removeEventListener('pointerout', onPointerOut);
+      window.removeEventListener('blur', onLeave);
       cancelAnimationFrame(rafId.current);
       document.removeEventListener('mouseover', onOver);
       document.removeEventListener('mouseout', onOut);
