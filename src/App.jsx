@@ -33,12 +33,11 @@ function App() {
     function lenisRaf(time) { lenis.raf(time); lenisRafId = requestAnimationFrame(lenisRaf); }
     lenisRafId = requestAnimationFrame(lenisRaf);
 
-    // Custom cursor (only when any connected input device supports a fine pointer)
-    const hasFinePointer = window.matchMedia('(any-pointer: fine)').matches;
-    // Custom cursor (only for devices that actually have a fine pointer)
-    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+    // Custom cursor (enable when any available input can act as a fine pointer)
+    const hasAnyFinePointer = window.matchMedia('(any-pointer: fine)').matches;
+    const hasPrimaryFinePointer = window.matchMedia('(pointer: fine)').matches;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    cursorEnabled.current = hasFinePointer;
+    cursorEnabled.current = hasAnyFinePointer || hasPrimaryFinePointer;
 
     if (!cursorEnabled.current) {
       dotRef.current?.classList.add('is-hidden');

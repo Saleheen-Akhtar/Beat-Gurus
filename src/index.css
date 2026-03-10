@@ -563,7 +563,6 @@ p {
 }
 .hero-logo {
   max-width: clamp(200px, 42vw, 640px);
-  max-width: clamp(220px, 46vw, 720px);
   height: auto;
   display: block;
 }
@@ -1567,7 +1566,6 @@ p {
   }
   .hero-logo {
     max-width: clamp(180px, 70vw, 400px);
-    max-width: clamp(200px, 78vw, 460px);
   }
   .hero-buttons {
     flex-direction: column;
