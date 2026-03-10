@@ -19,6 +19,7 @@ function App() {
   const mouse = useRef({ x: 0, y: 0 });
   const ring = useRef({ x: 0, y: 0 });
   const rafId = useRef(null);
+  const cursorEnabled = useRef(false);
 
   useEffect(() => {
     // Smooth scroll
@@ -32,16 +33,33 @@ function App() {
     function lenisRaf(time) { lenis.raf(time); lenisRafId = requestAnimationFrame(lenisRaf); }
     lenisRafId = requestAnimationFrame(lenisRaf);
 
-    // Custom cursor
+    // Custom cursor (only when any connected input device supports a fine pointer)
+    const hasFinePointer = window.matchMedia('(any-pointer: fine)').matches;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    cursorEnabled.current = hasFinePointer;
+
+    if (!cursorEnabled.current) {
+      dotRef.current?.classList.add('is-hidden');
+      ringRef.current?.classList.add('is-hidden');
+    }
+
     const onMove = (e) => {
+      if (!cursorEnabled.current) return;
       mouse.current = { x: e.clientX, y: e.clientY };
+      dotRef.current?.classList.remove('is-hidden');
+      ringRef.current?.classList.remove('is-hidden');
     };
-    window.addEventListener('mousemove', onMove);
+    const onLeave = () => {
+      dotRef.current?.classList.add('is-hidden');
+      ringRef.current?.classList.add('is-hidden');
+    };
+    window.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerleave', onLeave);
 
     const lerp = (a, b, t) => a + (b - a) * t;
     const tick = () => {
-      ring.current.x = lerp(ring.current.x, mouse.current.x, 0.1);
-      ring.current.y = lerp(ring.current.y, mouse.current.y, 0.1);
+      ring.current.x = lerp(ring.current.x, mouse.current.x, reduceMotion ? 1 : 0.1);
+      ring.current.y = lerp(ring.current.y, mouse.current.y, reduceMotion ? 1 : 0.1);
       if (dotRef.current) {
         dotRef.current.style.left = mouse.current.x + 'px';
         dotRef.current.style.top = mouse.current.y + 'px';
@@ -75,7 +93,8 @@ function App() {
     return () => {
       lenis.destroy();
       cancelAnimationFrame(lenisRafId);
-      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerleave', onLeave);
       cancelAnimationFrame(rafId.current);
       document.removeEventListener('mouseover', onOver);
       document.removeEventListener('mouseout', onOut);
