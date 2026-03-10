@@ -1,7 +1,7 @@
-﻿/* Fonts loaded via index.html <link> for better performance */
+/* Fonts loaded via index.html <link> for better performance */
 
 :root {
-  --bg-sand: #FFF8E7;
+  --bg-sand: #f4f269;
   --bg-sand-dark: #F5E6C8;
   --text-dark: #111111;
   --text-grey: #2A2A2A;
@@ -317,7 +317,7 @@ p {
 }
 .navbar.scrolled {
   padding: 16px 0;
-  background: rgba(255, 248, 231, 0.92);
+  background: rgba(#f4f269, 0.92);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid rgba(17, 17, 17, 0.12);
