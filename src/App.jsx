@@ -63,13 +63,8 @@ function App() {
       if (e.relatedTarget == null) onLeave();
     };
 
-    window.addEventListener('pointermove', onMove);
-    document.addEventListener('pointerout', onPointerOut);
-    window.addEventListener('blur', onLeave);
-
     const lerp = (a, b, t) => a + (b - a) * t;
     const tick = () => {
-      if (!cursorEnabled.current) return;
       ring.current.x = lerp(ring.current.x, mouse.current.x, reduceMotion ? 1 : 0.1);
       ring.current.y = lerp(ring.current.y, mouse.current.y, reduceMotion ? 1 : 0.1);
       if (dotRef.current) {
@@ -84,6 +79,9 @@ function App() {
     };
 
     if (cursorEnabled.current) {
+      window.addEventListener('pointermove', onMove);
+      document.addEventListener('pointerout', onPointerOut);
+      window.addEventListener('blur', onLeave);
       rafId.current = requestAnimationFrame(tick);
     }
 
@@ -102,18 +100,22 @@ function App() {
         ringRef.current?.classList.remove('hovered');
       }
     };
-    document.addEventListener('mouseover', onOver);
-    document.addEventListener('mouseout', onOut);
+    if (cursorEnabled.current) {
+      document.addEventListener('mouseover', onOver);
+      document.addEventListener('mouseout', onOut);
+    }
 
     return () => {
       lenis.destroy();
       cancelAnimationFrame(lenisRafId);
-      window.removeEventListener('pointermove', onMove);
-      document.removeEventListener('pointerout', onPointerOut);
-      window.removeEventListener('blur', onLeave);
+      if (cursorEnabled.current) {
+        window.removeEventListener('pointermove', onMove);
+        document.removeEventListener('pointerout', onPointerOut);
+        window.removeEventListener('blur', onLeave);
+        document.removeEventListener('mouseover', onOver);
+        document.removeEventListener('mouseout', onOut);
+      }
       cancelAnimationFrame(rafId.current);
-      document.removeEventListener('mouseover', onOver);
-      document.removeEventListener('mouseout', onOut);
     };
   }, []);
 
