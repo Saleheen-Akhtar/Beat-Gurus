@@ -1,7 +1,11 @@
-﻿/* Fonts loaded via index.html <link> for better performance */
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonts loaded via index.html <link> for better performance */
 
 :root {
-  --bg-sand: #FFF8E7;
+  --bg-sand: #f4f269;
   --bg-sand-dark: #F5E6C8;
   --text-dark: #111111;
   --text-grey: #2A2A2A;
@@ -14,6 +18,15 @@
   --section-padding: 140px;
   --container-padding: 5vw;
   --ease-premium: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* shadcn CSS variables — space-separated RGB channels for Tailwind v3 opacity modifiers */
+  --background: 244 242 105;
+  --foreground: 17 17 17;
+  --card: 245 230 200;
+  --card-foreground: 17 17 17;
+  --muted: 237 224 188;
+  --muted-foreground: 42 42 42;
+  --border: 17 17 17;
 }
 
 @media (max-width: 768px) {
@@ -317,7 +330,7 @@ p {
 }
 .navbar.scrolled {
   padding: 16px 0;
-  background: rgba(255, 248, 231, 0.92);
+  background: rgba(#f4f269, 0.92);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid rgba(17, 17, 17, 0.12);
