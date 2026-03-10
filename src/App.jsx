@@ -33,6 +33,8 @@ function App() {
     function lenisRaf(time) { lenis.raf(time); lenisRafId = requestAnimationFrame(lenisRaf); }
     lenisRafId = requestAnimationFrame(lenisRaf);
 
+    // Custom cursor (only when any connected input device supports a fine pointer)
+    const hasFinePointer = window.matchMedia('(any-pointer: fine)').matches;
     // Custom cursor (only for devices that actually have a fine pointer)
     const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -45,6 +47,11 @@ function App() {
 
     const onMove = (e) => {
       if (!cursorEnabled.current) return;
+      if (e.pointerType === 'touch') {
+        dotRef.current?.classList.add('is-hidden');
+        ringRef.current?.classList.add('is-hidden');
+        return;
+      }
       mouse.current = { x: e.clientX, y: e.clientY };
       dotRef.current?.classList.remove('is-hidden');
       ringRef.current?.classList.remove('is-hidden');
