@@ -22,7 +22,7 @@ const reviews = [
     author: 'Music Magazine',
     role: 'Editorial Review',
     initials: 'MM',
-    accent: '#111111',
+    accent: 'var(--text-dark)',
   },
   {
     text: 'The BBC World Awards performance was breathtaking. They brought a warmth and authenticity that elevated the entire evening to something truly special.',

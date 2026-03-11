@@ -25,7 +25,7 @@ const Services = () => (
         <h2 style={{ margin: 0 }}>OUR <span style={{ color: 'var(--gold)' }}>OFFERINGS</span></h2>
       </motion.div>
 
-      <div style={{ borderTop: '1px solid rgba(17, 17, 17, 0.18)', marginTop: '60px' }}>
+      <div style={{ borderTop: '1px solid rgba(26, 26, 26, 0.18)', marginTop: '60px' }}>
         {services.map((s, i) => (
           <motion.div
             key={i}

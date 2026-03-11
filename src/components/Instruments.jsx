@@ -100,7 +100,7 @@ export default function Instruments() {
             gridTemplateColumns: '1fr 360px',
             borderRadius: '18px',
             overflow: 'hidden',
-            boxShadow: '0 32px 90px rgba(17,17,17,0.26)',
+            boxShadow: '0 32px 90px rgba(26, 26, 26, 0.26)',
             height: 'clamp(380px, 48vh, 520px)',
           }}
         >
@@ -130,7 +130,7 @@ export default function Instruments() {
             {/* Right-edge gradient blend into dark panel */}
             <div style={{
               position: 'absolute', inset: 0,
-              background: 'linear-gradient(to right, transparent 55%, rgba(17,17,17,0.72) 100%)',
+              background: 'linear-gradient(to right, transparent 55%, rgba(26, 26, 26, 0.72) 100%)',
               pointerEvents: 'none',
             }} />
 
@@ -139,7 +139,7 @@ export default function Instruments() {
               position: 'absolute', top: '24px', left: '24px',
               fontFamily: 'var(--font-display)', fontSize: '0.68rem',
               letterSpacing: '3px', color: 'var(--gold)',
-              background: 'rgba(17,17,17,0.55)', backdropFilter: 'blur(10px)',
+              background: 'rgba(26, 26, 26, 0.55)', backdropFilter: 'blur(10px)',
               padding: '6px 15px', borderRadius: '40px',
               border: '1px solid rgba(212,167,44,0.35)',
             }}>
@@ -149,7 +149,7 @@ export default function Instruments() {
 
           {/* Right — info pane */}
           <div style={{
-            background: '#111111',
+            background: 'var(--text-dark)',
             padding: '36px 34px',
             display: 'flex',
             flexDirection: 'column',
@@ -163,21 +163,21 @@ export default function Instruments() {
                   onClick={fn}
                   style={{
                     width: '42px', height: '42px', borderRadius: '50%',
-                    border: '1.5px solid rgba(255,248,231,0.22)',
+                    border: '1.5px solid rgba(245, 241, 236, 0.22)',
                     background: 'transparent',
-                    color: 'rgba(255,248,231,0.75)', fontSize: '0.9rem',
+                    color: 'rgba(245, 241, 236, 0.75)', fontSize: '0.9rem',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     cursor: 'none', transition: 'all 0.3s ease', flexShrink: 0,
                   }}
                   onMouseEnter={e => {
                     e.currentTarget.style.background = 'var(--gold)';
-                    e.currentTarget.style.color = '#111111';
+                    e.currentTarget.style.color = 'var(--text-dark)';
                     e.currentTarget.style.borderColor = 'var(--gold)';
                   }}
                   onMouseLeave={e => {
                     e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.color = 'rgba(255,248,231,0.75)';
-                    e.currentTarget.style.borderColor = 'rgba(255,248,231,0.22)';
+                    e.currentTarget.style.color = 'rgba(245, 241, 236, 0.75)';
+                    e.currentTarget.style.borderColor = 'rgba(245, 241, 236, 0.22)';
                   }}
                 >
                   {label}
@@ -218,7 +218,7 @@ export default function Instruments() {
 
                 <p style={{
                   fontFamily: 'var(--font-main)', fontSize: '0.88rem',
-                  color: 'rgba(255,248,231,0.48)', lineHeight: 1.72, margin: 0,
+                  color: 'rgba(245, 241, 236, 0.48)', lineHeight: 1.72, margin: 0,
                 }}>
                   {inst.subtitle}
                 </p>
@@ -236,7 +236,7 @@ export default function Instruments() {
                       width: i === active ? '24px' : '8px',
                       height: '8px',
                       borderRadius: '4px',
-                      background: i === active ? 'var(--gold)' : 'rgba(255,248,231,0.18)',
+                      background: i === active ? 'var(--gold)' : 'rgba(245, 241, 236, 0.18)',
                       border: 'none', padding: 0, cursor: 'none',
                       transition: 'all 0.35s ease',
                     }}
@@ -245,7 +245,7 @@ export default function Instruments() {
               </div>
               <span style={{
                 fontFamily: 'var(--font-display)', fontSize: '0.75rem',
-                color: 'rgba(255,248,231,0.28)', letterSpacing: '2.5px',
+                color: 'rgba(245, 241, 236, 0.28)', letterSpacing: '2.5px',
               }}>
                 {String(active + 1).padStart(2, '0')} <span style={{ color: 'var(--gold)' }}>/</span> {String(instruments.length).padStart(2, '0')}
               </span>
