@@ -13,8 +13,12 @@ import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import GlobalBackground from './components/GlobalBackground';
+import Preloader from './components/Preloader';
+import { AnimatePresence } from 'framer-motion';
 
 function App() {
+  const [loadingComplete, setLoadingComplete] = useState(false);
+
   const dotRef = useRef(null);
   const ringRef = useRef(null);
   const mouse = useRef({ x: 0, y: 0 });
@@ -143,6 +147,12 @@ function App() {
       {/* Custom cursor */}
       <div ref={dotRef} className="cursor-dot" />
       <div ref={ringRef} className="cursor-ring" />
+
+      <AnimatePresence>
+        {!loadingComplete && (
+          <Preloader onComplete={() => setLoadingComplete(true)} />
+        )}
+      </AnimatePresence>
 
       <GlobalBackground />
       <Navbar />
