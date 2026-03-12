@@ -10,6 +10,7 @@ import Showcase from './components/Showcase';
 import USP from './components/USP';
 import Instruments from './components/Instruments';
 import Testimonials from './components/Testimonials';
+import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import GlobalBackground from './components/GlobalBackground';
 
@@ -164,6 +165,7 @@ function App() {
       <USP />
       <Instruments />
       <Testimonials />
+      <FAQ />
       <Contact />
     </div>
   );

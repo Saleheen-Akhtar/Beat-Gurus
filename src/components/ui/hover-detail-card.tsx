@@ -59,13 +59,13 @@ export function HoverDetailCard({
       {/* Card shell — dark editorial */}
       <div
         style={{
-          background: "#111111",
-          border: "1px solid rgba(255,248,231,0.08)",
+          background: "var(--text-dark)",
+          border: "1px solid rgba(245, 241, 236, 0.08)",
           borderRadius: "16px",
           overflow: "hidden",
           boxShadow: isHovered
-            ? "0 24px 64px rgba(17,17,17,0.45)"
-            : "0 8px 40px rgba(17,17,17,0.28)",
+            ? "0 24px 64px rgba(26, 26, 26, 0.45)"
+            : "0 8px 40px rgba(26, 26, 26, 0.28)",
           transition: "box-shadow 0.4s ease",
           position: "relative",
         }}
@@ -116,7 +116,7 @@ export function HoverDetailCard({
                   exit={{ y: 18, opacity: 0 }}
                   transition={{ type: "spring", stiffness: 440, damping: 28, delay: 0.04 }}
                   style={{
-                    background: "#111111",
+                    background: "var(--text-dark)",
                     color: "var(--bg-sand)",
                     border: "none",
                     borderRadius: "60px",
@@ -130,10 +130,10 @@ export function HoverDetailCard({
                   }}
                   onMouseEnter={e => {
                     e.currentTarget.style.background = "var(--gold)";
-                    e.currentTarget.style.color = "#111111";
+                    e.currentTarget.style.color = "var(--text-dark)";
                   }}
                   onMouseLeave={e => {
-                    e.currentTarget.style.background = "#111111";
+                    e.currentTarget.style.background = "var(--text-dark)";
                     e.currentTarget.style.color = "var(--bg-sand)";
                   }}
                 >
@@ -148,7 +148,7 @@ export function HoverDetailCard({
                   transition={{ type: "spring", stiffness: 440, damping: 28, delay: 0.12 }}
                   style={{
                     background: "var(--gold)",
-                    color: "#111111",
+                    color: "var(--text-dark)",
                     border: "none",
                     borderRadius: "60px",
                     padding: "12px 28px",
@@ -178,7 +178,7 @@ export function HoverDetailCard({
               fontSize: "0.68rem",
               letterSpacing: "3px",
               color: "var(--gold)",
-              background: "rgba(17,17,17,0.6)",
+              background: "rgba(26, 26, 26, 0.6)",
               backdropFilter: "blur(8px)",
               padding: "5px 12px",
               borderRadius: "40px",
@@ -237,7 +237,7 @@ export function HoverDetailCard({
             style={{
               fontFamily: "var(--font-main)",
               fontSize: "0.85rem",
-              color: "rgba(255,248,231,0.48)",
+              color: "rgba(245, 241, 236, 0.48)",
               lineHeight: 1.6,
               margin: 0,
             }}
