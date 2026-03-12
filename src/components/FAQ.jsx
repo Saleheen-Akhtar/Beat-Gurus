@@ -34,9 +34,9 @@ const FAQ = () => {
   return (
     <section id="faq" style={{
       padding: '120px 0',
-      background: 'var(--text-dark)', /* Using Grey Black from our palette */
-      color: 'var(--bg-sand)', /* Using Ivory White */
-      borderTop: '2px solid rgba(245, 241, 236, 0.1)'
+      background: 'transparent', /* Inheriting bright background */
+      color: 'var(--text-dark)',
+      borderTop: '2px solid rgba(26, 26, 26, 0.1)'
     }}>
       <div className="container" style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 20px' }}>
 
@@ -51,11 +51,11 @@ const FAQ = () => {
             fontFamily: 'var(--font-display)',
             fontSize: 'clamp(3rem, 8vw, 6rem)',
             textTransform: 'uppercase',
-            color: 'var(--bg-sand)',
+            color: 'var(--text-dark)',
             marginBottom: '20px',
             lineHeight: 0.9
           }}>
-            FREQUENTLY ASKED <br/><span style={{ color: 'var(--gold)' }}>QUESTIONS</span>
+            FREQUENTLY ASKED <br/><span style={{ color: 'var(--earth-red)' }}>QUESTIONS</span>
           </h2>
         </motion.div>
 
@@ -70,7 +70,7 @@ const FAQ = () => {
                 viewport={{ once: true, margin: "-20px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 style={{
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderBottom: '1px solid rgba(26, 26, 26, 0.2)',
                   padding: '30px 0',
                   cursor: 'pointer'
                 }}
@@ -85,7 +85,7 @@ const FAQ = () => {
                     fontFamily: 'var(--font-display)',
                     fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
                     margin: 0,
-                    color: isActive ? 'var(--gold)' : 'var(--bg-sand)',
+                    color: isActive ? 'var(--earth-red)' : 'var(--text-dark)',
                     transition: 'color 0.3s ease',
                     textTransform: 'uppercase'
                   }}>
@@ -93,7 +93,7 @@ const FAQ = () => {
                   </h3>
                   <div style={{
                     fontSize: '2rem',
-                    color: isActive ? 'var(--gold)' : 'var(--bg-sand)',
+                    color: isActive ? 'var(--earth-red)' : 'var(--text-dark)',
                     transition: 'transform 0.3s ease, color 0.3s ease',
                     transform: isActive ? 'rotate(45deg)' : 'rotate(0deg)',
                     fontFamily: 'var(--font-main)',
@@ -116,7 +116,7 @@ const FAQ = () => {
                         fontFamily: 'var(--font-main)',
                         fontSize: '1.2rem',
                         lineHeight: 1.6,
-                        color: 'rgba(245, 241, 236, 0.7)',
+                        color: 'rgba(26, 26, 26, 0.8)',
                         marginTop: '20px',
                         maxWidth: '800px'
                       }}>

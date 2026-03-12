@@ -28,8 +28,8 @@ const Contact = () => {
   return (
     <section id="contact" style={{
       padding: '150px 0 50px',
-      background: 'var(--text-dark)', /* Continuing the dark theme from FAQ */
-      color: 'var(--bg-sand)',
+      background: 'transparent', // Using parent background (var(--bg-sand))
+      color: 'var(--text-dark)',
       borderTop: 'none',
       marginTop: '0'
     }}>
@@ -48,7 +48,7 @@ const Contact = () => {
             <h2 style={{
               fontSize: 'clamp(4rem, 10vw, 8rem)',
               lineHeight: 0.9,
-              color: 'var(--bg-sand)',
+              color: 'var(--text-dark)',
               textTransform: 'uppercase',
               marginBottom: '30px'
             }}>
@@ -58,7 +58,7 @@ const Contact = () => {
             <p style={{
               fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
               fontFamily: 'var(--font-main)',
-              color: 'rgba(245, 241, 236, 0.7)',
+              color: 'rgba(24, 24, 24, 0.7)',
               maxWidth: '500px',
               marginBottom: '40px',
               lineHeight: 1.6
@@ -68,12 +68,12 @@ const Contact = () => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
-                <span style={{ display: 'block', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(245, 241, 236, 0.4)', marginBottom: '5px' }}>Email</span>
-                <a href="mailto:bookings@beatgurus.org" style={{ fontSize: '1.2rem', color: 'var(--bg-sand)', textDecoration: 'underline' }}>bookings@beatgurus.org</a>
+                <span style={{ display: 'block', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(24, 24, 24, 0.5)', marginBottom: '5px' }}>Email</span>
+                <a href="mailto:bookings@beatgurus.org" style={{ fontSize: '1.2rem', color: 'var(--text-dark)', textDecoration: 'underline' }}>bookings@beatgurus.org</a>
               </div>
               <div>
-                <span style={{ display: 'block', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(245, 241, 236, 0.4)', marginBottom: '5px' }}>Phone</span>
-                <a href="tel:+919876543210" style={{ fontSize: '1.2rem', color: 'var(--bg-sand)', textDecoration: 'underline' }}>+91 98765 43210</a>
+                <span style={{ display: 'block', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(24, 24, 24, 0.5)', marginBottom: '5px' }}>Phone</span>
+                <a href="tel:+919876543210" style={{ fontSize: '1.2rem', color: 'var(--text-dark)', textDecoration: 'underline' }}>+91 98765 43210</a>
               </div>
             </div>
           </motion.div>
@@ -128,8 +128,8 @@ const Contact = () => {
 
               <button type="submit" style={{
                 alignSelf: 'flex-start',
-                background: 'var(--gold)',
-                color: 'var(--text-dark)',
+                background: 'var(--text-dark)',
+                color: 'var(--bg-sand)',
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.2rem',
                 textTransform: 'uppercase',
@@ -139,8 +139,8 @@ const Contact = () => {
                 cursor: 'pointer',
                 transition: 'transform 0.3s ease, background 0.3s ease'
               }}
-              onMouseEnter={(e) => { e.target.style.transform = 'scale(1.05)'; e.target.style.background = 'var(--bg-sand)'; }}
-              onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; e.target.style.background = 'var(--gold)'; }}
+              onMouseEnter={(e) => { e.target.style.transform = 'scale(1.05)'; e.target.style.background = 'var(--gold)'; e.target.style.color = 'var(--text-dark)'; }}
+              onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; e.target.style.background = 'var(--text-dark)'; e.target.style.color = 'var(--bg-sand)'; }}
               >
                 Send Inquiry
               </button>
@@ -161,39 +161,39 @@ const Contact = () => {
             gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
             gap: '60px',
             paddingTop: '60px',
-            borderTop: '2px dashed rgba(245, 241, 236, 0.2)'
+            borderTop: '2px dashed rgba(24, 24, 24, 0.2)'
           }}
         >
           <div className="credit-block">
-            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--gold)', fontSize: '1.5rem', marginBottom: '15px' }}>STARRING</h4>
-            <p style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', color: 'rgba(245, 241, 236, 0.7)', lineHeight: 1.6 }}>
+            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--text-dark)', fontSize: '1.5rem', marginBottom: '15px' }}>STARRING</h4>
+            <p style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', color: 'rgba(24, 24, 24, 0.8)', lineHeight: 1.6 }}>
               <strong>The Founders</strong> - Ganesh Govindswamy.<br/><br/>
               <strong>The Tribe</strong> - Our fellow musicians, keeping the heartbeat alive on every stage.
             </p>
           </div>
 
           <div className="credit-block">
-            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--gold)', fontSize: '1.5rem', marginBottom: '15px' }}>DIRECTED BY PASSION</h4>
-            <p style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', color: 'rgba(245, 241, 236, 0.7)', lineHeight: 1.6 }}>
+            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--text-dark)', fontSize: '1.5rem', marginBottom: '15px' }}>DIRECTED BY PASSION</h4>
+            <p style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', color: 'rgba(24, 24, 24, 0.8)', lineHeight: 1.6 }}>
               <strong>Produced By:</strong> Countless hours in practice rooms and on the road.<br/><br/>
               <strong>Soundtrack:</strong> Djembe, Didgeridoo, and Raw Indian Percussion.
             </p>
           </div>
 
           <div className="credit-block">
-            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--gold)', fontSize: '1.5rem', marginBottom: '15px' }}>FILMED ON LOCATION</h4>
-            <p style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', color: 'rgba(245, 241, 236, 0.7)', lineHeight: 1.6 }}>
+            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--text-dark)', fontSize: '1.5rem', marginBottom: '15px' }}>FILMED ON LOCATION</h4>
+            <p style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', color: 'rgba(24, 24, 24, 0.8)', lineHeight: 1.6 }}>
               In smoky clubs, sun-drenched festival grounds, and grand corporate galas across the globe.<br/><br/>
               <em>Based in Bangalore, India.</em>
             </p>
             <div style={{ display: 'flex', gap: '14px', marginTop: '20px' }}>
-              <a href="https://www.instagram.com/beatgurus/" target="_blank" rel="noreferrer" aria-label="Instagram" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
+              <a href="https://www.instagram.com/beatgurus/" target="_blank" rel="noreferrer" aria-label="Instagram" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(24, 24, 24, 0.5)', color: 'var(--text-dark)', transition: 'all 0.3s ease' }}>
                 <FaInstagram size={16} />
               </a>
-              <a href="https://www.facebook.com/beatgurus" target="_blank" rel="noreferrer" aria-label="Facebook" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
+              <a href="https://www.facebook.com/beatgurus" target="_blank" rel="noreferrer" aria-label="Facebook" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(24, 24, 24, 0.5)', color: 'var(--text-dark)', transition: 'all 0.3s ease' }}>
                 <FaFacebookF size={16} />
               </a>
-              <a href="https://www.youtube.com/results?search_query=beat+gurus+bangalore" target="_blank" rel="noreferrer" aria-label="YouTube" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
+              <a href="https://www.youtube.com/results?search_query=beat+gurus+bangalore" target="_blank" rel="noreferrer" aria-label="YouTube" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(24, 24, 24, 0.5)', color: 'var(--text-dark)', transition: 'all 0.3s ease' }}>
                 <FaYoutube size={16} />
               </a>
             </div>
@@ -204,7 +204,7 @@ const Contact = () => {
         <div style={{
           marginTop: '100px',
           padding: '30px 0',
-          borderTop: '1px solid rgba(245, 241, 236, 0.2)',
+          borderTop: '1px solid rgba(24, 24, 24, 0.2)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -212,10 +212,10 @@ const Contact = () => {
           fontSize: '0.9rem',
           textTransform: 'uppercase',
           fontWeight: 'bold',
-          color: 'rgba(245, 241, 236, 0.5)'
+          color: 'rgba(24, 24, 24, 0.6)'
         }}>
           <span>&copy; {new Date().getFullYear()} Beat Gurus. All Rights Reserved.</span>
-          <span style={{ color: 'var(--gold)' }}>Raw Acoustic Energy</span>
+          <span style={{ color: 'var(--text-dark)' }}>Raw Acoustic Energy</span>
         </div>
 
       </div>
