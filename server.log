@@ -7,3 +7,11 @@
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
+7:16:21 PM [vite] hmr update /src/components/Services.jsx, /src/index.css
+7:16:37 PM [vite] hmr update /src/index.css
+7:16:41 PM [vite] hmr update /src/index.css
+7:16:44 PM [vite] hmr update /src/index.css
+7:17:04 PM [vite] hmr update /src/components/Testimonials.jsx, /src/index.css
+7:17:33 PM [vite] hmr update /src/index.css
+7:17:38 PM [vite] hmr update /src/index.css
+7:17:42 PM [vite] hmr update /src/index.css
