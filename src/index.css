@@ -923,7 +923,7 @@ p {
 /* ================================================================
    SERVICES (Sticky Scroll Layout)
 ================================================================ */
-.services-section { padding: var(--section-padding) 0; overflow: hidden; }
+.services-section { padding: var(--section-padding) 0; overflow-x: hidden; overflow-y: visible; }
 .services-grid {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
