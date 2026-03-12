@@ -923,7 +923,7 @@ p {
 /* ================================================================
    SERVICES (Sticky Scroll Layout)
 ================================================================ */
-.services-section { padding: var(--section-padding) 0; overflow-x: hidden; overflow-y: visible; }
+.services-section { padding: var(--section-padding) 0; overflow: hidden; }
 .services-grid {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -1360,92 +1360,35 @@ p {
 }
 
 /* ================================================================
-   CONTACT
+   CONTACT & FAQ
 ================================================================ */
-.contact-section {
-  padding: 100px 0 60px;
-  border-top: 2px solid var(--text-dark);
-}
-.contact-heading {
-  font-size: clamp(3.5rem, 10vw, 9rem);
-  line-height: 0.88;
-  margin-bottom: 22px;
-}
-.contact-subtext {
-  font-size: clamp(1rem, 1.6vw, 1.4rem);
-  color: var(--text-grey);
-  max-width: 480px;
-  margin-bottom: 60px;
-  line-height: 1.65;
-}
-.contact-links { margin-bottom: 90px; }
-.contact-link-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 30px 0;
-  border-bottom: 1px solid rgba(26, 26, 26, 0.18);
-  text-decoration: none;
-  color: var(--text-dark);
-  cursor: none;
-  transition: padding-left 0.4s var(--ease-premium);
-}
-.contact-link-row:hover { padding-left: 20px; }
-.contact-link-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 4vw, 3.8rem);
-  transition: color 0.3s ease;
-}
-.contact-link-row:hover .contact-link-title { color: var(--gold); }
-.contact-link-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
-}
-.contact-link-email {
-  font-family: var(--font-main);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-grey);
-  text-decoration: underline;
-}
-.contact-link-arrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(26, 26, 26, 0.35);
-  color: var(--text-dark);
-  font-size: 1.1rem;
-  transition: all 0.35s ease;
-  flex-shrink: 0;
-}
-.contact-link-row:hover .contact-link-arrow {
-  background: var(--gold);
-  border-color: var(--gold);
+.contact-input {
+  width: 100%;
+  padding: 16px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(245, 241, 236, 0.3);
   color: var(--bg-sand);
-  transform: rotate(45deg);
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  transition: border-color 0.3s ease;
+  outline: none;
+  cursor: none;
 }
-.contact-footer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 44px;
-  padding-top: 60px;
-  border-top: 1px dashed rgba(26, 26, 26, 0.25);
+.contact-input::placeholder {
+  color: rgba(245, 241, 236, 0.5);
+  font-family: var(--font-main);
 }
-.contact-footer-block h4 {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  color: var(--gold);
-  letter-spacing: 2px;
-  margin-bottom: 14px;
+.contact-input:focus {
+  border-bottom-color: var(--gold);
 }
-.contact-footer-block p {
-  font-size: 0.92rem;
-  color: var(--text-dark);
-  line-height: 1.72;
+select.contact-input option {
+  background-color: var(--text-dark);
+  color: var(--bg-sand);
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) opacity(0.5);
+  cursor: none;
 }
 
 /* ================================================================
