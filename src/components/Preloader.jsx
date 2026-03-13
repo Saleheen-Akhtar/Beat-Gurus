@@ -4,20 +4,15 @@ import './Preloader.css';
 
 const Preloader = ({ onComplete }) => {
   const [loading, setLoading] = useState(true);
-  const [reveal, setReveal] = useState(false);
 
   useEffect(() => {
-    // Drum roll duration
-    const rollTimer = setTimeout(() => {
-      setReveal(true);
-      // Wait for the grand reveal animation to finish before triggering exit
-      setTimeout(() => {
-        setLoading(false);
-      }, 900);
-    }, 2000); // 2 seconds of drum roll
+    // Keep the preloader visible for a short duration
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
 
     return () => {
-      clearTimeout(rollTimer);
+      clearTimeout(timer);
     };
   }, []);
 
@@ -25,57 +20,52 @@ const Preloader = ({ onComplete }) => {
     <AnimatePresence onExitComplete={onComplete}>
       {loading && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center"
-          style={{ backgroundColor: 'var(--bg-sand-dark)' }}
+          className="fixed inset-0 flex items-center justify-center bg-[#050505]"
+          style={{ backgroundColor: '#050505', zIndex: 999999 }}
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
         >
-          <div className={`drum-container ${reveal ? 'reveal' : ''}`}>
-            {/* The Shockwave Ring for the final hit */}
-            <div className="shockwave"></div>
-
+          <div className="dw-loader-container">
             <svg
-              className="drum-svg"
-              viewBox="0 0 200 200"
+              className="dw-loader-circle"
+              viewBox="0 0 363 364"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              {/* Drum Body (Djembe Shape) */}
+              {/* Background faded circle */}
+              <circle
+                opacity="0.2"
+                cx="181.5"
+                cy="181.5"
+                r="181"
+                stroke="var(--bg-sand)"
+                strokeOpacity="0.5"
+              />
+              {/* Animated stroke path */}
               <path
-                className="drum-body"
-                d="M60 70 L140 70 C140 90 120 110 120 130 L110 180 L90 180 L80 130 C80 110 60 90 60 70 Z"
+                className="dw-loader-path"
+                d="M209.456 360.864C179.949 365.44 149.771 362.637 121.608 352.706C93.4442 342.775 68.1699 326.024 48.0352 303.944"
+                stroke="url(#paint0_linear_loader)"
+                strokeWidth="4"
+                strokeLinecap="round"
               />
-
-              {/* Ropes / Decoration */}
-              <path
-                d="M60 70 L80 130 M140 70 L120 130 M80 70 L100 130 M120 70 L100 130"
-                stroke="var(--gold)"
-                strokeWidth="1.5"
-                strokeOpacity="0.4"
-                strokeDasharray="4 2"
-              />
-
-              {/* Drum Head */}
-              <ellipse
-                className="drum-head"
-                cx="100"
-                cy="70"
-                rx="40"
-                ry="15"
-              />
-
-              {/* Left Drumstick */}
-              <g className="drumstick left-stick">
-                <line x1="30" y1="20" x2="85" y2="60" stroke="var(--foreground)" strokeWidth="4" strokeLinecap="round" />
-                <circle cx="85" cy="60" r="5" fill="var(--foreground)" />
-              </g>
-
-              {/* Right Drumstick */}
-              <g className="drumstick right-stick">
-                <line x1="170" y1="20" x2="115" y2="60" stroke="var(--foreground)" strokeWidth="4" strokeLinecap="round" />
-                <circle cx="115" cy="60" r="5" fill="var(--foreground)" />
-              </g>
+              <defs>
+                <linearGradient
+                  id="paint0_linear_loader"
+                  x1="209.456"
+                  y1="333.472"
+                  x2="48.0352"
+                  y2="333.472"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stopColor="var(--bg-sand)" stopOpacity="0" />
+                  <stop offset="1" stopColor="var(--bg-sand)" />
+                </linearGradient>
+              </defs>
             </svg>
+            <div className="dw-loader-logo-box">
+               <span className="dw-loader-text">BEAT GURUS</span>
+            </div>
           </div>
         </motion.div>
       )}

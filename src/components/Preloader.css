@@ -1,125 +1,62 @@
 /* Preloader.css */
-.drum-container {
+.dw-loader-container {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
-.drum-svg {
+.dw-loader-circle {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  overflow: visible;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+  animation: spin 1.5s linear infinite;
+  z-index: 1;
 }
 
-.drum-body {
-  stroke: var(--gold);
-  stroke-width: 4;
-  fill: rgba(20, 20, 20, 0.6);
-  stroke-linejoin: round;
-  stroke-linecap: round;
+.dw-loader-path {
+  stroke-dasharray: 200 400; /* Create a partial segment */
+  stroke-dashoffset: 0;
 }
 
-.drum-head {
-  stroke: var(--gold);
-  stroke-width: 4;
-  fill: rgba(212, 167, 44, 0.15);
+.dw-loader-logo-box {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.drumstick {
-  transform-origin: top center;
+.dw-loader-text {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--bg-sand);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: pulse-glow 2s ease-in-out infinite alternate;
 }
 
-.left-stick {
-  transform-origin: 30px 20px;
-  animation: drumroll-left 0.12s infinite alternate ease-in-out;
-}
-
-.right-stick {
-  transform-origin: 170px 20px;
-  animation: drumroll-right 0.12s infinite alternate-reverse ease-in-out;
-}
-
-@keyframes drumroll-left {
-  0% { transform: rotate(-30deg); }
-  100% { transform: rotate(5deg); }
-}
-
-@keyframes drumroll-right {
-  0% { transform: rotate(30deg); }
-  100% { transform: rotate(-5deg); }
-}
-
-/* Grand Reveal Hit */
-.drum-container.reveal .left-stick {
-  animation: final-hit-left 0.15s forwards ease-in;
-}
-
-.drum-container.reveal .right-stick {
-  animation: final-hit-right 0.15s forwards ease-in;
-}
-
-@keyframes final-hit-left {
-  0% { transform: rotate(-40deg); }
-  100% { transform: rotate(15deg); }
-}
-
-@keyframes final-hit-right {
-  0% { transform: rotate(40deg); }
-  100% { transform: rotate(-15deg); }
-}
-
-.drum-container.reveal .drum-svg {
-  animation: reveal-scale 0.8s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  animation-delay: 0.15s;
-}
-
-@keyframes reveal-scale {
+@keyframes spin {
   0% {
-    transform: scale(1);
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
-  }
-  30% {
-    transform: scale(1.6);
-    filter: drop-shadow(0 0 40px var(--gold));
+    transform: rotate(0deg);
   }
   100% {
-    transform: scale(1.8);
-    filter: drop-shadow(0 0 60px var(--gold));
-    opacity: 0;
+    transform: rotate(360deg);
   }
 }
 
-.shockwave {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 4px solid var(--gold);
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.drum-container.reveal .shockwave {
-  animation: shockwave-expand 0.6s forwards ease-out;
-  animation-delay: 0.15s;
-}
-
-@keyframes shockwave-expand {
+@keyframes pulse-glow {
   0% {
-    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.6;
+    text-shadow: 0 0 5px rgba(245, 241, 236, 0.2);
+  }
+  100% {
     opacity: 1;
-    border-width: 10px;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(5);
-    opacity: 0;
-    border-width: 0px;
+    text-shadow: 0 0 15px rgba(245, 241, 236, 0.6);
   }
 }
