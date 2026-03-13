@@ -1,87 +1,82 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Preloader.css';
 
 const Preloader = ({ onComplete }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [reveal, setReveal] = useState(false);
 
   useEffect(() => {
-    // Simulate loading time
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-      // Wait for exit animation to finish before notifying parent
+    // Drum roll duration
+    const rollTimer = setTimeout(() => {
+      setReveal(true);
+      // Wait for the grand reveal animation to finish before triggering exit
       setTimeout(() => {
-        if (onComplete) onComplete();
-      }, 1200); // matches exit duration
-    }, 2500); // 2.5 seconds loading display
+        setLoading(false);
+      }, 900);
+    }, 2000); // 2 seconds of drum roll
 
-    return () => clearTimeout(timer);
-  }, [onComplete]);
-
-  // Framer motion variants
-  const containerVariants = {
-    initial: { y: 0 },
-    exit: {
-      y: '-100%',
-      transition: { duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.2 }
-    }
-  };
+    return () => {
+      clearTimeout(rollTimer);
+    };
+  }, []);
 
   return (
-    <AnimatePresence>
-      {!isLoaded && (
+    <AnimatePresence onExitComplete={onComplete}>
+      {loading && (
         <motion.div
-          key="preloader"
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden"
-          style={{ backgroundColor: 'var(--text-dark)' }}
-          variants={containerVariants}
-          initial="initial"
-          exit="exit"
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ backgroundColor: 'var(--bg-sand-dark)' }}
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
         >
-          {/* Subtle noise/texture over the preloader */}
-          <div
-            className="absolute inset-0 opacity-10 pointer-events-none mix-blend-screen"
-            style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' }}
-          ></div>
+          <div className={`drum-container ${reveal ? 'reveal' : ''}`}>
+            {/* The Shockwave Ring for the final hit */}
+            <div className="shockwave"></div>
 
-          <div className="cube-container relative z-10">
-            {/* Box 1: B */}
-            <div className="cube cube-1">
-              <div className="cube-face cube-front"><span className="cube-text">B</span></div>
-              <div className="cube-face cube-back"><span className="cube-text">B</span></div>
-              <div className="cube-face cube-right"><span className="cube-text">B</span></div>
-              <div className="cube-face cube-left"><span className="cube-text">B</span></div>
-              <div className="cube-face cube-top"><span className="cube-text">B</span></div>
-              <div className="cube-face cube-bottom"><span className="cube-text">B</span></div>
-            </div>
+            <svg
+              className="drum-svg"
+              viewBox="0 0 200 200"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {/* Drum Body (Djembe Shape) */}
+              <path
+                className="drum-body"
+                d="M60 70 L140 70 C140 90 120 110 120 130 L110 180 L90 180 L80 130 C80 110 60 90 60 70 Z"
+              />
 
-            {/* Box 2: G */}
-            <div className="cube cube-2">
-              <div className="cube-face cube-front"><span className="cube-text">G</span></div>
-              <div className="cube-face cube-back"><span className="cube-text">G</span></div>
-              <div className="cube-face cube-right"><span className="cube-text">G</span></div>
-              <div className="cube-face cube-left"><span className="cube-text">G</span></div>
-              <div className="cube-face cube-top"><span className="cube-text">G</span></div>
-              <div className="cube-face cube-bottom"><span className="cube-text">G</span></div>
-            </div>
+              {/* Ropes / Decoration */}
+              <path
+                d="M60 70 L80 130 M140 70 L120 130 M80 70 L100 130 M120 70 L100 130"
+                stroke="var(--gold)"
+                strokeWidth="1.5"
+                strokeOpacity="0.4"
+                strokeDasharray="4 2"
+              />
+
+              {/* Drum Head */}
+              <ellipse
+                className="drum-head"
+                cx="100"
+                cy="70"
+                rx="40"
+                ry="15"
+              />
+
+              {/* Left Drumstick */}
+              <g className="drumstick left-stick">
+                <line x1="30" y1="20" x2="85" y2="60" stroke="var(--foreground)" strokeWidth="4" strokeLinecap="round" />
+                <circle cx="85" cy="60" r="5" fill="var(--foreground)" />
+              </g>
+
+              {/* Right Drumstick */}
+              <g className="drumstick right-stick">
+                <line x1="170" y1="20" x2="115" y2="60" stroke="var(--foreground)" strokeWidth="4" strokeLinecap="round" />
+                <circle cx="115" cy="60" r="5" fill="var(--foreground)" />
+              </g>
+            </svg>
           </div>
-
-          {/* Loading progress bar */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 2.5, ease: "linear" }}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 w-48 h-[2px] rounded-full overflow-hidden"
-            style={{ background: 'rgba(212, 167, 44, 0.2)' }}
-          >
-            <motion.div
-              className="w-full h-full"
-              style={{ background: 'var(--gold)' }}
-              initial={{ x: '-100%' }}
-              animate={{ x: '0%' }}
-              transition={{ duration: 2.5, ease: "easeInOut" }}
-            />
-          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
