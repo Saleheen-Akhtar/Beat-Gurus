@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FaInstagram, FaFacebookF, FaYoutube } from 'react-icons/fa';
 
 const Contact = () => {
+  const GOOGLE_SHEETS_WEBHOOK_URL = import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK_URL;
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,17 +13,52 @@ const Contact = () => {
     location: '',
     message: ''
   });
+  const [submitState, setSubmitState] = useState({ loading: false, message: '', error: false });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Submitted', formData);
-    // Add actual submission logic here
-    alert("Inquiry submitted! We'll get back to you soon.");
-    setFormData({ name: '', email: '', phone: '', eventType: '', date: '', location: '', message: '' });
+
+    if (!GOOGLE_SHEETS_WEBHOOK_URL) {
+      setSubmitState({
+        loading: false,
+        error: true,
+        message: 'Form endpoint is not configured. Please set VITE_GOOGLE_SHEETS_WEBHOOK_URL.'
+      });
+      return;
+    }
+
+    setSubmitState({ loading: true, message: '', error: false });
+
+    try {
+      await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          submittedAt: new Date().toISOString(),
+        }),
+      });
+
+      setSubmitState({
+        loading: false,
+        error: false,
+        message: "Inquiry submitted! We'll get back to you soon."
+      });
+      setFormData({ name: '', email: '', phone: '', eventType: '', date: '', location: '', message: '' });
+    } catch (error) {
+      setSubmitState({
+        loading: false,
+        error: true,
+        message: 'Unable to submit right now. Please try again in a few minutes.'
+      });
+    }
   };
 
   return (
@@ -139,11 +175,24 @@ const Contact = () => {
                 cursor: 'pointer',
                 transition: 'transform 0.3s ease, background 0.3s ease'
               }}
+              disabled={submitState.loading}
               onMouseEnter={(e) => { e.target.style.transform = 'scale(1.05)'; e.target.style.background = 'var(--bg-sand)'; }}
               onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; e.target.style.background = 'var(--gold)'; }}
               >
-                Send Inquiry
+                {submitState.loading ? 'Sending...' : 'Send Inquiry'}
               </button>
+              {submitState.message && (
+                <p
+                  role={submitState.error ? 'alert' : 'status'}
+                  style={{
+                    marginTop: '12px',
+                    color: submitState.error ? '#ffb4b4' : 'var(--bg-sand)',
+                    fontSize: '1rem'
+                  }}
+                >
+                  {submitState.message}
+                </p>
+              )}
 
             </form>
           </motion.div>
