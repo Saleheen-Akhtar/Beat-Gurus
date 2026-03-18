@@ -104,7 +104,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
         >
-          <strong>Beat Gurus</strong> is a premier fusion percussion band based in Bangalore.<br />
+          <span className="font-brand-name text-lg">Beat Gurus</span> is a premier fusion percussion band based in Bangalore.<br />
           Experience <em>Raw Acoustic Energy</em>—no electronic instruments, just pure, immersive rhythm and tribal beats spanning Djembe, Didgeridoo, and Indian Percussion.
         </motion.p>
 

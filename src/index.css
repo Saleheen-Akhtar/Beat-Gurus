@@ -1534,3 +1534,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 @media (min-width: 769px) {
   .menu-btn { display: none !important; }
 }
+
+/* ================================================================
+   BRAND NAME FONT (OUTFIT)
+================================================================ */
+.font-brand-name {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}

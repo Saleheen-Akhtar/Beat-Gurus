@@ -74,7 +74,7 @@ const About = () => {
         >
           <h3>Born in Bangalore,<br />Heard Worldwide.</h3>
           <p>
-            Founded by <strong style={{ color: 'var(--text-dark)' }}>Ganesh Govindswamy</strong>, Beat Gurus channels the captivating
+            Founded by <strong style={{ color: 'var(--text-dark)' }}>Ganesh Govindswamy</strong>, <span className="font-brand-name">Beat Gurus</span> channels the captivating
             power of the <em>Djembe</em> — a traditional hand drum from West Africa —
             blended with rich Indian rhythmic heritage.
           </p>

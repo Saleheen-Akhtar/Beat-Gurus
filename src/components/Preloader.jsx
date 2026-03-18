@@ -38,7 +38,7 @@ const Preloader = ({ onComplete }) => {
                 cx="181.5"
                 cy="181.5"
                 r="181"
-                stroke="var(--bg-sand)"
+                stroke="var(--gold)"
                 strokeOpacity="0.5"
               />
               {/* Animated stroke path */}
@@ -58,13 +58,13 @@ const Preloader = ({ onComplete }) => {
                   y2="333.472"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stopColor="var(--bg-sand)" stopOpacity="0" />
-                  <stop offset="1" stopColor="var(--bg-sand)" />
+                  <stop stopColor="var(--gold)" stopOpacity="0" />
+                  <stop offset="1" stopColor="var(--gold)" />
                 </linearGradient>
               </defs>
             </svg>
             <div className="dw-loader-logo-box">
-               <span className="dw-loader-text">BEAT GURUS</span>
+               <span className="dw-loader-text font-brand-name">Beat Gurus</span>
             </div>
           </div>
         </motion.div>
