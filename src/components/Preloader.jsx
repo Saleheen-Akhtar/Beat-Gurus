@@ -6,7 +6,7 @@ const Preloader = ({ onComplete }) => {
   const [loading, setLoading] = useState(true);
 
 useEffect(() => {
-    // We want the preloader to show for at least 1.5 seconds (one full animation cycle)
+    // We want the preloader to show for at least 2.0 seconds (one full draw-circle animation cycle)
     // AND until the page has fully loaded.
 
     let isMinTimeElapsed = false;
@@ -21,7 +21,7 @@ useEffect(() => {
     const minTimer = setTimeout(() => {
       isMinTimeElapsed = true;
       checkComplete();
-    }, 1500); // 1.5s for the initial drawing loop
+    }, 2000); // 2.0s for the initial drawing loop
 
     const handleLoad = () => {
       isPageLoaded = true;

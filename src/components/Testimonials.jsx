@@ -4,7 +4,7 @@ import { FaStar, FaQuoteLeft, FaChevronLeft, FaChevronRight } from 'react-icons/
 
 const reviews = [
   {
-    text: <> <span className="font-brand-name">Beat Gurus</span> infused our event with an energy that was absolutely electric. The fusion of cultures left our international delegates completely spellbound.</>,
+    text: <><span className="font-brand-name">Beat Gurus</span> infused our event with an energy that was absolutely electric. The fusion of cultures left our international delegates completely spellbound.</>,
     author: 'Tech Summit Organizers',
     role: 'Corporate Event',
     initials: 'TS',

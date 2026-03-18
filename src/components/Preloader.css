@@ -76,3 +76,20 @@
     text-shadow: 0 0 20px rgba(212, 167, 44, 0.8);
   }
 }
+
+/* Fallbacks for Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .dw-loader-circle {
+    animation: none;
+  }
+  .dw-loader-path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .dw-loader-text {
+    animation: none;
+    transform: none;
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(212, 167, 44, 0.4);
+  }
+}
