@@ -20,20 +20,17 @@
 
 
 .dw-loader-path {
-  stroke-dasharray: 1137;
-  stroke-dashoffset: 1137;
-  animation: draw-circle 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  stroke-dasharray: 1138;
+  stroke-dashoffset: 1138;
+  animation: draw-circle 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes draw-circle {
   0% {
-    stroke-dashoffset: 1137;
-  }
-  50% {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: 1138;
   }
   100% {
-    stroke-dashoffset: -1137;
+    stroke-dashoffset: 0;
   }
 }
 

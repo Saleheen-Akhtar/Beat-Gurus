@@ -64,9 +64,12 @@ useEffect(() => {
                 strokeOpacity="0.5"
               />
               {/* Animated stroke path */}
-              <path
+              <circle
                 className="dw-loader-path"
-                d="M181.5 1C81.8126 1 1 81.8126 1 181.5C1 281.187 81.8126 362 181.5 362C281.187 362 362 281.187 362 181.5C362 81.8126 281.187 1 181.5 1Z"
+                cx="181.5"
+                cy="181.5"
+                r="181"
+                transform="rotate(-90 181.5 181.5)"
                 stroke="url(#paint0_linear_loader)"
                 strokeWidth="4"
                 strokeLinecap="round"
