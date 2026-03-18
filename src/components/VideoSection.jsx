@@ -60,8 +60,16 @@ const VideoSection = () => {
               <img
                 src="https://images.unsplash.com/photo-1524230659092-07f99a75c013?q=80&w=1600&auto=format&fit=crop"
                 alt="Beat Gurus live djembe performance on stage"
+                loading="lazy"
+                decoding="async"
               />
-              <div className="play-btn-wrap" onClick={() => setPlaying(true)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && setPlaying(true)}>
+              <button
+                type="button"
+                className="play-btn-wrap"
+                onClick={() => setPlaying(true)}
+                aria-label="Play Beat Gurus live performance video"
+                style={{ background: 'transparent', border: 'none', padding: 0 }}
+              >
                 <motion.div
                   className="play-circle"
                   whileHover={{ scale: 1.12 }}
@@ -69,7 +77,7 @@ const VideoSection = () => {
                 >
                   &#9654;
                 </motion.div>
-              </div>
+              </button>
             </>
           )}
         </motion.div>

@@ -49,7 +49,6 @@ html, body {
   overflow-x: hidden;
   width: 100vw;
   -webkit-font-smoothing: antialiased;
-  cursor: none;
 }
 
 /* ---- GRAIN TEXTURE ---- */
@@ -113,7 +112,12 @@ body::before {
 /* ---- BASE ---- */
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
-button { cursor: none; }
+
+body.custom-cursor-enabled,
+body.custom-cursor-enabled button,
+body.custom-cursor-enabled a {
+  cursor: none;
+}
 
 .container {
   max-width: 1400px;
