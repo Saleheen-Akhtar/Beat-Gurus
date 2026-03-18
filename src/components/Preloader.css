@@ -18,10 +18,25 @@
   z-index: 1;
 }
 
+
 .dw-loader-path {
-  stroke-dasharray: 200 400; /* Create a partial segment */
-  stroke-dashoffset: 0;
+  stroke-dasharray: 1137;
+  stroke-dashoffset: 1137;
+  animation: draw-circle 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
+
+@keyframes draw-circle {
+  0% {
+    stroke-dashoffset: 1137;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -1137;
+  }
+}
+
 
 .dw-loader-logo-box {
   position: relative;
