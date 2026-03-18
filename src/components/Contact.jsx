@@ -33,18 +33,35 @@ const Contact = () => {
 
     setSubmitState({ loading: true, message: '', error: false });
 
+    let timeoutId;
     try {
-      await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+      const controller = new AbortController();
+      timeoutId = setTimeout(() => controller.abort(), 10000);
+
+      const response = await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json',
         },
+        signal: controller.signal,
         body: JSON.stringify({
           ...formData,
           submittedAt: new Date().toISOString(),
         }),
       });
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`Webhook request failed with status ${response.status}`);
+      }
+
+      const contentType = response.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        const payload = await response.json();
+        if (payload?.success === false) {
+          throw new Error(payload?.message || 'Webhook reported failure');
+        }
+      }
 
       setSubmitState({
         loading: false,
@@ -56,8 +73,10 @@ const Contact = () => {
       setSubmitState({
         loading: false,
         error: true,
-        message: 'Unable to submit right now. Please try again in a few minutes.'
+        message: 'Submission failed. Please retry or email bookings@beatgurus.org.'
       });
+    } finally {
+      if (timeoutId) clearTimeout(timeoutId);
     }
   };
 
