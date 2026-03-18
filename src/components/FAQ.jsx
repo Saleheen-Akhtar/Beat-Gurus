@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const faqs = [
   {
     question: "What is your booking process?",
-    answer: "To book Beat Gurus, simply fill out the contact form below with your event details. Our management team will get back to you within 24-48 hours to discuss availability, requirements, and pricing. Once we agree on terms, a contract and deposit will secure your date."
+    answer: <>To book <span className="font-brand-name">Beat Gurus</span>, simply fill out the contact form below with your event details. Our management team will get back to you within 24-48 hours to discuss availability, requirements, and pricing. Once we agree on terms, a contract and deposit will secure your date.</>
   },
   {
     question: "Do you travel internationally?",

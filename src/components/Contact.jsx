@@ -214,7 +214,7 @@ const Contact = () => {
           fontWeight: 'bold',
           color: 'rgba(245, 241, 236, 0.5)'
         }}>
-          <span>&copy; {new Date().getFullYear()} Beat Gurus. All Rights Reserved.</span>
+          <span>&copy; {new Date().getFullYear()} <span className="font-brand-name">Beat Gurus</span>. All Rights Reserved.</span>
           <span style={{ color: 'var(--gold)' }}>Raw Acoustic Energy</span>
         </div>
 
