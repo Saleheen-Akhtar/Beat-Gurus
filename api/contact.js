@@ -65,6 +65,10 @@ function badRequest(res, message) {
   return res.status(400).json({ success: false, message });
 }
 
+function sanitize(value) {
+  return String(value || '').trim();
+}
+
 export default async function handler(req, res) {
   setCorsHeaders(res);
 
@@ -87,11 +91,19 @@ export default async function handler(req, res) {
 
   const data = req.body || {};
   const allowedOrigin = process.env.CONTACT_ALLOWED_ORIGIN;
+  const webhookToken = process.env.CONTACT_WEBHOOK_TOKEN;
 
   if (process.env.NODE_ENV === 'production' && !allowedOrigin) {
     return res.status(500).json({
       success: false,
       message: 'Server is not configured. Missing CONTACT_ALLOWED_ORIGIN.'
+    });
+  }
+
+  if (process.env.NODE_ENV === 'production' && !webhookToken) {
+    return res.status(500).json({
+      success: false,
+      message: 'Server is not configured. Missing CONTACT_WEBHOOK_TOKEN.'
     });
   }
 
@@ -118,25 +130,24 @@ export default async function handler(req, res) {
   }
 
   for (const field of REQUIRED_FIELDS) {
-    if (!String(data[field] || '').trim()) {
+    if (!sanitize(data[field])) {
       return badRequest(res, `Missing required field: ${field}`);
     }
   }
 
   try {
-    const webhookToken = process.env.CONTACT_WEBHOOK_TOKEN;
     const response = await fetch(webhookUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: data.name,
-        email: data.email,
-        phone: data.phone || '',
-        eventType: data.eventType,
-        date: data.date || '',
-        location: data.location || '',
-        message: data.message,
-        submittedAt: data.submittedAt || new Date().toISOString(),
+        name: sanitize(data.name),
+        email: sanitize(data.email),
+        phone: sanitize(data.phone),
+        eventType: sanitize(data.eventType),
+        date: sanitize(data.date),
+        location: sanitize(data.location),
+        message: sanitize(data.message),
+        submittedAt: sanitize(data.submittedAt) || new Date().toISOString(),
         ...(webhookToken ? { token: webhookToken } : {}),
       }),
     });
