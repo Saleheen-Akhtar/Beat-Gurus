@@ -5,7 +5,7 @@ Use this script in **Extensions → Apps Script** for your Google Sheet.
 ## What this version does
 - Writes contact submissions to Sheet.
 - Sends a notification email to `bookings@beatgurus.org`.
-- Verifies a shared secret token (`x-contact-token` header or `token` field).
+- Verifies a shared secret token (via `token` query parameter or JSON body field).
 - Blocks simple bots with honeypot check and content sanity checks.
 - Returns JSON (`{ success: true|false, message }`).
 
@@ -121,4 +121,3 @@ function doPost(e) {
   - `CONTACT_ALLOWED_ORIGIN=https://your-domain.com`
 - Optional token pass-through from your backend to Apps Script:
   - `CONTACT_WEBHOOK_TOKEN=<same as SHARED_TOKEN>`
-
