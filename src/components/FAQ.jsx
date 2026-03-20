@@ -70,42 +70,58 @@ const FAQ = () => {
                 viewport={{ once: true, margin: "-20px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 style={{
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
-                  padding: '30px 0',
-                  cursor: 'pointer'
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
                 }}
-                onClick={() => toggleAccordion(index)}
               >
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}>
-                  <h3 style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-                    margin: 0,
-                    color: isActive ? 'var(--gold)' : 'var(--bg-sand)',
-                    transition: 'color 0.3s ease',
-                    textTransform: 'uppercase'
-                  }}>
-                    {faq.question}
-                  </h3>
-                  <div style={{
-                    fontSize: '2rem',
-                    color: isActive ? 'var(--gold)' : 'var(--bg-sand)',
-                    transition: 'transform 0.3s ease, color 0.3s ease',
-                    transform: isActive ? 'rotate(45deg)' : 'rotate(0deg)',
-                    fontFamily: 'var(--font-main)',
-                    fontWeight: 300
-                  }}>
-                    +
-                  </div>
-                </div>
+                <h3 style={{ margin: 0 }}>
+                  <button
+                    type="button"
+                    onClick={() => toggleAccordion(index)}
+                    aria-expanded={isActive}
+                    aria-controls={`faq-panel-${index}`}
+                    id={`faq-trigger-${index}`}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      width: '100%',
+                      background: 'transparent',
+                      border: 0,
+                      textAlign: 'left',
+                      padding: '30px 0',
+                      color: 'inherit',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <span style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                      margin: 0,
+                      color: isActive ? 'var(--gold)' : 'var(--bg-sand)',
+                      transition: 'color 0.3s ease',
+                      textTransform: 'uppercase'
+                    }}>
+                      {faq.question}
+                    </span>
+                    <span style={{
+                      fontSize: '2rem',
+                      color: isActive ? 'var(--gold)' : 'var(--bg-sand)',
+                      transition: 'transform 0.3s ease, color 0.3s ease',
+                      transform: isActive ? 'rotate(45deg)' : 'rotate(0deg)',
+                      fontFamily: 'var(--font-main)',
+                      fontWeight: 300
+                    }}>
+                      +
+                    </span>
+                  </button>
+                </h3>
 
                 <AnimatePresence>
                   {isActive && (
                     <motion.div
+                      id={`faq-panel-${index}`}
+                      role="region"
+                      aria-labelledby={`faq-trigger-${index}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
