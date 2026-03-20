@@ -69,6 +69,18 @@ function sanitize(value) {
   return String(value || '').trim();
 }
 
+<<<<<<< codex/audit-the-codebase-7nuw0e
+function normalizeOrigin(value) {
+  if (!value) return '';
+  try {
+    return new URL(value).origin;
+  } catch (_) {
+    return '';
+  }
+}
+
+=======
+>>>>>>> beatgurus
 export default async function handler(req, res) {
   setCorsHeaders(res);
 
@@ -100,6 +112,8 @@ export default async function handler(req, res) {
     });
   }
 
+<<<<<<< codex/audit-the-codebase-7nuw0e
+=======
   if (process.env.NODE_ENV === 'production' && !webhookToken) {
     return res.status(500).json({
       success: false,
@@ -107,17 +121,27 @@ export default async function handler(req, res) {
     });
   }
 
+>>>>>>> beatgurus
   const clientIp = getClientIp(req);
   if (isRateLimited(clientIp)) {
     return res.status(200).json({ success: true, message: "Inquiry submitted! We'll get back to you soon." });
   }
 
   if (allowedOrigin) {
+<<<<<<< codex/audit-the-codebase-7nuw0e
+    const origin = normalizeOrigin(req.headers && req.headers.origin);
+    const refererOrigin = normalizeOrigin(req.headers && req.headers.referer);
+    const normalizedAllowedOrigin = normalizeOrigin(allowedOrigin);
+    const originAllowed =
+      origin === normalizedAllowedOrigin ||
+      refererOrigin === normalizedAllowedOrigin;
+=======
     const origin = req.headers && req.headers.origin;
     const referer = req.headers && req.headers.referer;
     const originAllowed =
       (typeof origin === 'string' && origin === allowedOrigin) ||
       (typeof referer === 'string' && referer.startsWith(allowedOrigin));
+>>>>>>> beatgurus
 
     if (!originAllowed) {
       return res.status(200).json({ success: true, message: "Inquiry submitted! We'll get back to you soon." });

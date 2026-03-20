@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const faqs = [
   {
@@ -116,31 +116,30 @@ const FAQ = () => {
                   </button>
                 </h3>
 
-                <AnimatePresence>
-                  {isActive && (
-                    <motion.div
-                      id={`faq-panel-${index}`}
-                      role="region"
-                      aria-labelledby={`faq-trigger-${index}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      style={{ overflow: 'hidden' }}
-                    >
-                      <p style={{
-                        fontFamily: 'var(--font-main)',
-                        fontSize: '1.2rem',
-                        lineHeight: 1.6,
-                        color: 'rgba(245, 241, 236, 0.7)',
-                        marginTop: '20px',
-                        maxWidth: '800px'
-                      }}>
-                        {faq.answer}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <motion.div
+                  id={`faq-panel-${index}`}
+                  role="region"
+                  aria-labelledby={`faq-trigger-${index}`}
+                  initial={false}
+                  animate={{
+                    height: isActive ? 'auto' : 0,
+                    opacity: isActive ? 1 : 0
+                  }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  style={{ overflow: 'hidden' }}
+                  aria-hidden={!isActive}
+                >
+                  <p style={{
+                    fontFamily: 'var(--font-main)',
+                    fontSize: '1.2rem',
+                    lineHeight: 1.6,
+                    color: 'rgba(245, 241, 236, 0.7)',
+                    marginTop: '20px',
+                    maxWidth: '800px'
+                  }}>
+                    {faq.answer}
+                  </p>
+                </motion.div>
               </motion.div>
             );
           })}

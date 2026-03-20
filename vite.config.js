@@ -70,10 +70,12 @@ function contactDevApiPlugin() {
 
     try {
       const payload = await readJsonBody(req)
+      const token = process.env.CONTACT_WEBHOOK_TOKEN
+      const forwardedPayload = token ? { ...payload, token } : payload
       const upstream = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(forwardedPayload),
       })
 
       if (!upstream.ok) {
