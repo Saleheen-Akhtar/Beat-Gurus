@@ -9,6 +9,8 @@ function setCorsHeaders(res) {
   if (allowedOrigin) {
     res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
     res.setHeader('Vary', 'Origin');
+  } else if (process.env.NODE_ENV === 'production') {
+    res.setHeader('Access-Control-Allow-Origin', 'null');
   } else {
     res.setHeader('Access-Control-Allow-Origin', '*');
   }
@@ -43,6 +45,17 @@ function isRateLimited(ip) {
         ipRequestLog.delete(entryIp);
       }
     }
+
+    if (ipRequestLog.size > RATE_LIMIT_MAX_IPS) {
+      const excess = ipRequestLog.size - RATE_LIMIT_MAX_IPS;
+      const entriesByLastSeenAsc = Array.from(ipRequestLog.entries()).sort(
+        (a, b) => a[1].lastSeen - b[1].lastSeen
+      );
+
+      for (let i = 0; i < excess && i < entriesByLastSeenAsc.length; i += 1) {
+        ipRequestLog.delete(entriesByLastSeenAsc[i][0]);
+      }
+    }
   }
 
   return existing.count > RATE_LIMIT_MAX_REQUESTS;
@@ -73,13 +86,20 @@ export default async function handler(req, res) {
   }
 
   const data = req.body || {};
+  const allowedOrigin = process.env.CONTACT_ALLOWED_ORIGIN;
+
+  if (process.env.NODE_ENV === 'production' && !allowedOrigin) {
+    return res.status(500).json({
+      success: false,
+      message: 'Server is not configured. Missing CONTACT_ALLOWED_ORIGIN.'
+    });
+  }
 
   const clientIp = getClientIp(req);
   if (isRateLimited(clientIp)) {
     return res.status(200).json({ success: true, message: "Inquiry submitted! We'll get back to you soon." });
   }
 
-  const allowedOrigin = process.env.CONTACT_ALLOWED_ORIGIN;
   if (allowedOrigin) {
     const origin = req.headers && req.headers.origin;
     const referer = req.headers && req.headers.referer;
@@ -104,6 +124,7 @@ export default async function handler(req, res) {
   }
 
   try {
+    const webhookToken = process.env.CONTACT_WEBHOOK_TOKEN;
     const response = await fetch(webhookUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -116,6 +137,7 @@ export default async function handler(req, res) {
         location: data.location || '',
         message: data.message,
         submittedAt: data.submittedAt || new Date().toISOString(),
+        ...(webhookToken ? { token: webhookToken } : {}),
       }),
     });
 

@@ -2,10 +2,23 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
+const MAX_DEV_CONTACT_BODY_BYTES = 64 * 1024
+
+class PayloadTooLargeError extends Error {}
+
 function readJsonBody(req) {
   return new Promise((resolve, reject) => {
     let data = ''
-    req.on('data', (chunk) => { data += chunk })
+    let totalBytes = 0
+    req.on('data', (chunk) => {
+      totalBytes += chunk.length
+      if (totalBytes > MAX_DEV_CONTACT_BODY_BYTES) {
+        reject(new PayloadTooLargeError('Request body too large'))
+        req.destroy()
+        return
+      }
+      data += chunk
+    })
     req.on('end', () => {
       try {
         resolve(data ? JSON.parse(data) : {})
@@ -74,6 +87,12 @@ function contactDevApiPlugin() {
       res.setHeader('Content-Type', 'application/json')
       res.end(JSON.stringify({ success: true, message: "Inquiry submitted! We'll get back to you soon." }))
     } catch (error) {
+      if (error instanceof PayloadTooLargeError) {
+        res.statusCode = 413
+        res.setHeader('Content-Type', 'application/json')
+        res.end(JSON.stringify({ success: false, message: 'Request body too large.' }))
+        return
+      }
       if (error instanceof SyntaxError) {
         res.statusCode = 400
         res.setHeader('Content-Type', 'application/json')

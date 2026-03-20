@@ -194,7 +194,7 @@ const Contact = () => {
                 padding: '20px 50px',
                 border: 'none',
                 borderRadius: '50px',
-                cursor: 'pointer',
+                cursor: 'inherit',
                 transition: 'transform 0.3s ease, background 0.3s ease'
               }}
               disabled={submitState.loading}
