@@ -70,9 +70,7 @@ const FAQ = () => {
                 viewport={{ once: true, margin: "-20px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 style={{
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
-                  padding: '30px 0',
-                  cursor: 'pointer'
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
                 }}
               >
                 <h3 style={{ margin: 0 }}>
@@ -90,7 +88,7 @@ const FAQ = () => {
                       background: 'transparent',
                       border: 0,
                       textAlign: 'left',
-                      padding: 0,
+                      padding: '30px 0',
                       color: 'inherit',
                       cursor: 'pointer'
                     }}

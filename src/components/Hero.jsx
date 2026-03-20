@@ -95,9 +95,8 @@ const Hero = () => {
               src={logoImg}
               alt="Beat Gurus"
               className="hero-logo"
-              loading="lazy"
               decoding="async"
-              fetchPriority="low"
+              fetchPriority="high"
             />
           </motion.div>
         </motion.div>
