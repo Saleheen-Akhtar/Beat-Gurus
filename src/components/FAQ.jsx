@@ -128,7 +128,6 @@ const FAQ = () => {
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   style={{ overflow: 'hidden' }}
                   aria-hidden={!isActive}
-                  hidden={!isActive}
                 >
                   <p style={{
                     fontFamily: 'var(--font-main)',
