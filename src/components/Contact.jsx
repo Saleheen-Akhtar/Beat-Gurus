@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { FaInstagram, FaFacebookF, FaYoutube } from 'react-icons/fa';
 
 const Contact = () => {
-  const GOOGLE_SHEETS_WEBHOOK_URL = import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK_URL;
+  const CONTACT_API_URL = import.meta.env.VITE_CONTACT_API_URL || '/api/contact';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,7 +11,8 @@ const Contact = () => {
     eventType: '',
     date: '',
     location: '',
-    message: ''
+    message: '',
+    website: ''
   });
   const [submitState, setSubmitState] = useState({ loading: false, message: '', error: false });
 
@@ -22,15 +23,6 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!GOOGLE_SHEETS_WEBHOOK_URL) {
-      setSubmitState({
-        loading: false,
-        error: true,
-        message: 'Form endpoint is not configured. Please set VITE_GOOGLE_SHEETS_WEBHOOK_URL.'
-      });
-      return;
-    }
-
     setSubmitState({ loading: true, message: '', error: false });
 
     let timeoutId;
@@ -38,7 +30,7 @@ const Contact = () => {
       const controller = new AbortController();
       timeoutId = setTimeout(() => controller.abort(), 10000);
 
-      const response = await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+      const response = await fetch(CONTACT_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,29 +38,30 @@ const Contact = () => {
         signal: controller.signal,
         body: JSON.stringify({
           ...formData,
-          submittedAt: new Date().toISOString(),
+          submittedAt: new Date().toISOString()
         }),
       });
-      clearTimeout(timeoutId);
 
       if (!response.ok) {
         throw new Error(`Webhook request failed with status ${response.status}`);
       }
 
       const contentType = response.headers.get('content-type') || '';
+      let responseMessage = "Inquiry submitted! We'll get back to you soon.";
       if (contentType.includes('application/json')) {
         const payload = await response.json();
         if (payload?.success === false) {
-          throw new Error(payload?.message || 'Webhook reported failure');
+          throw new Error(payload?.message || 'Submission endpoint reported failure');
         }
+        if (payload?.message) responseMessage = payload.message;
       }
 
       setSubmitState({
         loading: false,
         error: false,
-        message: "Inquiry submitted! We'll get back to you soon."
+        message: responseMessage
       });
-      setFormData({ name: '', email: '', phone: '', eventType: '', date: '', location: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', eventType: '', date: '', location: '', message: '', website: '' });
     } catch (error) {
       setSubmitState({
         loading: false,
@@ -180,6 +173,16 @@ const Contact = () => {
               <div>
                 <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Tell us about your event..." rows="4" required className="contact-input" style={{ resize: 'vertical' }}></textarea>
               </div>
+              <input
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{ position: 'absolute', left: '-9999px', opacity: 0 }}
+              />
 
               <button type="submit" style={{
                 alignSelf: 'flex-start',
