@@ -44,6 +44,7 @@ function App() {
     const hasPrimaryFinePointer = window.matchMedia('(pointer: fine)').matches;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     cursorEnabled.current = hasAnyFinePointer || hasPrimaryFinePointer;
+    document.body.classList.toggle('custom-cursor-enabled', cursorEnabled.current);
 
     if (!cursorEnabled.current) {
       dotRef.current?.classList.add('is-hidden');
@@ -133,6 +134,7 @@ function App() {
     return () => {
       lenis.destroy();
       cancelAnimationFrame(lenisRafId);
+      document.body.classList.remove('custom-cursor-enabled');
       window.removeEventListener('pointermove', onMove);
       document.removeEventListener('pointerout', onPointerOut);
       window.removeEventListener('blur', onLeave);
