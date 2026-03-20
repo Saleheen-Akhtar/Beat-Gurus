@@ -17,16 +17,28 @@ function readJsonBody(req) {
   })
 }
 
+function setDevCorsHeaders(res) {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+}
+
 function contactDevApiPlugin() {
   const handler = async (req, res, next) => {
-    if (req.url !== '/api/contact') return next()
+    const pathname = new URL(req.url || '/', 'http://localhost').pathname
+    if (pathname !== '/api/contact') return next()
+
+    setDevCorsHeaders(res)
+
     if (req.method === 'OPTIONS') {
       res.statusCode = 200
+      res.setHeader('Allow', 'POST, OPTIONS')
       res.end()
       return
     }
     if (req.method !== 'POST') {
       res.statusCode = 405
+      res.setHeader('Allow', 'POST, OPTIONS')
       res.setHeader('Content-Type', 'application/json')
       res.end(JSON.stringify({ success: false, message: 'Method not allowed' }))
       return
@@ -62,9 +74,15 @@ function contactDevApiPlugin() {
       res.setHeader('Content-Type', 'application/json')
       res.end(JSON.stringify({ success: true, message: "Inquiry submitted! We'll get back to you soon." }))
     } catch (error) {
-      res.statusCode = 502
-      res.setHeader('Content-Type', 'application/json')
-      res.end(JSON.stringify({ success: false, message: 'Local contact proxy failed.' }))
+      if (error instanceof SyntaxError) {
+        res.statusCode = 400
+        res.setHeader('Content-Type', 'application/json')
+        res.end(JSON.stringify({ success: false, message: 'Invalid JSON in request body.' }))
+      } else {
+        res.statusCode = 502
+        res.setHeader('Content-Type', 'application/json')
+        res.end(JSON.stringify({ success: false, message: 'Local contact proxy failed.' }))
+      }
     }
   }
 

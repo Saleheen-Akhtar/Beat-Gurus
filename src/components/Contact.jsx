@@ -198,8 +198,8 @@ const Contact = () => {
                 transition: 'transform 0.3s ease, background 0.3s ease'
               }}
               disabled={submitState.loading}
-              onMouseEnter={(e) => { e.target.style.transform = 'scale(1.05)'; e.target.style.background = 'var(--bg-sand)'; }}
-              onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; e.target.style.background = 'var(--gold)'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.background = 'var(--bg-sand)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.background = 'var(--gold)'; }}
               >
                 {submitState.loading ? 'Sending...' : 'Send Inquiry'}
               </button>

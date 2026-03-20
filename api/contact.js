@@ -1,10 +1,17 @@
 const REQUIRED_FIELDS = ['name', 'email', 'eventType', 'message'];
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 const RATE_LIMIT_MAX_REQUESTS = 20;
+const RATE_LIMIT_MAX_IPS = 5000;
 const ipRequestLog = new Map();
 
 function setCorsHeaders(res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const allowedOrigin = process.env.CONTACT_ALLOWED_ORIGIN;
+  if (allowedOrigin) {
+    res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+    res.setHeader('Vary', 'Origin');
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
@@ -19,12 +26,26 @@ function getClientIp(req) {
 
 function isRateLimited(ip) {
   const now = Date.now();
-  const windowStart = now - RATE_LIMIT_WINDOW_MS;
-  const timestamps = ipRequestLog.get(ip) || [];
-  const recent = timestamps.filter((ts) => ts > windowStart);
-  recent.push(now);
-  ipRequestLog.set(ip, recent);
-  return recent.length > RATE_LIMIT_MAX_REQUESTS;
+  const existing = ipRequestLog.get(ip);
+
+  if (!existing || (now - existing.windowStart) > RATE_LIMIT_WINDOW_MS) {
+    ipRequestLog.set(ip, { windowStart: now, count: 1, lastSeen: now });
+    return false;
+  }
+
+  existing.count += 1;
+  existing.lastSeen = now;
+  ipRequestLog.set(ip, existing);
+
+  if (ipRequestLog.size > RATE_LIMIT_MAX_IPS) {
+    for (const [entryIp, value] of ipRequestLog.entries()) {
+      if ((now - value.lastSeen) > RATE_LIMIT_WINDOW_MS) {
+        ipRequestLog.delete(entryIp);
+      }
+    }
+  }
+
+  return existing.count > RATE_LIMIT_MAX_REQUESTS;
 }
 
 function badRequest(res, message) {
