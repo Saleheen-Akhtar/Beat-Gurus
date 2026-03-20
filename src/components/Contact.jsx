@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FaInstagram, FaFacebookF, FaYoutube } from 'react-icons/fa';
 
 const Contact = () => {
+  const CONTACT_API_URL = import.meta.env.VITE_CONTACT_API_URL || '/api/contact';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -10,19 +11,66 @@ const Contact = () => {
     eventType: '',
     date: '',
     location: '',
-    message: ''
+    message: '',
+    website: ''
   });
+  const [submitState, setSubmitState] = useState({ loading: false, message: '', error: false });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Submitted', formData);
-    // Add actual submission logic here
-    alert("Inquiry submitted! We'll get back to you soon.");
-    setFormData({ name: '', email: '', phone: '', eventType: '', date: '', location: '', message: '' });
+
+    setSubmitState({ loading: true, message: '', error: false });
+
+    let timeoutId;
+    try {
+      const controller = new AbortController();
+      timeoutId = setTimeout(() => controller.abort(), 10000);
+
+      const response = await fetch(CONTACT_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal: controller.signal,
+        body: JSON.stringify({
+          ...formData,
+          submittedAt: new Date().toISOString()
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Webhook request failed with status ${response.status}`);
+      }
+
+      const contentType = response.headers.get('content-type') || '';
+      let responseMessage = "Inquiry submitted! We'll get back to you soon.";
+      if (contentType.includes('application/json')) {
+        const payload = await response.json();
+        if (payload?.success === false) {
+          throw new Error(payload?.message || 'Submission endpoint reported failure');
+        }
+        if (payload?.message) responseMessage = payload.message;
+      }
+
+      setSubmitState({
+        loading: false,
+        error: false,
+        message: responseMessage
+      });
+      setFormData({ name: '', email: '', phone: '', eventType: '', date: '', location: '', message: '', website: '' });
+    } catch (error) {
+      setSubmitState({
+        loading: false,
+        error: true,
+        message: 'Submission failed. Please retry or email bookings@beatgurus.org.'
+      });
+    } finally {
+      if (timeoutId) clearTimeout(timeoutId);
+    }
   };
 
   return (
@@ -125,6 +173,16 @@ const Contact = () => {
               <div>
                 <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Tell us about your event..." rows="4" required className="contact-input" style={{ resize: 'vertical' }}></textarea>
               </div>
+              <input
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{ position: 'absolute', left: '-9999px', opacity: 0 }}
+              />
 
               <button type="submit" style={{
                 alignSelf: 'flex-start',
@@ -136,14 +194,27 @@ const Contact = () => {
                 padding: '20px 50px',
                 border: 'none',
                 borderRadius: '50px',
-                cursor: 'pointer',
+                cursor: 'inherit',
                 transition: 'transform 0.3s ease, background 0.3s ease'
               }}
-              onMouseEnter={(e) => { e.target.style.transform = 'scale(1.05)'; e.target.style.background = 'var(--bg-sand)'; }}
-              onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; e.target.style.background = 'var(--gold)'; }}
+              disabled={submitState.loading}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.background = 'var(--bg-sand)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.background = 'var(--gold)'; }}
               >
-                Send Inquiry
+                {submitState.loading ? 'Sending...' : 'Send Inquiry'}
               </button>
+              {submitState.message && (
+                <p
+                  role={submitState.error ? 'alert' : 'status'}
+                  style={{
+                    marginTop: '12px',
+                    color: submitState.error ? '#ffb4b4' : 'var(--bg-sand)',
+                    fontSize: '1rem'
+                  }}
+                >
+                  {submitState.message}
+                </p>
+              )}
 
             </form>
           </motion.div>
