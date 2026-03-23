@@ -1691,8 +1691,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 
   .services-sticky-col {
-    position: relative;
-    top: 0;
+    position: sticky;
+    top: 140px;
     height: 100%;
     display: flex;
     flex-direction: column;
