@@ -102,12 +102,12 @@ const Hero = () => {
         </motion.div>
 
         <motion.p
-          className="hero-sub"
+          className="hero-sub" style={{ maxWidth: "800px", margin: "28px auto 0", lineHeight: "1.6", whiteSpace: "normal" }}
           initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
         >
-          <span className="font-brand-name text-lg">Beat Gurus</span> is a premier fusion percussion band based in Bangalore.<br />
-          Experience <em>Raw Acoustic Energy</em>—no electronic instruments, just pure, immersive rhythm and tribal beats spanning Djembe, Didgeridoo, and Indian Percussion.
+          <span className="text-lg" style={{ fontWeight: 'bold' }}>Beat Gurus</span> is a premier fusion percussion band based in Bangalore.<br />
+          Experience <em>Raw Acoustic Energy</em>, no electronic instruments, just pure, immersive rhythm and tribal beats spanning Djembe, Didgeridoo, and Indian Percussion.
         </motion.p>
 
         <motion.div
