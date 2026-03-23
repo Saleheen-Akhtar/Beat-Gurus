@@ -1679,3 +1679,40 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     padding: 24px 20px;
   }
 }
+
+/* ================================================================
+   SERVICES (Independent Scroll Box Fix)
+================================================================ */
+@media (min-width: 769px) {
+  .services-grid {
+    height: 70vh; /* Set a constrained height for the section */
+    max-height: 800px;
+    align-items: stretch; /* Make both columns fill the height */
+  }
+
+  .services-sticky-col {
+    position: relative;
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center the text vertically */
+  }
+
+  .services-list-col {
+    height: 100%;
+    overflow-y: auto; /* Enable independent vertical scrolling */
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
+    padding-right: 20px; /* Prevent text from touching the edge */
+
+    /* Add gradient masks to indicate scrollability (optional but looks nice) */
+    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+  }
+
+  /* Hide scrollbar Chrome/Safari/Webkit */
+  .services-list-col::-webkit-scrollbar {
+    display: none;
+  }
+}
