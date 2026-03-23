@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Services from './components/Services';
+import ShowTypes from './components/ShowTypes';
 import VideoSection from './components/VideoSection';
 import Showcase from './components/Showcase';
 import USP from './components/USP';
@@ -173,6 +174,7 @@ function App() {
       <About />
       <Showcase />
       <Services />
+      <ShowTypes />
       <VideoSection />
       <USP />
       <Instruments />
