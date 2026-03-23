@@ -18,7 +18,7 @@ const VideoSection = () => {
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="section-eyebrow">04 Watch Live</p>
+          <p className="section-eyebrow">05 Watch Live</p>
           <h2>Feel the <span style={{ color: 'var(--gold)' }}>Pulse</span></h2>
           <p>
             Watch the magic unfold live. From intimate gatherings to massive festival stages,

@@ -141,7 +141,7 @@ const Showcase = () => {
 
       {/* Dots + counter */}
       <div className="showcase-footer">
-        <div className="showcase-nav-arrows" style={{ marginRight: 'auto' }}>
+        <div className="showcase-nav-arrows">
           <button onClick={() => { pause(); prev(); }} className="showcase-arrow-btn" aria-label="Previous" data-cursor-hover>
             <FaChevronLeft size={14} />
           </button>

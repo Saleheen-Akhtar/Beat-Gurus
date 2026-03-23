@@ -84,7 +84,7 @@ export default function Instruments() {
           viewport={{ once: true, margin: '-120px' }}
           transition={{ duration: 0.7 }}
         >
-          <p className="section-eyebrow">05 The Arsenal</p>
+          <p className="section-eyebrow">06 The Arsenal</p>
           <h2>THE <span style={{ color: 'var(--gold)' }}>INSTRUMENTS</span></h2>
         </motion.div>
 
@@ -193,12 +193,14 @@ export default function Instruments() {
                     <button
                       key={i}
                       onClick={() => go(i)}
+                      aria-label={`Go to slide ${i + 1}`}
+                      aria-current={i === active ? "step" : undefined}
                       style={{
                         width: i === active ? '24px' : '8px',
                         height: '8px',
                         borderRadius: '4px',
                         background: i === active ? 'var(--gold)' : 'rgba(245, 241, 236, 0.18)',
-                        border: 'none', padding: 0, cursor: 'none',
+                        border: 'none', padding: 0, cursor: 'pointer',
                         transition: 'all 0.35s ease',
                       }}
                     />
@@ -211,24 +213,9 @@ export default function Instruments() {
                 <button
                   key={label}
                   onClick={fn}
-                  style={{
-                    width: '42px', height: '42px', borderRadius: '50%',
-                    border: '1.5px solid rgba(245, 241, 236, 0.22)',
-                    background: 'transparent',
-                    color: 'rgba(245, 241, 236, 0.75)', fontSize: '0.9rem',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    cursor: 'none', transition: 'all 0.3s ease', flexShrink: 0,
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.background = 'var(--gold)';
-                    e.currentTarget.style.color = 'var(--text-dark)';
-                    e.currentTarget.style.borderColor = 'var(--gold)';
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.color = 'rgba(245, 241, 236, 0.75)';
-                    e.currentTarget.style.borderColor = 'rgba(245, 241, 236, 0.22)';
-                  }}
+                  aria-label={label === '←' ? "Previous slide" : "Next slide"}
+                  className="instrument-nav-btn"
+
                 >
                   {label}
                 </button>
@@ -266,7 +253,7 @@ export default function Instruments() {
                 overflow: 'hidden',
                 border: 'none',
                 padding: 0,
-                cursor: 'none',
+                cursor: 'pointer',
                 outline: i === active ? '2.5px solid var(--gold)' : '2.5px solid transparent',
                 outlineOffset: '3px',
                 opacity: i === active ? 1 : 0.38,
