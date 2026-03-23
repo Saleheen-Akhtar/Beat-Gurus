@@ -94,15 +94,7 @@ export default function Instruments() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          style={{
-            marginTop: '60px',
-            display: 'grid',
-            gridTemplateColumns: '1fr 360px',
-            borderRadius: '18px',
-            overflow: 'hidden',
-            boxShadow: '0 32px 90px rgba(26, 26, 26, 0.26)',
-            height: 'clamp(380px, 48vh, 520px)',
-          }}
+          className="instrument-slider-card"
         >
           {/* Left — image pane */}
           <div style={{ position: 'relative', overflow: 'hidden' }}>
@@ -148,42 +140,8 @@ export default function Instruments() {
           </div>
 
           {/* Right — info pane */}
-          <div style={{
-            background: 'var(--text-dark)',
-            padding: '36px 34px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}>
-            {/* Nav arrows */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-              {[{ label: '←', fn: prev }, { label: '→', fn: next }].map(({ label, fn }) => (
-                <button
-                  key={label}
-                  onClick={fn}
-                  style={{
-                    width: '42px', height: '42px', borderRadius: '50%',
-                    border: '1.5px solid rgba(245, 241, 236, 0.22)',
-                    background: 'transparent',
-                    color: 'rgba(245, 241, 236, 0.75)', fontSize: '0.9rem',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    cursor: 'none', transition: 'all 0.3s ease', flexShrink: 0,
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.background = 'var(--gold)';
-                    e.currentTarget.style.color = 'var(--text-dark)';
-                    e.currentTarget.style.borderColor = 'var(--gold)';
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.color = 'rgba(245, 241, 236, 0.75)';
-                    e.currentTarget.style.borderColor = 'rgba(245, 241, 236, 0.22)';
-                  }}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
+          <div className="instrument-info-pane">
+
 
             {/* Animated text block */}
             <AnimatePresence initial={false} custom={dir} mode="wait">
@@ -225,23 +183,57 @@ export default function Instruments() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Dots + counter */}
+
+            {/* Footer section (dots, counter, arrows) */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <div style={{ display: 'flex', gap: '7px', alignItems: 'center' }}>
-                {instruments.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => go(i)}
-                    style={{
-                      width: i === active ? '24px' : '8px',
-                      height: '8px',
-                      borderRadius: '4px',
-                      background: i === active ? 'var(--gold)' : 'rgba(245, 241, 236, 0.18)',
-                      border: 'none', padding: 0, cursor: 'none',
-                      transition: 'all 0.35s ease',
-                    }}
-                  />
-                ))}
+              <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                {/* Dots container */}
+                <div style={{ display: 'flex', gap: '7px', alignItems: 'center' }}>
+                  {instruments.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => go(i)}
+                      style={{
+                        width: i === active ? '24px' : '8px',
+                        height: '8px',
+                        borderRadius: '4px',
+                        background: i === active ? 'var(--gold)' : 'rgba(245, 241, 236, 0.18)',
+                        border: 'none', padding: 0, cursor: 'none',
+                        transition: 'all 0.35s ease',
+                      }}
+                    />
+                  ))}
+                </div>
+
+            {/* Nav arrows */}
+            <div style={{ display: 'flex', gap: '8px', marginLeft: 'auto' }}>
+              {[{ label: '←', fn: prev }, { label: '→', fn: next }].map(({ label, fn }) => (
+                <button
+                  key={label}
+                  onClick={fn}
+                  style={{
+                    width: '42px', height: '42px', borderRadius: '50%',
+                    border: '1.5px solid rgba(245, 241, 236, 0.22)',
+                    background: 'transparent',
+                    color: 'rgba(245, 241, 236, 0.75)', fontSize: '0.9rem',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    cursor: 'none', transition: 'all 0.3s ease', flexShrink: 0,
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.background = 'var(--gold)';
+                    e.currentTarget.style.color = 'var(--text-dark)';
+                    e.currentTarget.style.borderColor = 'var(--gold)';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.color = 'rgba(245, 241, 236, 0.75)';
+                    e.currentTarget.style.borderColor = 'rgba(245, 241, 236, 0.22)';
+                  }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
               </div>
               <span style={{
                 fontFamily: 'var(--font-display)', fontSize: '0.75rem',
@@ -250,6 +242,7 @@ export default function Instruments() {
                 {String(active + 1).padStart(2, '0')} <span style={{ color: 'var(--gold)' }}>/</span> {String(instruments.length).padStart(2, '0')}
               </span>
             </div>
+
           </div>
         </motion.div>
 

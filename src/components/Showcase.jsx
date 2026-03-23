@@ -65,14 +65,7 @@ const Showcase = () => {
           </motion.div>
 
           <div className="showcase-controls">
-            <div className="showcase-nav-arrows">
-              <button onClick={() => { pause(); prev(); }} className="showcase-arrow-btn" aria-label="Previous" data-cursor-hover>
-                <FaChevronLeft size={14} />
-              </button>
-              <button onClick={() => { pause(); next(); }} className="showcase-arrow-btn" aria-label="Next" data-cursor-hover>
-                <FaChevronRight size={14} />
-              </button>
-            </div>
+
             <motion.a
               href="https://www.youtube.com/results?search_query=beat+gurus+bangalore"
               target="_blank"
@@ -148,6 +141,14 @@ const Showcase = () => {
 
       {/* Dots + counter */}
       <div className="showcase-footer">
+        <div className="showcase-nav-arrows" style={{ marginRight: 'auto' }}>
+          <button onClick={() => { pause(); prev(); }} className="showcase-arrow-btn" aria-label="Previous" data-cursor-hover>
+            <FaChevronLeft size={14} />
+          </button>
+          <button onClick={() => { pause(); next(); }} className="showcase-arrow-btn" aria-label="Next" data-cursor-hover>
+            <FaChevronRight size={14} />
+          </button>
+        </div>
         <span className="showcase-counter">
           0{active + 1} <span className="showcase-counter-sep">/</span> 0{projects.length}
         </span>
