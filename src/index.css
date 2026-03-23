@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 /* Fonts loaded via index.html <link> for better performance */
+@font-face {
+  font-family: 'Dh Caloins';
+  src: local('Dh Caloins'),
+       url('/fonts/DhCaloins-Regular.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 
 :root {
   --bg-sand: #F5F1EC;
@@ -12,9 +20,9 @@
   --gold: #D4A72C;
   --earth-red: #6D001A;
   --muted-green: #B5AC8A;
-  --font-main: 'Kalam', cursive;
-  --font-display: 'Kavoon', cursive;
-  --font-accent: 'Kavoon', cursive;
+  --font-main: 'Dh Caloins', 'Outfit', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --font-accent: 'Outfit', sans-serif;
   --section-padding: 140px;
   --container-padding: 5vw;
   --ease-premium: cubic-bezier(0.76, 0, 0.24, 1);
@@ -49,7 +57,6 @@ html, body {
   overflow-x: hidden;
   width: 100vw;
   -webkit-font-smoothing: antialiased;
-  cursor: none;
 }
 
 /* ---- GRAIN TEXTURE ---- */
@@ -113,7 +120,10 @@ body::before {
 /* ---- BASE ---- */
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
-button { cursor: none; }
+
+body.custom-cursor-enabled * {
+  cursor: none;
+}
 
 .container {
   max-width: 1400px;
@@ -254,7 +264,7 @@ p {
   padding: 17px 38px;
   border: none;
   border-radius: 60px;
-  cursor: none;
+  cursor: inherit;
   transition: background 0.3s ease, color 0.3s ease;
 }
 .btn-gold:hover { background: var(--text-dark); color: var(--gold); }
@@ -390,7 +400,7 @@ p {
   font-family: var(--font-main);
   text-transform: uppercase;
   font-weight: 700;
-  cursor: none;
+  cursor: inherit;
   display: flex;
   align-items: center;
   gap: 9px;
@@ -430,7 +440,7 @@ p {
   color: var(--bg-sand);
   width: 48px; height: 48px;
   border-radius: 50%;
-  cursor: none;
+  cursor: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -455,7 +465,7 @@ p {
   padding: 18px 0;
   border-bottom: 1px solid rgba(245, 241, 236, 0.1);
   overflow: hidden;
-  cursor: none;
+  cursor: inherit;
 }
 .menu-nav-item a {
   font-family: var(--font-display);
@@ -747,7 +757,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: none;
+  cursor: inherit;
   transition: all 0.3s var(--ease-premium);
 }
 .showcase-arrow-btn:hover {
@@ -773,7 +783,7 @@ p {
   border-radius: 14px;
   overflow: hidden;
   position: relative;
-  cursor: none;
+  cursor: inherit;
   transition: transform 0.4s var(--ease-premium), opacity 0.4s ease;
   opacity: 0.5;
 }
@@ -892,7 +902,7 @@ p {
   border-radius: 50%;
   border: 1.5px solid var(--text-dark);
   background: transparent;
-  cursor: none;
+  cursor: inherit;
   transition: all 0.35s var(--ease-premium);
   padding: 0;
 }
@@ -954,7 +964,7 @@ p {
   display: flex;
   flex-direction: column;
   position: relative;
-  cursor: none;
+  cursor: inherit;
   transition: transform 0.4s var(--ease-premium), background-color 0.4s ease;
 }
 .service-list-item:hover {
@@ -1077,7 +1087,7 @@ p {
   color: var(--text-dark);
   animation: play-pulse 2.5s ease-in-out infinite;
   transition: transform 0.3s ease;
-  cursor: none;
+  cursor: inherit;
 }
 .play-circle:hover { transform: scale(1.12); }
 @keyframes play-pulse {
@@ -1164,7 +1174,7 @@ p {
   border-bottom: 1px solid rgba(26, 26, 26, 0.18);
   border-right: 1px solid rgba(26, 26, 26, 0.18);
   position: relative;
-  cursor: none;
+  cursor: inherit;
   overflow: hidden;
   transition: background 0.4s ease;
 }
@@ -1335,7 +1345,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: none;
+  cursor: inherit;
   transition: all 0.3s ease;
 }
 
@@ -1373,7 +1383,7 @@ p {
   font-size: 1.1rem;
   transition: border-color 0.3s ease;
   outline: none;
-  cursor: none;
+  cursor: inherit;
 }
 .contact-input::placeholder {
   color: rgba(245, 241, 236, 0.5);
@@ -1388,7 +1398,7 @@ select.contact-input option {
 }
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1) opacity(0.5);
-  cursor: none;
+  cursor: inherit;
 }
 
 /* ================================================================
