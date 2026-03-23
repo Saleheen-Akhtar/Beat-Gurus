@@ -152,7 +152,15 @@ export default function Instruments() {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                style={{ flex: 1, paddingTop: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={(e, { offset, velocity }) => {
+                  if (offset.x < -40) next();
+                  else if (offset.x > 40) prev();
+                }}
+                style={{ flex: 1, paddingTop: '24px', display: 'flex', flexDirection: 'column', gap: '12px', cursor: 'grab' }}
+                whileTap={{ cursor: 'grabbing' }}
               >
                 <span style={{
                   display: 'inline-block', alignSelf: 'flex-start',
