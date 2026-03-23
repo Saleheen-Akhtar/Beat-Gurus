@@ -1712,3 +1712,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: var(--text-dark);
   border-color: var(--gold);
 }
+
+/* Fix WebKit Date Input Color on Mobile */
+input[type="date"].contact-input {
+  color: var(--bg-sand);
+}
+input[type="date"].contact-input::-webkit-datetime-edit-fields-wrapper {
+  color: var(--bg-sand);
+}
+input[type="date"].contact-input::-webkit-datetime-edit-text {
+  color: var(--bg-sand);
+}
+input[type="date"].contact-input::-webkit-datetime-edit-month-field {
+  color: var(--bg-sand);
+}
+input[type="date"].contact-input::-webkit-datetime-edit-day-field {
+  color: var(--bg-sand);
+}
+input[type="date"].contact-input::-webkit-datetime-edit-year-field {
+  color: var(--bg-sand);
+}
