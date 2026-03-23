@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
 
 const shows = [
@@ -31,14 +31,15 @@ const shows = [
 
 const ShowRow = ({ show, index }) => {
   const ref = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
   });
 
-  const yImg = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
-  const opacityText = useTransform(scrollYProgress, [0.2, 0.5, 0.8], [0, 1, 0]);
-  const yText = useTransform(scrollYProgress, [0.2, 0.8], ["40px", "-40px"]);
+  const yImg = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? ["0%", "0%"] : ["-15%", "15%"]);
+  const opacityText = useTransform(scrollYProgress, [0.2, 0.5, 0.8], shouldReduceMotion ? [1, 1, 1] : [0, 1, 0]);
+  const yText = useTransform(scrollYProgress, [0.2, 0.8], shouldReduceMotion ? ["0px", "0px"] : ["40px", "-40px"]);
 
   const isLeft = show.align === 'left';
 
@@ -50,6 +51,8 @@ const ShowRow = ({ show, index }) => {
           src={show.img}
           alt={show.title}
           className="showtype-img"
+          loading="lazy"
+          decoding="async"
         />
         <div className="showtype-img-overlay" />
       </div>
@@ -66,7 +69,7 @@ const ShowRow = ({ show, index }) => {
           href={show.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-outline showtype-btn"
+          className="btn-outline"
           data-cursor-hover
         >
           View Media <FaArrowRight size={12} style={{ marginLeft: '8px' }} />
@@ -88,7 +91,7 @@ const ShowTypes = () => {
           transition={{ duration: 0.7 }}
           className="showtypes-header"
         >
-          <p className="section-eyebrow">04 Experience Sets</p>
+          <p className="section-eyebrow">04 {shows.length} Experience {shows.length === 1 ? 'Set' : 'Sets'}</p>
           <h2>TYPES OF <span style={{ color: 'var(--gold)' }}>SHOWS</span></h2>
         </motion.div>
 

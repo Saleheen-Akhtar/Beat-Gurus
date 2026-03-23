@@ -46,7 +46,7 @@ html, body {
   background-color: var(--bg-sand);
   color: var(--text-dark);
   font-family: var(--font-main);
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100vw;
   -webkit-font-smoothing: antialiased;
 }
@@ -867,13 +867,23 @@ p {
 
 /* Footer: counter + dots + progress */
 .showcase-footer {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: center;
   gap: 24px;
   margin-top: 32px;
   padding: 0 var(--container-padding);
 }
+.showcase-nav-arrows {
+  justify-self: start;
+}
+.showcase-footer > :nth-child(2) {
+  justify-self: center;
+}
+.showcase-footer > :last-child {
+  justify-self: end;
+}
+
 .showcase-counter {
   font-family: var(--font-display);
   font-size: 1rem;
@@ -1468,7 +1478,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
   .showcase-card-info { padding: 24px; }
   .showcase-card-title { font-size: clamp(1.6rem, 6vw, 2.5rem); }
-  .showcase-footer { gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .showcase-footer { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
   .showcase-progress-track { width: 80px; }
 
   /* Services */
@@ -1680,39 +1690,25 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 
-/* ================================================================
-   SERVICES (Independent Scroll Box Fix)
-================================================================ */
-@media (min-width: 769px) {
-  .services-grid {
-    height: 70vh; /* Set a constrained height for the section */
-    max-height: 800px;
-    align-items: stretch; /* Make both columns fill the height */
-  }
 
-  .services-sticky-col {
-    position: sticky;
-    top: 140px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Center the text vertically */
-  }
 
-  .services-list-col {
-    height: 100%;
-    overflow-y: auto; /* Enable independent vertical scrolling */
-    scrollbar-width: none; /* Hide scrollbar Firefox */
-    -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
-    padding-right: 20px; /* Prevent text from touching the edge */
-
-    /* Add gradient masks to indicate scrollability (optional but looks nice) */
-    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-  }
-
-  /* Hide scrollbar Chrome/Safari/Webkit */
-  .services-list-col::-webkit-scrollbar {
-    display: none;
-  }
+.instrument-nav-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(245, 241, 236, 0.22);
+  background: transparent;
+  color: rgba(245, 241, 236, 0.75);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+.instrument-nav-btn:hover {
+  background: var(--gold);
+  color: var(--text-dark);
+  border-color: var(--gold);
 }
