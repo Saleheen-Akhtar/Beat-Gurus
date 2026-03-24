@@ -21,7 +21,12 @@ const Contact = () => {
       const params = new URLSearchParams(window.location.search);
       const eventParam = params.get('event');
       if (eventParam) {
-        setFormData(prev => ({ ...prev, eventType: eventParam }));
+        const validEventTitles = services.map(service => service.title);
+        const isValidEvent = validEventTitles.includes(eventParam) || eventParam === 'Other';
+        setFormData(prev => ({
+          ...prev,
+          eventType: isValidEvent ? eventParam : ''
+        }));
       }
     };
 
@@ -30,9 +35,12 @@ const Contact = () => {
 
     // Listen for custom urlchange event from Services section click
     window.addEventListener('urlchange', parseEventParam);
+    // Also listen for browser history navigations (back/forward)
+    window.addEventListener('popstate', parseEventParam);
 
     return () => {
       window.removeEventListener('urlchange', parseEventParam);
+      window.removeEventListener('popstate', parseEventParam);
     };
   }, []);
   const [submitState, setSubmitState] = useState({ loading: false, message: '', error: false });
