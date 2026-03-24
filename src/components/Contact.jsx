@@ -3,6 +3,9 @@ import { motion } from 'framer-motion';
 import { services } from './Services';
 import { FaInstagram, FaFacebookF, FaYoutube } from 'react-icons/fa';
 
+const validEventTitlesSet = new Set(services.map(s => s.title));
+validEventTitlesSet.add('Other');
+
 const Contact = () => {
   const CONTACT_API_URL = import.meta.env.VITE_CONTACT_API_URL || '/api/contact';
   const [formData, setFormData] = useState({
@@ -20,14 +23,11 @@ const Contact = () => {
     const parseEventParam = () => {
       const params = new URLSearchParams(window.location.search);
       const eventParam = params.get('event');
-      if (eventParam) {
-        const validEventTitles = services.map(service => service.title);
-        const isValidEvent = validEventTitles.includes(eventParam) || eventParam === 'Other';
-        setFormData(prev => ({
-          ...prev,
-          eventType: isValidEvent ? eventParam : ''
-        }));
-      }
+
+      setFormData(prev => ({
+        ...prev,
+        eventType: (eventParam && validEventTitlesSet.has(eventParam)) ? eventParam : ''
+      }));
     };
 
     // Run on initial mount
