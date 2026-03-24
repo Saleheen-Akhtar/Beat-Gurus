@@ -153,10 +153,9 @@ const Contact = () => {
                 <div style={{ flex: '1 1 200px' }}>
                   <select name="eventType" value={formData.eventType} onChange={handleChange} required className="contact-input" style={{ appearance: 'none' }}>
                     <option value="" disabled>Select Event Type</option>
-                    <option value="Music Festival">Music Festival</option>
-                    <option value="Corporate Gala">Corporate Gala</option>
-                    <option value="Wedding">Wedding</option>
-                    <option value="Private Event">Private Event</option>
+                    {services.map((s) => (
+                      <option key={s.title} value={s.title}>{s.title}</option>
+                    ))}
                     <option value="Other">Other</option>
                   </select>
                 </div>
