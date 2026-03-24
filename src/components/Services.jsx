@@ -71,14 +71,25 @@ const Services = () => {
                     href="#contact"
                     className="service-list-link"
                     onClick={(e) => {
-                      if (typeof window !== 'undefined') {
-                        const newUrl = new URL(window.location);
-                        newUrl.searchParams.set('event', s.title);
-                        newUrl.hash = '#contact';
-                        window.history.pushState({}, '', newUrl);
-                        // Dispatch a custom event so Contact.jsx knows the URL changed without a reload
-                        window.dispatchEvent(new Event('urlchange'));
+                      if (typeof window === 'undefined') return;
+                      // Only handle normal left-clicks without modifier keys.
+                      if (
+                        e.button !== 0 || // not a left-click
+                        e.metaKey ||      // cmd-click
+                        e.ctrlKey ||      // ctrl-click
+                        e.shiftKey ||     // shift-click
+                        e.altKey ||       // alt-click
+                        e.defaultPrevented
+                      ) {
+                        return; // Let the browser handle modified / non-left clicks (e.g., open in new tab).
                       }
+
+                      const newUrl = new URL(window.location);
+                      newUrl.searchParams.set('event', s.title);
+                      newUrl.hash = '#contact';
+                      window.history.pushState({}, '', newUrl);
+                      // Dispatch a custom event so Contact.jsx knows the URL changed without a reload
+                      window.dispatchEvent(new Event('urlchange'));
                     }}
                   >
                     Discuss Project <FaArrowRight size={12} className="arrow-icon" />
