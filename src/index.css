@@ -1218,7 +1218,7 @@ p {
   padding: var(--section-padding) 0;
   overflow: hidden;
   position: relative;
-  background-color: var(--bg-sand-dark); /* Subtle contrast to the main sand background */
+  background-color: var(--bg-sand); /* Subtle contrast to the main sand background */
 }
 
 /* Floating background text */

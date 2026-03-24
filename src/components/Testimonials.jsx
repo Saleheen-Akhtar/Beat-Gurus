@@ -68,7 +68,7 @@ const TestimonialsColumn = (props) => {
   return (
     <div className={props.className}>
       <motion.div
-        animate={shouldReduceMotion ? { y: 0 } : { y: "-50%" }}
+        animate={shouldReduceMotion ? { y: 0 } : { y: ["0%", "-50%"] }}
         transition={
           shouldReduceMotion
           ? { duration: 0 }
