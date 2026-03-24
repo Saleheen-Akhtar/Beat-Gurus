@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { services } from './Services';
 import { FaInstagram, FaFacebookF, FaYoutube } from 'react-icons/fa';
 
 const Contact = () => {
