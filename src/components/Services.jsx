@@ -67,7 +67,20 @@ const Services = () => {
                   <h3 className="service-list-title">{s.title}</h3>
                   <p className="service-list-desc">{s.desc}</p>
 
-                  <a href={`?event=${encodeURIComponent(s.title)}#contact`} className="service-list-link">
+                  <a
+                    href="#contact"
+                    className="service-list-link"
+                    onClick={(e) => {
+                      if (typeof window !== 'undefined') {
+                        const newUrl = new URL(window.location);
+                        newUrl.searchParams.set('event', s.title);
+                        newUrl.hash = '#contact';
+                        window.history.pushState({}, '', newUrl);
+                        // Dispatch a custom event so Contact.jsx knows the URL changed without a reload
+                        window.dispatchEvent(new Event('urlchange'));
+                      }
+                    }}
+                  >
                     Discuss Project <FaArrowRight size={12} className="arrow-icon" />
                   </a>
                 </motion.div>

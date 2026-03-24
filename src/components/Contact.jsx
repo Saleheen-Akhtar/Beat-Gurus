@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { services } from './Services';
 import { FaInstagram, FaFacebookF, FaYoutube } from 'react-icons/fa';
@@ -15,6 +15,26 @@ const Contact = () => {
     message: '',
     website: ''
   });
+
+  useEffect(() => {
+    const parseEventParam = () => {
+      const params = new URLSearchParams(window.location.search);
+      const eventParam = params.get('event');
+      if (eventParam) {
+        setFormData(prev => ({ ...prev, eventType: eventParam }));
+      }
+    };
+
+    // Run on initial mount
+    parseEventParam();
+
+    // Listen for custom urlchange event from Services section click
+    window.addEventListener('urlchange', parseEventParam);
+
+    return () => {
+      window.removeEventListener('urlchange', parseEventParam);
+    };
+  }, []);
   const [submitState, setSubmitState] = useState({ loading: false, message: '', error: false });
 
   const handleChange = (e) => {
