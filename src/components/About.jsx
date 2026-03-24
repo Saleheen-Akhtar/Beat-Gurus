@@ -6,7 +6,7 @@ const tags = ['BBC World Award', 'Norway Cultural Evening', 'Wine Festivals', 'C
 const stats = [
   { end: 20, suffix: '+', label: 'Years', desc: 'Two decades of live performance, refining the craft on stages worldwide.' },
   { end: 25, suffix: '+', label: 'Countries', desc: 'From Bangalore to Oslo, our rhythm speaks every language.' },
-  { end: 500, suffix: '+', label: 'Shows', desc: 'Corporate galas, festivals, weddings — each one unforgettable.' },
+  { end: 500, suffix: '+', label: 'Shows', desc: 'Corporate galas, festivals, weddings, each one unforgettable.' },
 ];
 
 const CountUp = ({ end, suffix, inView }) => {
@@ -75,7 +75,7 @@ const About = () => {
           <h3>Born in Bangalore,<br />Heard Worldwide.</h3>
           <p>
             Founded by <strong style={{ color: 'var(--text-dark)' }}>Ganesh Govindswamy</strong>, <span className="font-brand-name">Beat Gurus</span> channels the captivating
-            power of the <em>Djembe</em> — a traditional hand drum from West Africa —
+            power of the <em>Djembe</em>, a traditional hand drum from West Africa,
             blended with rich Indian rhythmic heritage.
           </p>
           <p>

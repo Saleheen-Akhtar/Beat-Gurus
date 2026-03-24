@@ -30,7 +30,7 @@ const Services = () => (
               <span style={{ color: 'var(--gold)' }}>OFFERINGS</span>
             </h2>
             <p className="services-intro-text">
-              We bring raw acoustic energy to every stage. No backing tracks, no synthesizers—just pure, driving rhythm tailored for your audience.
+              We bring raw acoustic energy to every stage. No backing tracks, no synthesizers, just pure, driving rhythm tailored for your audience.
             </p>
           </motion.div>
         </div>
