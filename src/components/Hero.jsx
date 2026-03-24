@@ -124,7 +124,7 @@ const Hero = () => {
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator — right side */}
+      {/* Scroll indicator - right side */}
       <motion.div
         className="hero-scroll-indicator"
         initial={{ opacity: 0 }} animate={{ opacity: 1 }}
