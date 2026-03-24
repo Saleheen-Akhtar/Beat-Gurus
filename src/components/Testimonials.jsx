@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 const testimonials = [
   {
@@ -63,27 +63,35 @@ const secondColumn = testimonials.slice(3, 6);
 const thirdColumn = testimonials.slice(6, 9);
 
 const TestimonialsColumn = (props) => {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <div className={props.className}>
       <motion.div
-        animate={{
-          translateY: "-50%",
-        }}
-        transition={{
-          duration: props.duration || 10,
-          repeat: Infinity,
-          ease: "linear",
-          repeatType: "loop",
-        }}
+        animate={shouldReduceMotion ? { y: 0 } : { y: "-50%" }}
+        transition={
+          shouldReduceMotion
+          ? { duration: 0 }
+          : {
+              duration: props.duration || 10,
+              repeat: Infinity,
+              ease: "linear",
+              repeatType: "loop",
+            }
+        }
         className="flex flex-col gap-6 pb-6"
       >
         {[
-          ...new Array(2).fill(0).map((_, index) => (
+          ...new Array(shouldReduceMotion ? 1 : 2).fill(0).map((_, index) => (
             <React.Fragment key={index}>
               {props.testimonials.map(({ text, image, name, role }, i) => (
                 <div
-                  className="p-10 rounded-3xl border border-[var(--gold)]/20 shadow-lg bg-[#1A1A1A] max-w-xs w-full"
-                  style={{ boxShadow: "0 10px 30px -10px rgba(212, 167, 44, 0.1)" }}
+                  aria-hidden={index === 1 ? "true" : "false"}
+                  className="p-10 rounded-3xl border shadow-lg bg-[var(--text-dark)] max-w-xs w-full"
+                  style={{
+                    borderColor: 'rgba(212, 167, 44, 0.2)',
+                    boxShadow: "0 10px 30px -10px rgba(212, 167, 44, 0.1)"
+                  }}
                   key={i}
                 >
                   <div className="text-[var(--bg-sand)] opacity-90">{text}</div>
@@ -93,7 +101,10 @@ const TestimonialsColumn = (props) => {
                       height={40}
                       src={image}
                       alt={name}
-                      className="h-10 w-10 rounded-full object-cover border border-[var(--gold)]/40"
+                      loading="lazy"
+                      decoding="async"
+                      className="h-10 w-10 rounded-full object-cover border"
+                      style={{ borderColor: 'rgba(212, 167, 44, 0.4)' }}
                     />
                     <div className="flex flex-col">
                       <div className="font-medium tracking-tight leading-5 text-[var(--gold)]">
@@ -116,6 +127,7 @@ const TestimonialsColumn = (props) => {
 
 const Testimonials = () => {
   const sectionRef = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
@@ -123,32 +135,31 @@ const Testimonials = () => {
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
 
   return (
-    <section ref={sectionRef} className="testimonials-section relative my-20 pt-32 pb-32 overflow-hidden">
+    <section ref={sectionRef} className="testimonials-section relative overflow-hidden">
       {/* Floating background text */}
-      <motion.div className="testi-bg-text" style={{ y: bgY, opacity: 0.05, position: 'absolute', top: '20%', left: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap', zIndex: 0, pointerEvents: 'none' }}>
+      <motion.div
+        className="testi-bg-text absolute top-[20%] left-1/2 -translate-x-1/2 whitespace-nowrap z-0 pointer-events-none"
+        style={{ y: shouldReduceMotion ? 0 : bgY, opacity: 0.05 }}
+      >
         VOICES
       </motion.div>
 
-      <div className="container relative z-10 mx-auto px-4 md:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true, margin: '-100px' }}
-          className="flex flex-col items-center justify-center max-w-[640px] mx-auto mb-16"
-        >
-          <div className="flex justify-center mb-4">
+      <div className="container relative z-10 mx-auto">
+        <div className="testi-header-row mb-12">
+          <motion.div
+            className="testi-header"
+            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-120px' }}
+            transition={{ duration: 0.7 }}
+          >
             <p className="section-eyebrow">06 Voices</p>
-          </div>
-
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter text-center" style={{ margin: 0 }}>
-            SUCCESS <br className="hidden sm:block" />
-            <span style={{ color: 'var(--gold)' }}>STORIES</span>
-          </h2>
-          <p className="text-center mt-6 text-lg opacity-80 max-w-lg mx-auto" style={{ color: 'var(--text-grey)' }}>
-            See what our clients have to say about the pure acoustic energy of Beat Gurus.
-          </p>
-        </motion.div>
+            <h2 style={{ margin: 0 }}>
+              SUCCESS <br />
+              <span style={{ color: 'var(--gold)' }}>STORIES</span>
+            </h2>
+          </motion.div>
+        </div>
 
         <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] h-[650px] overflow-hidden">
           <TestimonialsColumn testimonials={firstColumn} duration={35} />
