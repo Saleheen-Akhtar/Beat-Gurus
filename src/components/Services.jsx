@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
 
 const services = [
@@ -11,58 +11,70 @@ const services = [
   { title: 'Gather & Groove', desc: 'Community drumming circles for all skill levels. A space for expression, connection, and pure joy through shared acoustic rhythms.', tag: 'Experience' },
 ];
 
-const Services = () => (
-  <section id="services" className="services-section">
-    <div className="container">
-      <div className="services-grid">
-        {/* Left Side: Sticky Header */}
-        <div className="services-sticky-col">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-120px' }}
-            transition={{ duration: 0.7 }}
-            className="services-header-wrap"
-          >
-            <p className="section-eyebrow">03 Our Offerings</p>
-            <h2 style={{ margin: 0 }}>
-              OUR <br />
-              <span style={{ color: 'var(--gold)' }}>OFFERINGS</span>
-            </h2>
-            <p className="services-intro-text">
-              We bring raw acoustic energy to every stage. No backing tracks, no synthesizers, just pure, driving rhythm tailored for your audience.
-            </p>
-          </motion.div>
-        </div>
+const Services = () => {
+  const containerRef = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
 
-        {/* Right Side: Scrolling List */}
-        <div className="services-list-col">
-          {services.map((s, i) => (
-            <motion.div
-              key={i}
-              className="service-list-item"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="service-list-top">
-                <span className="service-list-num">0{i + 1}</span>
-                <span className="service-list-tag">{s.tag}</span>
-              </div>
+  // Calculate dynamic transform based on scroll progress to slide list up
+  // Starting offscreen (hidden at bottom) and moving up
+  const yList = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? ["0%", "0%"] : ["100vh", "-60%"]);
+  const opacityList = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], shouldReduceMotion ? [1, 1, 1, 1] : [0, 1, 1, 0.5]);
 
-              <h3 className="service-list-title">{s.title}</h3>
-              <p className="service-list-desc">{s.desc}</p>
+  return (
+    <section id="services" className="services-section" ref={containerRef} style={{ height: '300vh', position: 'relative' }}>
+      <div className="services-sticky-container" style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
+        <div className="container" style={{ width: '100%' }}>
+          <div className="services-grid">
+            {/* Left Side: Static Header */}
+            <div className="services-sticky-col" style={{ position: 'relative', top: 'auto' }}>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-120px' }}
+                transition={{ duration: 0.7 }}
+                className="services-header-wrap"
+              >
+                <p className="section-eyebrow">03 Our Offerings</p>
+                <h2 style={{ margin: 0 }}>
+                  OUR <br />
+                  <span style={{ color: 'var(--gold)' }}>OFFERINGS</span>
+                </h2>
+                <p className="services-intro-text">
+                  We bring raw acoustic energy to every stage. No backing tracks, no synthesizers, just pure, driving rhythm tailored for your audience.
+                </p>
+              </motion.div>
+            </div>
 
-              <a href="#contact" className="service-list-link">
-                Discuss Project <FaArrowRight size={12} className="arrow-icon" />
-              </a>
+            {/* Right Side: Scrolling List Animated via Scroll */}
+            <motion.div className="services-list-col" style={{ y: yList, opacity: opacityList, maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)', paddingBottom: '20vh', paddingTop: '20vh' }}>
+              {services.map((s, i) => (
+                <div
+                  key={i}
+                  className="service-list-item"
+                >
+                  <div className="service-list-top">
+                    <span className="service-list-num">0{i + 1}</span>
+                    <span className="service-list-tag">{s.tag}</span>
+                  </div>
+
+                  <h3 className="service-list-title">{s.title}</h3>
+                  <p className="service-list-desc">{s.desc}</p>
+
+                  <a href="#contact" className="service-list-link">
+                    Discuss Project <FaArrowRight size={12} className="arrow-icon" />
+                  </a>
+                </div>
+              ))}
             </motion.div>
-          ))}
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default Services;
