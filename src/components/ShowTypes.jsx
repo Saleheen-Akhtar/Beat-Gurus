@@ -37,14 +37,27 @@ const ShowRow = ({ show, index }) => {
     offset: ["start end", "end start"]
   });
 
-  const yImg = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? ["0%", "0%"] : ["-15%", "15%"]);
-  const opacityText = useTransform(scrollYProgress, [0.2, 0.5, 0.8], shouldReduceMotion ? [1, 1, 1] : [0, 1, 0]);
-  const yText = useTransform(scrollYProgress, [0.2, 0.8], shouldReduceMotion ? ["0px", "0px"] : ["40px", "-40px"]);
-
   const isLeft = show.align === 'left';
 
+  const yImg = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? ["0%", "0%"] : ["-15%", "15%"]);
+
+  // Animation tied to scroll for coming from left/right
+  const xContainer = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    shouldReduceMotion
+      ? ["0vw", "0vw", "0vw"]
+      : (isLeft ? ["-20vw", "0vw", "10vw"] : ["20vw", "0vw", "-10vw"])
+  );
+
+  const opacityContainer = useTransform(scrollYProgress, [0.1, 0.4, 0.6, 0.9], [0, 1, 1, 0]);
+
   return (
-    <div ref={ref} className={`showtype-row ${isLeft ? 'align-left' : 'align-right'}`}>
+    <motion.div
+      ref={ref}
+      className={`showtype-row ${isLeft ? 'align-left' : 'align-right'}`}
+      style={{ x: xContainer, opacity: opacityContainer }}
+    >
       <div className="showtype-img-wrapper">
         <motion.img
           style={{ y: yImg }}
@@ -55,12 +68,26 @@ const ShowRow = ({ show, index }) => {
           decoding="async"
         />
         <div className="showtype-img-overlay" />
+
+        {/* Mobile Content Overlay */}
+        <div className="showtype-content-mobile">
+          <span className="showtype-num">0{index + 1}</span>
+          <h3 className="showtype-title">{show.title}</h3>
+          <p className="showtype-desc">{show.desc}</p>
+          <a
+            href={show.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline mobile-btn"
+            data-cursor-hover
+          >
+            View Media <FaArrowRight size={12} style={{ marginLeft: '8px' }} />
+          </a>
+        </div>
       </div>
 
-      <motion.div
-        className="showtype-content"
-        style={{ opacity: opacityText, y: yText }}
-      >
+      {/* Desktop Content */}
+      <div className="showtype-content showtype-content-desktop">
         <span className="showtype-num">0{index + 1}</span>
         <h3 className="showtype-title">{show.title}</h3>
         <p className="showtype-desc">{show.desc}</p>
@@ -74,15 +101,15 @@ const ShowRow = ({ show, index }) => {
         >
           View Media <FaArrowRight size={12} style={{ marginLeft: '8px' }} />
         </a>
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   );
 };
 
 const ShowTypes = () => {
   return (
     <section id="showtypes" className="showtypes-section">
-      <div className="container">
+      <div className="container" style={{ overflowX: 'hidden' }}>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
