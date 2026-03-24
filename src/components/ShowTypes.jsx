@@ -50,7 +50,7 @@ const ShowRow = ({ show, index }) => {
       : (isLeft ? ["-20vw", "0vw", "10vw"] : ["20vw", "0vw", "-10vw"])
   );
 
-  const opacityContainer = useTransform(scrollYProgress, [0.1, 0.4, 0.6, 0.9], [0, 1, 1, 0]);
+  const opacityContainer = useTransform(scrollYProgress, [0.1, 0.4, 0.6, 0.9], shouldReduceMotion ? [1, 1, 1, 1] : [0, 1, 1, 0]);
 
   return (
     <motion.div
@@ -109,7 +109,7 @@ const ShowRow = ({ show, index }) => {
 const ShowTypes = () => {
   return (
     <section id="showtypes" className="showtypes-section">
-      <div className="container" style={{ overflowX: 'hidden' }}>
+      <div className="container">
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}

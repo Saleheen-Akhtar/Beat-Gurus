@@ -575,7 +575,10 @@ p {
   text-transform: uppercase;
   letter-spacing: 5px;
   color: var(--text-grey);
-  margin-top: 28px;
+  margin: 28px auto 0;
+  max-width: 800px;
+  line-height: 1.6;
+  white-space: normal;
 }
 .hero-buttons {
   display: flex;
@@ -1599,6 +1602,47 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   transform-origin: center;
   will-change: transform;
 }
+.showtype-img-overlay {
+    background: linear-gradient(to top, rgba(26,26,26,0.95) 0%, rgba(26,26,26,0.5) 40%, rgba(26,26,26,0.1) 100%);
+    z-index: 1;
+  }
+  .showtype-content-desktop {
+    display: none;
+  }
+  .showtype-content-mobile {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 24px 20px;
+    z-index: 2;
+    align-items: flex-start;
+  }
+  .showtype-content-mobile .showtype-num {
+    color: var(--gold);
+    opacity: 0.8;
+    font-size: 3rem;
+    margin-bottom: 5px;
+  }
+  .showtype-content-mobile .showtype-title {
+    color: var(--bg-sand);
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+  }
+  .showtype-content-mobile .showtype-desc {
+    color: rgba(245, 241, 236, 0.85);
+    font-size: 1rem;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .mobile-btn {
+    border-color: rgba(245, 241, 236, 0.4) !important;
+    color: var(--bg-sand) !important;
+  }
+
+
 
 /* ================================================================
    INSTRUMENTS SLIDER
@@ -1733,43 +1777,5 @@ input[type="date"].contact-input::-webkit-datetime-edit-year-field {
     border-radius: 12px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.3);
   }
-  .showtype-img-overlay {
-    background: linear-gradient(to top, rgba(26,26,26,0.95) 0%, rgba(26,26,26,0.5) 40%, rgba(26,26,26,0.1) 100%);
-    z-index: 1;
-  }
-  .showtype-content-desktop {
-    display: none;
-  }
-  .showtype-content-mobile {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 24px 20px;
-    z-index: 2;
-    align-items: flex-start;
-  }
-  .showtype-content-mobile .showtype-num {
-    color: var(--gold);
-    opacity: 0.8;
-    font-size: 3rem;
-    margin-bottom: 5px;
-  }
-  .showtype-content-mobile .showtype-title {
-    color: var(--bg-sand);
-    font-size: 2.2rem;
-    margin-bottom: 12px;
-  }
-  .showtype-content-mobile .showtype-desc {
-    color: rgba(245, 241, 236, 0.85);
-    font-size: 1rem;
-    margin-bottom: 24px;
-    line-height: 1.5;
-  }
-  .mobile-btn {
-    border-color: rgba(245, 241, 236, 0.4) !important;
-    color: var(--bg-sand) !important;
-  }
+
 }

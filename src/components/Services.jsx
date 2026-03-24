@@ -20,8 +20,8 @@ const Services = () => {
   });
 
   // Calculate dynamic transform based on scroll progress to slide list up
-  // Starting offscreen (hidden at bottom) and moving up
-  const yList = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? ["0%", "0%"] : ["100vh", "-60%"]);
+  // Consistent units (vh) to avoid interpolation issues.
+  const yList = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? ["0vh", "0vh"] : ["80vh", "-80vh"]);
   const opacityList = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], shouldReduceMotion ? [1, 1, 1, 1] : [0, 1, 1, 0.5]);
 
   return (
@@ -30,11 +30,11 @@ const Services = () => {
         <div className="container" style={{ width: '100%' }}>
           <div className="services-grid">
             {/* Left Side: Static Header */}
-            <div className="services-sticky-col" style={{ position: 'relative', top: 'auto' }}>
+            <div className="services-sticky-col">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-120px' }}
+                viewport={{ once: false, margin: '1000px' }}
                 transition={{ duration: 0.7 }}
                 className="services-header-wrap"
               >
