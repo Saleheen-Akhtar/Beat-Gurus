@@ -67,7 +67,7 @@ const Services = () => {
                   <h3 className="service-list-title">{s.title}</h3>
                   <p className="service-list-desc">{s.desc}</p>
 
-                  <a href={`#contact?event=${encodeURIComponent(s.title)}`} className="service-list-link">
+                  <a href={`?event=${encodeURIComponent(s.title)}#contact`} className="service-list-link">
                     Discuss Project <FaArrowRight size={12} className="arrow-icon" />
                   </a>
                 </motion.div>
