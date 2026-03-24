@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import React from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
 
 const services = [
@@ -12,29 +12,28 @@ const services = [
 ];
 
 const Services = () => {
-  const containerRef = useRef(null);
   const shouldReduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
 
-  // Calculate dynamic transform based on scroll progress to slide list up
-  // Starting offscreen (hidden at bottom) and moving up
-  const yList = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? ["0%", "0%"] : ["100vh", "-60%"]);
-  const opacityList = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], shouldReduceMotion ? [1, 1, 1, 1] : [0, 1, 1, 0.5]);
+  // Animation variants for the list items
+  const itemVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    }
+  };
 
   return (
-    <section id="services" className="services-section" ref={containerRef} style={{ height: '300vh', position: 'relative' }}>
-      <div className="services-sticky-container" style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
+    <section id="services" className="services-section" style={{ padding: '120px 0', position: 'relative' }}>
         <div className="container" style={{ width: '100%' }}>
-          <div className="services-grid">
-            {/* Left Side: Static Header */}
-            <div className="services-sticky-col" style={{ position: 'relative', top: 'auto' }}>
+          <div className="services-grid" style={{ alignItems: 'start' }}>
+            {/* Left Side: Sticky Header */}
+            <div className="services-sticky-col" style={{ position: 'sticky', top: '150px', height: 'max-content' }}>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-120px' }}
+                viewport={{ once: true, margin: '-10%' }}
                 transition={{ duration: 0.7 }}
                 className="services-header-wrap"
               >
@@ -49,12 +48,16 @@ const Services = () => {
               </motion.div>
             </div>
 
-            {/* Right Side: Scrolling List Animated via Scroll */}
-            <motion.div className="services-list-col" style={{ y: yList, opacity: opacityList, maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)', paddingBottom: '20vh', paddingTop: '20vh' }}>
+            {/* Right Side: Scrolling List */}
+            <div className="services-list-col">
               {services.map((s, i) => (
-                <div
+                <motion.div
                   key={i}
                   className="service-list-item"
+                  variants={itemVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: '-10%' }}
                 >
                   <div className="service-list-top">
                     <span className="service-list-num">0{i + 1}</span>
@@ -67,12 +70,11 @@ const Services = () => {
                   <a href="#contact" className="service-list-link">
                     Discuss Project <FaArrowRight size={12} className="arrow-icon" />
                   </a>
-                </div>
+                </motion.div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </div>
-      </div>
     </section>
   );
 };

@@ -1481,7 +1481,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   /* Services */
   .services-grid { grid-template-columns: 1fr; gap: 40px; }
-  .services-sticky-col { position: relative; top: 0; }
+  .services-sticky-col { position: relative !important; top: 0 !important; }
   .service-list-item:hover {
     padding-left: 0;
     padding-right: 0;
