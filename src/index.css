@@ -19,7 +19,7 @@
   --container-padding: 5vw;
   --ease-premium: cubic-bezier(0.76, 0, 0.24, 1);
 
-  /* shadcn CSS variables — space-separated RGB channels for Tailwind v3 opacity modifiers */
+  /* shadcn CSS variables space-separated RGB channels for Tailwind v3 opacity modifiers */
   --background: 245 241 236;
   --foreground: 26 26 26;
   --card: 181 172 138;

@@ -56,7 +56,7 @@ export function HoverDetailCard({
       animate="visible"
       variants={shouldAnimate ? containerVariants : {}}
     >
-      {/* Card shell — dark editorial */}
+      {/* Card shell dark editorial */}
       <div
         style={{
           background: "var(--text-dark)",
@@ -168,7 +168,7 @@ export function HoverDetailCard({
             )}
           </AnimatePresence>
 
-          {/* Index badge — top left */}
+          {/* Index badge top left */}
           <div
             style={{
               position: "absolute",

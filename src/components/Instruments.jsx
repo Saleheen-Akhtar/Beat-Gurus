@@ -4,14 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 const instruments = [
   {
     title: 'Djembe',
-    subtitle: 'The heartbeat of West Africa — driving rhythms that move the crowd and shake the earth.',
+    subtitle: 'The heartbeat of West Africa, driving rhythms that move the crowd and shake the earth.',
     category: 'Percussion',
     index: '/01',
     image: 'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=1000&h=700&fit=crop',
   },
   {
     title: 'Didgeridoo',
-    subtitle: 'Ancient drone tones from the Australian outback — 40,000 years of living sound.',
+    subtitle: 'Ancient drone tones from the Australian outback, 40,000 years of living sound.',
     category: 'Wind',
     index: '/02',
     image: 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=1000&h=700&fit=crop',
@@ -32,7 +32,7 @@ const instruments = [
   },
   {
     title: 'Cajon',
-    subtitle: 'Peruvian box drum — versatile, punchy, and undeniably soulful in every strike.',
+    subtitle: 'Peruvian box drum, versatile, punchy, and undeniably soulful in every strike.',
     category: 'Acoustic',
     index: '/05',
     image: 'https://images.unsplash.com/photo-1520638515053-ec54ec35f524?w=1000&h=700&fit=crop',
@@ -96,7 +96,7 @@ export default function Instruments() {
           transition={{ duration: 0.7, delay: 0.15 }}
           className="instrument-slider-card"
         >
-          {/* Left — image pane */}
+          {/* Left image pane */}
           <div style={{ position: 'relative', overflow: 'hidden' }}>
             <AnimatePresence initial={false} custom={dir} mode="wait">
               <motion.img
@@ -139,7 +139,7 @@ export default function Instruments() {
             </div>
           </div>
 
-          {/* Right — info pane */}
+          {/* Right info pane */}
           <div className="instrument-info-pane">
 
 
