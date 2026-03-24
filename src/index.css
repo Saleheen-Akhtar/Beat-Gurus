@@ -935,7 +935,7 @@ p {
 /* ================================================================
    SERVICES (Sticky Scroll Layout)
 ================================================================ */
-.services-section { /* Scroll height handled inline */ }
+.services-section { padding: var(--section-padding, 120px) 0; }
 .services-grid { height: 100%;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -943,6 +943,8 @@ p {
   align-items: start;
 }
 .services-sticky-col {
+  position: sticky;
+  top: 150px;
   height: max-content;
 }
 .services-intro-text {
@@ -1481,7 +1483,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   /* Services */
   .services-grid { grid-template-columns: 1fr; gap: 40px; }
-  .services-sticky-col { position: relative !important; top: 0 !important; }
+  .services-sticky-col { position: relative; top: 0; }
   .service-list-item:hover {
     padding-left: 0;
     padding-right: 0;
