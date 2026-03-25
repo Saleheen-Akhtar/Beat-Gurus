@@ -43,7 +43,6 @@
 }
 
 html, body {
-  background-color: var(--bg-sand);
   color: var(--text-dark);
   font-family: var(--font-main);
   overflow-x: clip;
@@ -188,7 +187,6 @@ p {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   background: var(--text-dark);
-  color: var(--bg-sand);
   padding: 17px 38px;
   border: none;
   border-radius: 60px;
@@ -240,7 +238,6 @@ p {
 }
 .btn-outline:hover {
   background: var(--text-dark);
-  color: var(--bg-sand);
 }
 
 .btn-gold {
@@ -267,7 +264,6 @@ p {
   align-items: center;
   gap: 10px;
   background: var(--text-dark);
-  color: var(--bg-sand);
   padding: 9px 20px;
   border-radius: 40px;
   font-size: 0.72rem;
@@ -388,7 +384,6 @@ p {
 .menu-btn {
   background: var(--text-dark);
   border: none;
-  color: var(--bg-sand);
   font-family: var(--font-main);
   text-transform: uppercase;
   font-weight: 700;
@@ -423,13 +418,11 @@ p {
 .logo-light {
   font-family: var(--font-display);
   font-size: 1.7rem;
-  color: var(--bg-sand);
   letter-spacing: -0.5px;
 }
 .close-btn {
   background: rgba(245, 241, 236, 0.1);
   border: 1.5px solid rgba(245, 241, 236, 0.2);
-  color: var(--bg-sand);
   width: 48px; height: 48px;
   border-radius: 50%;
   cursor: inherit;
@@ -463,7 +456,6 @@ p {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 7vw, 6.5rem);
   text-transform: uppercase;
-  color: var(--bg-sand);
   transition: color 0.3s ease, letter-spacing 0.4s ease;
   line-height: 1.05;
 }
@@ -754,7 +746,6 @@ p {
 }
 .showcase-arrow-btn:hover {
   background: var(--text-dark);
-  color: var(--bg-sand);
   border-color: var(--text-dark);
   transform: scale(1.08);
 }
@@ -840,7 +831,6 @@ p {
 .showcase-card-title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3.5rem);
-  color: var(--bg-sand);
   line-height: 1;
   text-transform: uppercase;
 }
@@ -1103,7 +1093,6 @@ p {
 ================================================================ */
 .usp-section {
   background: var(--text-dark);
-  color: var(--bg-sand);
   overflow: hidden;
   position: relative;
 }
@@ -1136,7 +1125,6 @@ p {
   font-family: var(--font-display);
   font-size: clamp(5rem, 17vw, 15rem);
   line-height: 0.82;
-  color: var(--bg-sand);
   margin-bottom: 36px;
 }
 .usp-big-title .hollow {
@@ -1218,7 +1206,6 @@ p {
   padding: var(--section-padding) 0;
   overflow: hidden;
   position: relative;
-  background-color: var(--bg-sand); /* Subtle contrast to the main sand background */
 }
 
 /* Floating background text */
@@ -1229,7 +1216,6 @@ p {
   transform: translate(-50%, -50%);
   font-family: var(--font-display);
   font-size: clamp(8rem, 22vw, 18rem);
-  color: var(--bg-sand);
   opacity: 0.3;
   pointer-events: none;
   white-space: nowrap;
@@ -1299,7 +1285,6 @@ p {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  color: var(--bg-sand);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1353,7 +1338,6 @@ p {
 
 .testi-nav-btn:hover {
   background: var(--text-dark);
-  color: var(--bg-sand);
   border-color: var(--text-dark);
   transform: scale(1.05);
 }
@@ -1380,7 +1364,6 @@ p {
   background: transparent;
   border: none;
   border-bottom: 2px solid rgba(245, 241, 236, 0.3);
-  color: var(--bg-sand);
   font-family: var(--font-main);
   font-size: 1.1rem;
   transition: border-color 0.3s ease;
@@ -1396,7 +1379,6 @@ p {
 }
 select.contact-input option {
   background-color: var(--text-dark);
-  color: var(--bg-sand);
 }
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1) opacity(0.5);
@@ -1657,25 +1639,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border-color: var(--gold);
 }
 
-/* Fix WebKit Date Input Color on Mobile */
-input[type="date"].contact-input {
-  color: var(--bg-sand);
-}
-input[type="date"].contact-input::-webkit-datetime-edit-fields-wrapper {
-  color: var(--bg-sand);
-}
-input[type="date"].contact-input::-webkit-datetime-edit-text {
-  color: var(--bg-sand);
-}
-input[type="date"].contact-input::-webkit-datetime-edit-month-field {
-  color: var(--bg-sand);
-}
-input[type="date"].contact-input::-webkit-datetime-edit-day-field {
-  color: var(--bg-sand);
-}
-input[type="date"].contact-input::-webkit-datetime-edit-year-field {
-  color: var(--bg-sand);
-}
 .showtype-img-overlay {
   position: absolute;
   inset: 0;
@@ -1760,7 +1723,6 @@ input[type="date"].contact-input::-webkit-datetime-edit-year-field {
     margin-bottom: 5px;
   }
   .showtype-content-mobile .showtype-title {
-    color: var(--bg-sand);
     font-size: 2.2rem;
     margin-bottom: 12px;
   }
@@ -1774,4 +1736,42 @@ input[type="date"].contact-input::-webkit-datetime-edit-year-field {
     border-color: rgba(245, 241, 236, 0.4) !important;
     color: var(--bg-sand) !important;
   }
+}
+
+/* Fix WebKit Date Input Color on Mobile */
+input[type="date"].contact-input {
+  color: var(--bg-sand);
+  -webkit-text-fill-color: var(--bg-sand);
+  opacity: 1; /* Fix iOS dimming */
+}
+
+/* Fallbacks for older WebKit engines */
+input[type="date"].contact-input::-webkit-datetime-edit,
+input[type="date"].contact-input::-webkit-datetime-edit-fields-wrapper,
+input[type="date"].contact-input::-webkit-datetime-edit-text,
+input[type="date"].contact-input::-webkit-datetime-edit-month-field,
+input[type="date"].contact-input::-webkit-datetime-edit-day-field,
+input[type="date"].contact-input::-webkit-datetime-edit-year-field {
+  color: var(--bg-sand);
+  -webkit-text-fill-color: var(--bg-sand);
+}
+
+/* Custom scrollbar for Services List */
+.services-list-col::-webkit-scrollbar {
+  width: 4px;
+}
+.services-list-col::-webkit-scrollbar-track {
+  background: transparent;
+}
+.services-list-col::-webkit-scrollbar-thumb {
+  background: rgba(212, 167, 44, 0.3); /* Muted gold */
+  border-radius: 10px;
+}
+.services-list-col::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 167, 44, 0.6);
+}
+/* Firefox */
+.services-list-col {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 167, 44, 0.3) transparent;
 }

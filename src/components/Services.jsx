@@ -49,7 +49,7 @@ const Services = () => {
             </div>
 
             {/* Right Side: Scrolling List */}
-            <div className="services-list-col">
+            <div className="services-list-col" style={{ maxHeight: "80vh", overflowY: "auto", paddingRight: "15px", maskImage: "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)", WebkitMaskImage: "linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)" }}>
               {services.map((s, i) => (
                 <motion.div
                   key={s.title}
