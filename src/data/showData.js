@@ -60,46 +60,6 @@ export const showTypes = [
       { question: 'Can we provide our own DJ?', answer: 'Yes. Our percussionists can collaborate with your DJ and sync to your planned set.' },
       { question: 'Is stage production included?', answer: 'We provide input for lighting cues and stage flow; full production can be coordinated with your vendor.' }
     ]
-  },
-  {
-    id: 'sufi-percussion',
-    slug: 'sufi-percussion',
-    title: 'Sufi Percussion',
-    cardDescription: 'Mystical melodic motifs and hand percussion for soulful ceremonial moments.',
-    heroImage: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1400&auto=format&fit=crop',
-    align: 'right',
-    duration: '40-70 minutes',
-    idealFor: 'Curated cultural evenings, wedding ceremonies, spiritual retreats',
-    highlights: ['Sufi-inspired melodic progressions', 'Gradual crescendo storytelling', 'Elegant wardrobe + stage presence'],
-    gallery: [
-      'https://images.unsplash.com/photo-1487180144351-b8472da7d491?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1521335629791-ce4aec67dd53?q=80&w=1200&auto=format&fit=crop'
-    ],
-    faqs: [
-      { question: 'Can this be paired with vocalist performances?', answer: 'Yes, we frequently collaborate with vocalists for immersive Sufi sets.' },
-      { question: 'Is this suitable for formal events?', answer: 'Yes, this format is especially effective in elegant, seated event environments.' }
-    ]
-  },
-  {
-    id: 'wedding-processional',
-    slug: 'wedding-processional',
-    title: 'Wedding Processional Beats',
-    cardDescription: 'High-emotion percussion processions for baraat entries and celebratory walk-ins.',
-    heroImage: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1400&auto=format&fit=crop',
-    align: 'left',
-    duration: '20-45 minutes',
-    idealFor: 'Baraat processions, couple entries, reception reveals',
-    highlights: ['Procession-ready mobile percussion setup', 'Energy ramps matched to cue points', 'Optional crowd interaction moments'],
-    gallery: [
-      'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1529636798458-92182e662485?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop'
-    ],
-    faqs: [
-      { question: 'Do you coordinate with wedding planners?', answer: 'Yes, we sync cues and timeline details with planners and emcees beforehand.' },
-      { question: 'Can this blend into a DJ set after entry?', answer: 'Yes, we can transition directly into DJ X Percussion for a seamless flow.' }
-    ]
   }
 ];
 
