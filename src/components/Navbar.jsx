@@ -53,7 +53,7 @@ const Navbar = () => {
               ))}
             </ul>
             <motion.button
-              className="menu-btn"
+              className="menu-btn lg:hidden"
               onClick={() => setIsOpen(true)}
               whileTap={{ scale: 0.95 }}
             >

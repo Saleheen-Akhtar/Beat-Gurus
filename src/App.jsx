@@ -147,6 +147,9 @@ function App() {
 
   return (
     <div className="app">
+      <a href="#about" className="skip-link">
+        Skip to main content
+      </a>
       {/* Custom cursor */}
       <div ref={dotRef} className="cursor-dot" />
       <div ref={ringRef} className="cursor-ring" />
