@@ -19,7 +19,7 @@ const Preloader = ({ onComplete }) => {
     const minTimer = setTimeout(() => {
       isMinTimeElapsed = true;
       checkComplete();
-    }, 1500);
+    }, 900);
 
     const handleLoad = () => {
       isPageLoaded = true;
@@ -43,12 +43,12 @@ const Preloader = ({ onComplete }) => {
           className="fixed inset-0 flex items-center justify-center bg-[#050505]"
           style={{ backgroundColor: '#050505', zIndex: 999999 }}
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.8, ease: 'easeInOut' } }}
+          exit={{ opacity: 0, transition: { duration: 0.5, ease: 'easeInOut' } }}
           role="status"
           aria-label="Loading Beat Gurus website"
         >
           <div className="dw-loader-container" aria-hidden="true">
-            <div className="dw-loader-logo-outline" />
+            <img src={logoImg} alt="" className="dw-loader-logo-base" width={14998} height={8438} />
             <div className="dw-loader-logo-sweep" />
           </div>
         </motion.div>
