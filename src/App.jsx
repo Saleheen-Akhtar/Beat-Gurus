@@ -1,24 +1,30 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Lenis from 'lenis';
+import { AnimatePresence } from 'framer-motion';
 
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Services from './components/Services';
-import ShowTypes from './components/ShowTypes';
-import VideoSection from './components/VideoSection';
-import Showcase from './components/Showcase';
-import USP from './components/USP';
-import Instruments from './components/Instruments';
-import Testimonials from './components/Testimonials';
-import FAQ from './components/FAQ';
-import Contact from './components/Contact';
 import GlobalBackground from './components/GlobalBackground';
 import Preloader from './components/Preloader';
-import { AnimatePresence } from 'framer-motion';
+import HomePage from './pages/HomePage';
+import ShowDetailPage from './pages/ShowDetailPage';
+import { showTypeMap } from './data/showData';
+
+const getRouteInfo = (pathname) => {
+  if (pathname === '/') {
+    return { page: 'home' };
+  }
+
+  if (pathname.startsWith('/shows/')) {
+    const slug = pathname.replace('/shows/', '').replace(/\/$/, '');
+    return { page: 'show', slug };
+  }
+
+  return { page: 'home' };
+};
 
 function App() {
   const [loadingComplete, setLoadingComplete] = useState(false);
+  const [routeInfo, setRouteInfo] = useState(getRouteInfo(window.location.pathname));
 
   const dotRef = useRef(null);
   const ringRef = useRef(null);
@@ -29,7 +35,23 @@ function App() {
   const activelyRendering = useRef(false);
 
   useEffect(() => {
-    // Smooth scroll
+    const onPopState = () => {
+      setRouteInfo(getRouteInfo(window.location.pathname));
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    };
+
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  const navigate = (path) => {
+    if (window.location.pathname === path) return;
+    window.history.pushState({}, '', path);
+    setRouteInfo(getRouteInfo(path));
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  };
+
+  useEffect(() => {
     const lenis = new Lenis({
       duration: 1.25,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -40,7 +62,6 @@ function App() {
     function lenisRaf(time) { lenis.raf(time); lenisRafId = requestAnimationFrame(lenisRaf); }
     lenisRafId = requestAnimationFrame(lenisRaf);
 
-    // Custom cursor (enable when any available input can act as a fine pointer)
     const hasAnyFinePointer = window.matchMedia('(any-pointer: fine)').matches;
     const hasPrimaryFinePointer = window.matchMedia('(pointer: fine)').matches;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -66,12 +87,12 @@ function App() {
       ring.current.x = lerp(ring.current.x, mouse.current.x, reduceMotion ? 1 : 0.1);
       ring.current.y = lerp(ring.current.y, mouse.current.y, reduceMotion ? 1 : 0.1);
       if (dotRef.current) {
-        dotRef.current.style.left = mouse.current.x + 'px';
-        dotRef.current.style.top = mouse.current.y + 'px';
+        dotRef.current.style.left = `${mouse.current.x}px`;
+        dotRef.current.style.top = `${mouse.current.y}px`;
       }
       if (ringRef.current) {
-        ringRef.current.style.left = ring.current.x + 'px';
-        ringRef.current.style.top = ring.current.y + 'px';
+        ringRef.current.style.left = `${ring.current.x}px`;
+        ringRef.current.style.top = `${ring.current.y}px`;
       }
       rafId.current = requestAnimationFrame(tick);
     };
@@ -114,7 +135,6 @@ function App() {
 
     startCursorLoopIfNeeded();
 
-    // Hover state via event delegation (handles dynamically rendered elements)
     const onOver = (e) => {
       const target = e.target.closest('a, button, [data-cursor-hover]');
       if (target) {
@@ -145,12 +165,13 @@ function App() {
     };
   }, []);
 
+  const showExists = routeInfo.page === 'show' && showTypeMap[routeInfo.slug];
+
   return (
     <div className="app">
-      <a href="#about" className="skip-link">
+      <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
-      {/* Custom cursor */}
       <div ref={dotRef} className="cursor-dot" />
       <div ref={ringRef} className="cursor-ring" />
 
@@ -161,29 +182,11 @@ function App() {
       </AnimatePresence>
 
       <GlobalBackground />
-      <Navbar />
-      <Hero />
+      <Navbar isHomeRoute={routeInfo.page === 'home'} />
 
-      {/* Marquee separator */}
-      <div className="marquee-outer">
-        <div className="marquee-track">
-          {['Djembe Rhythms', 'African Beats', 'Indian Soul', 'Live Percussion', 'Pure Acoustic', 'Raw Energy',
-            'Djembe Rhythms', 'African Beats', 'Indian Soul', 'Live Percussion', 'Pure Acoustic', 'Raw Energy'].map((w, i) => (
-            <span key={i} className="marquee-item">{w}<span className="marquee-sep" /></span>
-          ))}
-        </div>
-      </div>
-
-      <About />
-      <Showcase />
-      <Services />
-      <ShowTypes />
-      <VideoSection />
-      <USP />
-      <Instruments />
-      <Testimonials />
-      <FAQ />
-      <Contact />
+      {routeInfo.page === 'home' && <HomePage navigate={navigate} />}
+      {routeInfo.page === 'show' && showExists && <ShowDetailPage slug={routeInfo.slug} />}
+      {routeInfo.page === 'show' && !showExists && <ShowDetailPage slug="" />}
     </div>
   );
 }

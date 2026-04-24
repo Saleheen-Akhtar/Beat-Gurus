@@ -10,7 +10,7 @@ const navItems = [
   { label: 'Contact', href: '#contact' },
 ];
 
-const Navbar = () => {
+const Navbar = ({ isHomeRoute }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -32,6 +32,7 @@ const Navbar = () => {
   }, []);
 
   const close = () => setIsOpen(false);
+  const scopedHref = (hash) => (isHomeRoute ? hash : `/${hash}`);
 
   return (
     <>
@@ -42,13 +43,13 @@ const Navbar = () => {
         style={{ willChange: 'transform' }}
       >
         <div className="container nav-container">
-          <a href="#home" className="logo">BEAT<span>GURUS</span></a>
+          <a href="/" className="logo">BEAT<span>GURUS</span></a>
 
           <div className="nav-right">
             <ul className="nav-links-list">
-              {navItems.map(n => (
+              {navItems.map((n) => (
                 <li key={n.label}>
-                  <a href={n.href}>{n.label}</a>
+                  <a href={scopedHref(n.href)}>{n.label}</a>
                 </li>
               ))}
             </ul>
@@ -74,7 +75,7 @@ const Navbar = () => {
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
           >
             <div className="container menu-header">
-              <a href="#home" className="logo-light" onClick={close}>BEAT<span style={{ color: 'var(--gold)' }}>GURUS</span></a>
+              <a href="/" className="logo-light" onClick={close}>BEAT<span style={{ color: 'var(--gold)' }}>GURUS</span></a>
               <button className="close-btn" onClick={close}>
                 <FaTimes size={14} />
               </button>
@@ -91,7 +92,7 @@ const Navbar = () => {
                     transition={{ delay: 0.15 + i * 0.08, ease: [0.22, 1, 0.36, 1], duration: 0.6 }}
                   >
                     <span className="menu-nav-num">0{i + 1}</span>
-                    <a href={item.href} onClick={close}>{item.label}</a>
+                    <a href={scopedHref(item.href)} onClick={close}>{item.label}</a>
                   </motion.div>
                 ))}
               </nav>
