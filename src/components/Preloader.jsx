@@ -19,7 +19,7 @@ const Preloader = ({ onComplete }) => {
     const minTimer = setTimeout(() => {
       isMinTimeElapsed = true;
       checkComplete();
-    }, 900);
+    }, 700);
 
     const handleLoad = () => {
       isPageLoaded = true;
@@ -43,7 +43,7 @@ const Preloader = ({ onComplete }) => {
           className="fixed inset-0 flex items-center justify-center bg-[#050505]"
           style={{ backgroundColor: '#050505', zIndex: 999999 }}
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.5, ease: 'easeInOut' } }}
+          exit={{ opacity: 0, transition: { duration: 0.35, ease: 'easeInOut' } }}
           role="status"
           aria-label="Loading Beat Gurus website"
         >
