@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Preloader.css';
-import logoImg from '../../images/logo.png';
 
 const Preloader = ({ onComplete }) => {
   const [loading, setLoading] = useState(true);
@@ -19,7 +18,7 @@ const Preloader = ({ onComplete }) => {
     const minTimer = setTimeout(() => {
       isMinTimeElapsed = true;
       checkComplete();
-    }, 700);
+    }, 450);
 
     const handleLoad = () => {
       isPageLoaded = true;
@@ -40,17 +39,13 @@ const Preloader = ({ onComplete }) => {
     <AnimatePresence onExitComplete={onComplete}>
       {loading && (
         <motion.div
-          className="fixed inset-0 flex items-center justify-center bg-[#050505]"
-          style={{ backgroundColor: '#050505', zIndex: 999999 }}
+          className="preloader-shell"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.35, ease: 'easeInOut' } }}
+          exit={{ opacity: 0, transition: { duration: 0.3, ease: 'easeInOut' } }}
           role="status"
           aria-label="Loading Beat Gurus website"
         >
-          <div className="dw-loader-container" aria-hidden="true">
-            <img src={logoImg} alt="" className="dw-loader-logo-base" width={14998} height={8438} />
-            <div className="dw-loader-logo-sweep" />
-          </div>
+          <div className="preloader-spinner" aria-hidden="true" />
         </motion.div>
       )}
     </AnimatePresence>
