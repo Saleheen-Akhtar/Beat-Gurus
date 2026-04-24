@@ -44,8 +44,12 @@ const Contact = () => {
     };
   }, []);
   const [submitState, setSubmitState] = useState({ loading: false, message: '', error: false });
+  const [emailError, setEmailError] = useState('');
 
   const handleChange = (e) => {
+    if (e.target.name === 'email' && emailError) {
+      setEmailError('');
+    }
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -148,10 +152,6 @@ const Contact = () => {
                 <span style={{ display: 'block', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(245, 241, 236, 0.4)', marginBottom: '5px' }}>Email</span>
                 <a href="mailto:bookings@beatgurus.org" style={{ fontSize: '1.2rem', color: 'var(--bg-sand)', textDecoration: 'underline' }}>bookings@beatgurus.org</a>
               </div>
-              <div>
-                <span style={{ display: 'block', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(245, 241, 236, 0.4)', marginBottom: '5px' }}>Phone</span>
-                <a href="tel:+919876543210" style={{ fontSize: '1.2rem', color: 'var(--bg-sand)', textDecoration: 'underline' }}>+91 98765 43210</a>
-              </div>
             </div>
           </motion.div>
 
@@ -170,7 +170,24 @@ const Contact = () => {
                   <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your Name" required className="contact-input" />
                 </div>
                 <div style={{ flex: '1 1 200px' }}>
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email Address" required className="contact-input" />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onBlur={(e) => {
+                      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value);
+                      setEmailError(e.target.value && !valid ? 'Please enter a valid email address.' : '');
+                    }}
+                    placeholder="Email Address"
+                    required
+                    className="contact-input"
+                  />
+                  {emailError && (
+                    <p style={{ marginTop: '10px', color: '#ef4444', fontSize: '0.9rem' }}>
+                      {emailError}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -292,7 +309,7 @@ const Contact = () => {
               <a href="https://www.facebook.com/beatgurus" target="_blank" rel="noreferrer" aria-label="Facebook" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
                 <FaFacebookF size={16} />
               </a>
-              <a href="https://www.youtube.com/results?search_query=beat+gurus+bangalore" target="_blank" rel="noreferrer" aria-label="YouTube" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
+              <a href="https://www.youtube.com/@BeatGurus" target="_blank" rel="noreferrer" aria-label="YouTube" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
                 <FaYoutube size={16} />
               </a>
             </div>

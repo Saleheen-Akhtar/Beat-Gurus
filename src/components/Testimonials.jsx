@@ -1,58 +1,49 @@
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useAnimationControls, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 const testimonials = [
   {
     text: "Beat Gurus infused our event with an energy that was absolutely electric. The fusion of cultures left our international delegates completely spellbound.",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop",
     name: "Tech Summit Organizers",
     role: "Corporate Event",
   },
   {
     text: "We wanted something unique for our wedding, and their Djembe beats were the perfect heartbeat to our celebration. Truly unforgettable.",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=150&auto=format&fit=crop",
     name: "Priya & Rahul",
     role: "Wedding Clients",
   },
   {
     text: "A powerhouse of rhythm! They don't just play drums, they command the stage. The raw energy is something you have to experience live.",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop",
     name: "Music Magazine",
     role: "Editorial Review",
   },
   {
     text: "The BBC World Awards performance was breathtaking. They brought a warmth and authenticity that elevated the entire evening to something truly special.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop",
     name: "BBC World Travel Awards",
     role: "International Event",
   },
   {
     text: "Their rhythmic synchrony is unmatched. The audience was on their feet dancing within minutes. A phenomenal addition to any music festival.",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop",
     name: "Global Music Fest",
     role: "Festival Organizers",
   },
   {
     text: "Booking Beat Gurus was the best decision we made for our gala. The sound of the didgeridoo and djembe created an atmosphere of pure magic.",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop",
     name: "Annual Charity Gala",
     role: "Event Coordinators",
   },
   {
     text: "Pure acoustic brilliance. In a world full of digital tracks, their live percussion brings a desperately needed raw and authentic vibe.",
-    image: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?q=80&w=150&auto=format&fit=crop",
     name: "Sound & Stage",
     role: "Music Critics",
   },
   {
     text: "They seamlessly blended traditional Indian percussion with African beats. Our corporate retreat was completely transformed by their performance.",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=150&auto=format&fit=crop",
     name: "Global Tech Corp",
     role: "HR Director",
   },
   {
     text: "From the dramatic entrances to the high energy drum battles, Beat Gurus delivered an interactive and mesmerizing experience for everyone.",
-    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=150&auto=format&fit=crop",
     name: "Cultural Arts Society",
     role: "Event Director",
   },
@@ -64,11 +55,40 @@ const thirdColumn = testimonials.slice(6, 9);
 
 const TestimonialsColumn = (props) => {
   const shouldReduceMotion = useReducedMotion();
+  const [paused, setPaused] = useState(false);
+  const controls = useAnimationControls();
+  const isPaused = paused || props.paused;
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      controls.set({ y: "0%" });
+      return;
+    }
+
+    if (isPaused) {
+      controls.stop();
+      return;
+    }
+
+    controls.start({
+      y: ["0%", "-50%"],
+      transition: {
+        duration: props.duration || 10,
+        repeat: Infinity,
+        ease: "linear",
+        repeatType: "loop",
+      },
+    });
+  }, [controls, isPaused, props.duration, shouldReduceMotion]);
 
   return (
-    <div className={props.className}>
+    <div
+      className={props.className}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
       <motion.div
-        animate={shouldReduceMotion ? { y: 0 } : { y: ["0%", "-50%"] }}
+        animate={controls}
         transition={
           shouldReduceMotion
           ? { duration: 0 }
@@ -84,7 +104,7 @@ const TestimonialsColumn = (props) => {
         {[
           ...new Array(shouldReduceMotion ? 1 : 2).fill(0).map((_, index) => (
             <React.Fragment key={index}>
-              {props.testimonials.map(({ text, image, name, role }, i) => (
+              {props.testimonials.map(({ text, name, role }, i) => (
                 <div
                   aria-hidden={index === 1 ? "true" : "false"}
                   className="p-10 rounded-3xl border shadow-lg bg-[var(--text-dark)] max-w-xs w-full"
@@ -96,16 +116,17 @@ const TestimonialsColumn = (props) => {
                 >
                   <div className="text-[var(--bg-sand)] opacity-90">{text}</div>
                   <div className="flex items-center gap-3 mt-5">
-                    <img
-                      width={40}
-                      height={40}
-                      src={image}
-                      alt={name}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-10 w-10 rounded-full object-cover border"
-                      style={{ borderColor: 'rgba(212, 167, 44, 0.4)' }}
-                    />
+                    <div
+                      aria-hidden="true"
+                      className="h-10 w-10 rounded-full border flex items-center justify-center text-sm font-bold"
+                      style={{
+                        borderColor: 'rgba(212, 167, 44, 0.4)',
+                        backgroundColor: '#121212',
+                        color: 'var(--gold)'
+                      }}
+                    >
+                      {name.charAt(0).toUpperCase()}
+                    </div>
                     <div className="flex flex-col">
                       <div className="font-medium tracking-tight leading-5 text-[var(--gold)]">
                         {name}
@@ -127,6 +148,7 @@ const TestimonialsColumn = (props) => {
 
 const Testimonials = () => {
   const sectionRef = useRef(null);
+  const [allPaused, setAllPaused] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -159,12 +181,31 @@ const Testimonials = () => {
               <span style={{ color: 'var(--gold)' }}>STORIES</span>
             </h2>
           </motion.div>
+          <button
+            type="button"
+            onClick={() => setAllPaused((prev) => !prev)}
+            aria-pressed={allPaused}
+            style={{
+              marginTop: '20px',
+              border: '1.5px solid rgba(212, 167, 44, 0.4)',
+              borderRadius: '999px',
+              background: 'var(--text-dark)',
+              color: 'var(--bg-sand)',
+              padding: '10px 20px',
+              fontSize: '0.9rem',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+            }}
+          >
+            {allPaused ? 'Play testimonials' : 'Pause testimonials'}
+          </button>
         </div>
 
         <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] h-[650px] overflow-hidden">
-          <TestimonialsColumn testimonials={firstColumn} duration={35} />
-          <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={42} />
-          <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={38} />
+          <TestimonialsColumn testimonials={firstColumn} duration={35} paused={allPaused} />
+          <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={42} paused={allPaused} />
+          <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={38} paused={allPaused} />
         </div>
       </div>
     </section>

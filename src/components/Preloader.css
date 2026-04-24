@@ -1,61 +1,42 @@
 /* Preloader.css */
 .dw-loader-container {
   position: relative;
-  width: 180px;
-  height: 180px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: min(72vw, 360px);
+  aspect-ratio: 14998 / 8438;
 }
 
-.dw-loader-circle {
-  position: absolute;
-  top: 0;
-  left: 0;
+.dw-loader-logo-base {
   width: 100%;
   height: 100%;
-  animation: spin 1.5s linear infinite;
-  z-index: 1;
+  object-fit: contain;
+  display: block;
+  opacity: 0.45;
+  filter: brightness(0.95) saturate(0.9);
 }
 
-
-.dw-loader-path {
-  stroke-dasharray: 1137;
-  stroke-dashoffset: 1137;
-  animation: draw-circle 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+.dw-loader-logo-sweep {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 0deg,
+    rgba(255, 236, 158, 0) 0deg,
+    rgba(255, 236, 158, 0) 320deg,
+    rgba(255, 236, 158, 0.96) 344deg,
+    rgba(212, 167, 44, 0.08) 360deg
+  );
+  -webkit-mask-image: url('../../images/logo.png');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  mask-image: url('../../images/logo.png');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 100% 100%;
+  filter: blur(0.2px) drop-shadow(0 0 4px rgba(255, 236, 158, 0.65));
+  animation: logo-outline-sweep 1.2s linear infinite;
 }
 
-@keyframes draw-circle {
-  0% {
-    stroke-dashoffset: 1137;
-  }
-  50% {
-    stroke-dashoffset: 0;
-  }
-  100% {
-    stroke-dashoffset: -1137;
-  }
-}
-
-
-.dw-loader-logo-box {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.dw-loader-text {
-  font-size: 1.5rem;
-  color: var(--gold);
-  letter-spacing: 1px;
-  animation: pulse-glow-gold 1.5s ease-in-out infinite alternate;
-  white-space: nowrap;
-}
-
-@keyframes spin {
+@keyframes logo-outline-sweep {
   0% {
     transform: rotate(0deg);
   }
@@ -64,15 +45,15 @@
   }
 }
 
-@keyframes pulse-glow-gold {
-  0% {
-    transform: scale(0.98);
-    opacity: 0.8;
-    text-shadow: 0 0 5px rgba(212, 167, 44, 0.2);
+@media (prefers-reduced-motion: reduce) {
+  .dw-loader-logo-sweep {
+    animation: none !important;
+    opacity: 0.5;
   }
-  100% {
-    transform: scale(1.05);
-    opacity: 1;
-    text-shadow: 0 0 20px rgba(212, 167, 44, 0.8);
-  }
+}
+
+/* Legacy class retained as no-op to avoid stale class references from cached CSS chunks. */
+.dw-loader-circle {
+  width: 100%;
+  height: 100%;
 }
