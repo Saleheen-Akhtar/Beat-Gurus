@@ -150,7 +150,7 @@ const Contact = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
                 <span style={{ display: 'block', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(245, 241, 236, 0.4)', marginBottom: '5px' }}>Email</span>
-                <a href="mailto:bookings@beatgurus.org" style={{ fontSize: '1.2rem', color: 'var(--bg-sand)', textDecoration: 'underline' }}>bookings@beatgurus.org</a>
+                <a href="mailto:bookings@beatgurus.org" style={{ fontSize: '1.2rem', color: 'var(--bg-sand)', textDecoration: 'none' }}>bookings@beatgurus.org</a>
               </div>
             </div>
           </motion.div>
