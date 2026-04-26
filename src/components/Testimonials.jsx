@@ -55,9 +55,8 @@ const thirdColumn = testimonials.slice(6, 9);
 
 const TestimonialsColumn = (props) => {
   const shouldReduceMotion = useReducedMotion();
-  const [paused, setPaused] = useState(false);
   const controls = useAnimationControls();
-  const isPaused = paused || props.paused;
+  const isPaused = props.paused;
 
   useEffect(() => {
     if (shouldReduceMotion) {
@@ -84,8 +83,6 @@ const TestimonialsColumn = (props) => {
   return (
     <div
       className={props.className}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
       <motion.div
         animate={controls}
