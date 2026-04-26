@@ -187,12 +187,6 @@ p {
   flex-shrink: 0;
 }
 
-.line {
-  width: 50px;
-  height: 2px;
-  background-color: var(--gold);
-  margin-top: 16px;
-}
 
 /* ---- BUTTONS ---- */
 .btn-dark {
