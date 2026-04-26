@@ -53,57 +53,32 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
     setSubmitState({ loading: true, message: '', error: false });
 
-    let timeoutId;
-    try {
-      const controller = new AbortController();
-      timeoutId = setTimeout(() => controller.abort(), 10000);
+    const subject = encodeURIComponent(`Booking Inquiry: ${formData.eventType || 'General'} - ${formData.name}`);
+    const body = encodeURIComponent(`
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone || 'N/A'}
+Event Type: ${formData.eventType || 'N/A'}
+Date: ${formData.date || 'N/A'}
+Location: ${formData.location || 'N/A'}
 
-      const response = await fetch(CONTACT_API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        signal: controller.signal,
-        body: JSON.stringify({
-          ...formData,
-          submittedAt: new Date().toISOString()
-        }),
-      });
+Message:
+${formData.message}
+    `.trim());
 
-      if (!response.ok) {
-        throw new Error(`Webhook request failed with status ${response.status}`);
-      }
+    // Send using mailto
+    window.location.href = `mailto:hhaa.hehe.haha@gmail.com?subject=${subject}&body=${body}`;
 
-      const contentType = response.headers.get('content-type') || '';
-      let responseMessage = "Inquiry submitted! We'll get back to you soon.";
-      if (contentType.includes('application/json')) {
-        const payload = await response.json();
-        if (payload?.success === false) {
-          throw new Error(payload?.message || 'Submission endpoint reported failure');
-        }
-        if (payload?.message) responseMessage = payload.message;
-      }
-
-      setSubmitState({
-        loading: false,
-        error: false,
-        message: responseMessage
-      });
-      setFormData({ name: '', email: '', phone: '', eventType: '', date: '', location: '', message: '', website: '' });
-    } catch (error) {
-      setSubmitState({
-        loading: false,
-        error: true,
-        message: 'Submission failed. Please retry or email bookings@beatgurus.org.'
-      });
-    } finally {
-      if (timeoutId) clearTimeout(timeoutId);
-    }
+    setSubmitState({
+      loading: false,
+      error: false,
+      message: "Opening your email client..."
+    });
+    setFormData({ name: '', email: '', phone: '', eventType: '', date: '', location: '', message: '', website: '' });
   };
 
   return (
@@ -150,7 +125,7 @@ const Contact = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
                 <span style={{ display: 'block', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(245, 241, 236, 0.4)', marginBottom: '5px' }}>Email</span>
-                <a href="mailto:bookings@beatgurus.org" style={{ fontSize: '1.2rem', color: 'var(--bg-sand)', textDecoration: 'none' }}>bookings@beatgurus.org</a>
+                <a href="mailto:hhaa.hehe.haha@gmail.com" style={{ fontSize: '1.2rem', color: 'var(--bg-sand)', textDecoration: 'none' }}>hhaa.hehe.haha@gmail.com</a>
               </div>
             </div>
           </motion.div>
