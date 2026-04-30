@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'AmazDooMLeft';
-  src: url('/fonts/AmazDooMLeft.ttf') format('truetype');
+  font-family: 'Omega Ruby';
+  src: url('/fonts/OmegaRuby.otf') format('opentype');
   font-display: swap;
 }
 
@@ -18,9 +18,9 @@
   --gold: #D4A72C;
   --earth-red: #6D001A;
   --muted-green: #B5AC8A;
-  --font-main: 'Kalam', cursive;
-  --font-display: 'AmazDooMLeft', 'Kavoon', cursive;
-  --font-accent: 'AmazDooMLeft', 'Kavoon', cursive;
+  --font-main: 'Outfit', sans-serif;
+  --font-display: 'Omega Ruby', 'Kavoon', cursive;
+  --font-accent: 'Omega Ruby', 'Kavoon', cursive;
   --section-padding: 140px;
   --container-padding: 5vw;
   --ease-premium: cubic-bezier(0.76, 0, 0.24, 1);
@@ -1535,7 +1535,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
    BRAND NAME FONT (OUTFIT)
 ================================================================ */
 .font-brand-name {
-  font-family: 'AmazDooMLeft', 'Outfit', sans-serif;
+  font-family: 'Omega Ruby', 'Outfit', sans-serif;
   font-weight: 700;
   letter-spacing: 0.5px;
 }
