@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { services } from './Services';
-import { FaInstagram, FaFacebookF, FaYoutube } from 'react-icons/fa';
+import { FaInstagram, FaFacebookF, FaYoutube, FaGoogle } from 'react-icons/fa';
 
 const validEventTitlesSet = new Set(services.map(s => s.title));
 validEventTitlesSet.add('Other');
@@ -278,14 +278,17 @@ ${formData.message}
               <em>Based in Bangalore, India.</em>
             </p>
             <div style={{ display: 'flex', gap: '14px', marginTop: '20px' }}>
-              <a href="https://www.instagram.com/beatgurus/" target="_blank" rel="noreferrer" aria-label="Instagram" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
+              <a href="https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94" target="_blank" rel="noreferrer" aria-label="Instagram" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
                 <FaInstagram size={16} />
               </a>
-              <a href="https://www.facebook.com/beatgurus" target="_blank" rel="noreferrer" aria-label="Facebook" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
+              <a href="https://www.facebook.com/share/1G8v4BVcoJ/" target="_blank" rel="noreferrer" aria-label="Facebook" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
                 <FaFacebookF size={16} />
               </a>
-              <a href="https://www.youtube.com/@BeatGurus" target="_blank" rel="noreferrer" aria-label="YouTube" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
+              <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noreferrer" aria-label="YouTube" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
                 <FaYoutube size={16} />
+              </a>
+              <a href="https://maps.app.goo.gl/U3CVeMZm7xq5gdw96" target="_blank" rel="noreferrer" aria-label="Google Review" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
+                <FaGoogle size={16} />
               </a>
             </div>
           </div>

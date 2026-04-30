@@ -7,11 +7,15 @@ import GlobalBackground from './components/GlobalBackground';
 import Preloader from './components/Preloader';
 import HomePage from './pages/HomePage';
 import ShowDetailPage from './pages/ShowDetailPage';
+import QrCodePage from './pages/QrCodePage';
 import { showTypeMap } from './data/showData';
 
 const getRouteInfo = (pathname) => {
   if (pathname === '/') {
     return { page: 'home' };
+  }
+  if (pathname === '/qr-code') {
+    return { page: 'qr-code' };
   }
 
   if (pathname.startsWith('/shows/')) {
@@ -184,6 +188,7 @@ function App() {
       <GlobalBackground />
       <Navbar isHomeRoute={routeInfo.page === 'home'} />
 
+      {routeInfo.page === 'qr-code' && <QrCodePage />}
       {routeInfo.page === 'home' && <HomePage navigate={navigate} />}
       {routeInfo.page === 'show' && showExists && <ShowDetailPage slug={routeInfo.slug} />}
       {routeInfo.page === 'show' && !showExists && <ShowDetailPage slug="" />}
