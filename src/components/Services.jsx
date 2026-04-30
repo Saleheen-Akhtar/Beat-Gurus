@@ -37,7 +37,6 @@ const Services = () => {
                 transition={{ duration: 0.7 }}
                 className="services-header-wrap"
               >
-                <p className="section-eyebrow">03 Our Offerings</p>
                 <h2 style={{ margin: 0 }}>
                   OUR <br />
                   <span style={{ color: 'var(--gold)' }}>OFFERINGS</span>

@@ -71,7 +71,6 @@ const ShowTypes = ({ navigate }) => {
           transition={{ duration: 0.7 }}
           className="showtypes-header"
         >
-          <p className="section-eyebrow">04 {showTypes.length} Experience {showTypes.length === 1 ? 'Set' : 'Sets'}</p>
           <h2>TYPES OF <span style={{ color: 'var(--gold)' }}>SHOWS</span></h2>
           <a href={FINAL_MEDIA_LINK} target="_blank" rel="noreferrer noopener" className="btn-dark showtypes-media-link">
             Media Link <FaArrowRight size={12} />

@@ -84,7 +84,6 @@ export default function Instruments() {
           viewport={{ once: true, margin: '-120px' }}
           transition={{ duration: 0.7 }}
         >
-          <p className="section-eyebrow">06 The Arsenal</p>
           <h2>THE <span style={{ color: 'var(--gold)' }}>INSTRUMENTS</span></h2>
         </motion.div>
 
@@ -129,7 +128,7 @@ export default function Instruments() {
             {/* Index badge */}
             <div style={{
               position: 'absolute', top: '24px', left: '24px',
-              fontFamily: 'var(--font-display)', fontSize: '0.68rem',
+              fontFamily: 'var(--font-main)', fontSize: '0.68rem',
               letterSpacing: '3px', color: 'var(--gold)',
               background: 'rgba(26, 26, 26, 0.55)', backdropFilter: 'blur(10px)',
               padding: '6px 15px', borderRadius: '40px',
@@ -173,8 +172,7 @@ export default function Instruments() {
                 </span>
 
                 <h3 style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(1.9rem, 3vw, 2.8rem)',
+                  fontFamily: 'var(--font-main)', fontSize: 'clamp(1.9rem, 3vw, 2.8rem)', fontWeight: 'bold',
                   color: 'var(--bg-sand)',
                   lineHeight: 0.92, letterSpacing: '0.01em',
                   textTransform: 'uppercase', margin: 0,
@@ -231,7 +229,7 @@ export default function Instruments() {
             </div>
               </div>
               <span style={{
-                fontFamily: 'var(--font-display)', fontSize: '0.75rem',
+                fontFamily: 'var(--font-main)', fontSize: '0.75rem',
                 color: 'rgba(245, 241, 236, 0.28)', letterSpacing: '2.5px',
               }}>
                 {String(active + 1).padStart(2, '0')} <span style={{ color: 'var(--gold)' }}>/</span> {String(instruments.length).padStart(2, '0')}

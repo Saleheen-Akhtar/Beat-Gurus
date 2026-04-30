@@ -71,7 +71,7 @@ ${formData.message}
     `.trim());
 
     // Send using mailto
-    window.location.href = `mailto:hhaa.hehe.haha@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:bookings@beatgurus.org?subject=${subject}&body=${body}`;
 
     setSubmitState({
       loading: false,
@@ -125,7 +125,7 @@ ${formData.message}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
                 <span style={{ display: 'block', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(245, 241, 236, 0.4)', marginBottom: '5px' }}>Email</span>
-                <a href="mailto:hhaa.hehe.haha@gmail.com" style={{ fontSize: '1.2rem', color: 'var(--bg-sand)', textDecoration: 'none' }}>hhaa.hehe.haha@gmail.com</a>
+                <a href="mailto:bookings@beatgurus.org" style={{ fontSize: '1.2rem', color: 'var(--bg-sand)', textDecoration: 'none' }}>bookings@beatgurus.org</a>
               </div>
             </div>
           </motion.div>

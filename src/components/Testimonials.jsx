@@ -172,7 +172,6 @@ const Testimonials = () => {
             viewport={{ once: true, margin: '-120px' }}
             transition={{ duration: 0.7 }}
           >
-            <p className="section-eyebrow">06 Voices</p>
             <h2 style={{ margin: 0 }}>
               SUCCESS <br />
               <span style={{ color: 'var(--gold)' }}>STORIES</span>

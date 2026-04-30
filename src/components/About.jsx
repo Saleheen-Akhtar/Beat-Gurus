@@ -1,36 +1,28 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 
 const tags = ['BBC World Award', 'Norway Cultural Evening', 'Wine Festivals', 'Corporate Galas', 'International Stages'];
 
 const stats = [
   { end: 20, suffix: '+', label: 'Years', desc: 'Two decades of live performance, refining the craft on stages worldwide.' },
   { end: 25, suffix: '+', label: 'Countries', desc: 'From Bangalore to Oslo, our rhythm speaks every language.' },
-  { end: 500, suffix: '+', label: 'Shows', desc: 'Corporate galas, festivals, weddings, each one unforgettable.' },
+  { end: 5000, suffix: '+', label: 'Shows', desc: 'Corporate galas, festivals, weddings, each one unforgettable.' },
 ];
 
 const CountUp = ({ end, suffix, inView }) => {
-  const [count, setCount] = useState(0);
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (latest) => Math.round(latest));
   const hasRun = useRef(false);
 
   useEffect(() => {
-    if (!inView || hasRun.current) return;
-    hasRun.current = true;
-    const duration = 1600;
-    const start = performance.now();
-    const step = (now) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      // ease out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * end));
-      if (progress < 1) requestAnimationFrame(step);
-      else setCount(end);
-    };
-    requestAnimationFrame(step);
-  }, [inView, end]);
+    if (inView && !hasRun.current) {
+      hasRun.current = true;
+      const controls = animate(count, end, { duration: 2, ease: "easeOut" });
+      return controls.stop;
+    }
+  }, [inView, count, end]);
 
-  return <>{count}{suffix}</>;
+  return <><motion.span>{rounded}</motion.span>{suffix}</>;
 };
 
 const About = () => {
@@ -58,7 +50,6 @@ const About = () => {
         viewport={{ once: true, margin: '-120px' }}
         transition={{ duration: 0.7 }}
       >
-        <p className="section-eyebrow">01 Our Legacy</p>
         <h2>OUR <span style={{ color: 'var(--gold)' }}>LEGACY</span></h2>
       </motion.div>
 
