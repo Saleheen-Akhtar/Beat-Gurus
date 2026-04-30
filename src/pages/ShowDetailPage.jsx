@@ -85,7 +85,6 @@ const ShowDetailPage = ({ slug }) => {
     <main className="show-detail-page" id="main-content" ref={containerRef}>
       <section className="show-detail-hero" style={{ backgroundImage: `linear-gradient(rgba(5,5,5,0.5), rgba(5,5,5,0.5)), url(${show.heroImage})` }}>
         <div className="container show-detail-hero-inner" style={{ paddingTop: '160px', paddingBottom: '100px' }}>
-          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="section-eyebrow">Show Format</motion.p>
           {/* Changed motion.h1 to h1 for GSAP animation */}
           <h1 className="hero-title-anim" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>{show.title}</h1>
           <p className="hero-desc-anim" style={{ fontSize: '1.25rem', maxWidth: '800px', marginBottom: '2rem' }}>{show.cardDescription}</p>

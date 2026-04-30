@@ -1,6 +1,6 @@
 const REQUIRED_FIELDS = ['name', 'email', 'eventType', 'message'];
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
-const RATE_LIMIT_MAX_REQUESTS = 20;
+const RATE_LIMIT_MAX_REQUESTS = 5;
 const RATE_LIMIT_MAX_IPS = 5000;
 const ipRequestLog = new Map();
 
@@ -153,11 +153,23 @@ export default async function handler(req, res) {
     return res.status(200).json({ success: true, message: "Inquiry submitted! We'll get back to you soon." });
   }
 
+
   for (const field of REQUIRED_FIELDS) {
     if (!sanitize(data[field])) {
       return badRequest(res, `Missing required field: ${field}`);
     }
   }
+
+  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  if (!emailRegex.test(sanitize(data.email))) {
+    return badRequest(res, 'Invalid email format.');
+  }
+
+  // Prevent absurdly long inputs (basic security)
+  if (data.message && data.message.length > 5000) {
+    return badRequest(res, 'Message is too long.');
+  }
+
 
   try {
     const response = await fetch(webhookUrl, {
