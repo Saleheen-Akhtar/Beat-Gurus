@@ -25,7 +25,7 @@ const VideoSection = () => {
             our rhythm connects souls across every culture and continent.
           </p>
           <motion.a
-            href="https://www.youtube.com/results?search_query=beat+gurus+bangalore"
+            href="https://m.youtube.com/@BeatGurus"
             target="_blank"
             rel="noreferrer"
             className="btn-dark"
@@ -58,7 +58,7 @@ const VideoSection = () => {
           ) : (
             <>
               <img
-                src="https://images.unsplash.com/photo-1524230659092-07f99a75c013?q=80&w=1600&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1501612780327-45045538702b?q=80&w=1600&auto=format&fit=crop"
                 alt="Beat Gurus live djembe performance on stage"
                 loading="lazy"
                 decoding="async"
