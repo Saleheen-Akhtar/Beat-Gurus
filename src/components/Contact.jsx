@@ -53,32 +53,63 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitState({ loading: true, message: '', error: false });
 
-    const subject = encodeURIComponent(`Booking Inquiry: ${formData.eventType || 'General'} - ${formData.name}`);
-    const body = encodeURIComponent(`
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone || 'N/A'}
-Event Type: ${formData.eventType || 'N/A'}
-Date: ${formData.date || 'N/A'}
-Location: ${formData.location || 'N/A'}
+    // Honeypot check
+    if (formData.website) {
+       setSubmitState({ loading: false, error: true, message: "Spam detected." });
+       return;
+    }
 
-Message:
-${formData.message}
-    `.trim());
+    try {
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "YOUR_WEB3FORMS_ACCESS_KEY";
 
-    // Send using mailto
-    window.location.href = `mailto:bookings@beatgurus.org?subject=${subject}&body=${body}`;
+      const payload = {
+        access_key: accessKey,
+        subject: `Booking Inquiry: ${formData.eventType || 'General'} - ${formData.name}`,
+        from_name: formData.name,
+        email: formData.email,
+        phone: formData.phone || 'N/A',
+        eventType: formData.eventType || 'N/A',
+        date: formData.date || 'N/A',
+        location: formData.location || 'N/A',
+        message: formData.message,
+      };
 
-    setSubmitState({
-      loading: false,
-      error: false,
-      message: "Opening your email client..."
-    });
-    setFormData({ name: '', email: '', phone: '', eventType: '', date: '', location: '', message: '', website: '' });
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const json = await res.json();
+
+      if (res.status === 200) {
+        setSubmitState({
+          loading: false,
+          error: false,
+          message: "Thank you! Your inquiry has been sent successfully."
+        });
+        setFormData({ name: '', email: '', phone: '', eventType: '', date: '', location: '', message: '', website: '' });
+      } else {
+        setSubmitState({
+          loading: false,
+          error: true,
+          message: json.message || "Something went wrong. Please try again."
+        });
+      }
+    } catch (error) {
+      setSubmitState({
+        loading: false,
+        error: true,
+        message: "Network error. Please try again later."
+      });
+    }
   };
 
   return (
