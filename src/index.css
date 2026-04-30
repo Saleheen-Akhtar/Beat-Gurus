@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Don Graffiti';
+  src: url('/fonts/DonGraffiti.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Fonts loaded via index.html <link> for better performance */
 
 :root {
@@ -13,8 +21,8 @@
   --earth-red: #6D001A;
   --muted-green: #B5AC8A;
   --font-main: 'Kalam', cursive;
-  --font-display: 'Kavoon', cursive;
-  --font-accent: 'Kavoon', cursive;
+  --font-display: 'Don Graffiti', 'Kavoon', cursive;
+  --font-accent: 'Don Graffiti', 'Kavoon', cursive;
   --section-padding: 140px;
   --container-padding: 5vw;
   --ease-premium: cubic-bezier(0.76, 0, 0.24, 1);
@@ -1529,7 +1537,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
    BRAND NAME FONT (OUTFIT)
 ================================================================ */
 .font-brand-name {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Don Graffiti', 'Outfit', sans-serif;
   font-weight: 700;
   letter-spacing: 0.5px;
 }
