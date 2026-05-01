@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle } from 'react-icons/fa';
 
-const qrCodeImg = '/images/qr-code.png';
 
 const socialLinks = [
   { name: 'YouTube', url: 'https://m.youtube.com/@BeatGurus', icon: <FaYoutube size={24} /> },
@@ -77,7 +76,7 @@ const QrCodePage = () => {
         <motion.div
           className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat"
           style={{
-            backgroundImage: "url('/images/hero-bg.jpg')",
+            backgroundImage: "url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2000&auto=format&fit=crop')",
             y: yHero,
             filter: 'grayscale(100%) contrast(1.2) brightness(0.4)'
           }}
@@ -89,7 +88,7 @@ const QrCodePage = () => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="font-omega text-7xl md:text-[10rem] leading-none text-[#E8E1D9] mb-4 drop-shadow-[4px_4px_0_#0B0B0B]" style={{ textShadow: "0px 4px 20px rgba(0,0,0,0.9), 0px 0px 10px rgba(0,0,0,0.8)" }}
+            className="font-omega text-7xl md:text-[10rem] leading-none text-white mb-4 drop-shadow-[4px_4px_0_#0B0B0B]" style={{ textShadow: "0px 4px 20px rgba(0,0,0,0.9), 0px 0px 10px rgba(0,0,0,0.8)" }}
           >
             BEATGURUS
           </motion.h1>
