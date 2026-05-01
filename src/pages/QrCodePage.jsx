@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle, FaGoogleDrive } from 'react-icons/fa';
+import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle } from 'react-icons/fa';
 
 
 const socialLinks = [
@@ -8,10 +8,7 @@ const socialLinks = [
   { name: 'Facebook', url: 'https://www.facebook.com/share/1G8v4BVcoJ/', icon: <FaFacebookF size={24} />, brandColor: '#1877F2', shadowColor: '#115CBE' },
   { name: 'Instagram', url: 'https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94', icon: <FaInstagram size={24} />, brandColor: 'linear-gradient(45deg, #f09433 0%, #dc2743 50%, #bc1888 100%)', shadowColor: '#dc2743' },
   { name: 'Website', url: 'https://www.beatgurus.org/', icon: <FaGlobe size={24} />, brandColor: '#00B140', shadowColor: '#00802E' },
-  { name: 'Google Reviews', url: 'https://maps.app.goo.gl/U3CVeMZm7xq5gdw96', icon: <FaGoogle size={24} />, brandColor: 'linear-gradient(90deg, #4285F4 50%, #FBBC05 50%)', shadowColor: '#34A853' },
-  { name: 'Flute Fusion', url: 'https://drive.google.com/drive/folders/1YsDWWyZWExfwH7IlHyGNXINr4XNiRGp1', icon: <FaGoogleDrive size={24} />, brandColor: '#0F9D58', shadowColor: '#0B8043' },
-  { name: 'Drum Circle', url: 'https://drive.google.com/drive/folders/14iqZ8zuTiPTlLasgg7LmVp6bz7jwX4vj', icon: <FaGoogleDrive size={24} />, brandColor: '#0F9D58', shadowColor: '#0B8043' },
-  { name: 'DJ x Percussion', url: 'https://drive.google.com/drive/folders/1ZrlbT8I60V6ULuKDBSLx-clOfD8dik4O', icon: <FaGoogleDrive size={24} />, brandColor: '#0F9D58', shadowColor: '#0B8043' }
+  { name: 'Google Reviews', url: 'https://maps.app.goo.gl/U3CVeMZm7xq5gdw96', icon: <FaGoogle size={24} />, brandColor: 'linear-gradient(90deg, #4285F4 50%, #FBBC05 50%)', shadowColor: '#34A853' }
 ];
 
 const QrCodePage = () => {
@@ -85,7 +82,7 @@ const QrCodePage = () => {
         <motion.div
           className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat"
           style={{
-            backgroundImage: "url('/images/qr_hero_bg.jpg')",
+            backgroundImage: "url('/images/hero-bg.jpg')",
             y: yHero,
             filter: 'grayscale(100%) contrast(1.2) brightness(0.4)'
           }}
@@ -97,10 +94,9 @@ const QrCodePage = () => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="font-omega text-7xl md:text-[10rem] leading-[0.85] text-white mb-4 drop-shadow-[4px_4px_0_#0B0B0B] flex flex-col items-center" style={{ textShadow: "0px 4px 20px rgba(0,0,0,0.9), 0px 0px 10px rgba(0,0,0,0.8)" }}
+            className="font-omega text-7xl md:text-[10rem] leading-none text-white mb-4 drop-shadow-[4px_4px_0_#0B0B0B]" style={{ textShadow: "0px 4px 20px rgba(0,0,0,0.9), 0px 0px 10px rgba(0,0,0,0.8)" }}
           >
-            <span>BEAT</span>
-            <span className="text-[#D4A72C] pl-[1.1em] md:pl-[1.2em]">GURUS</span>
+            BEATGURUS
           </motion.h1>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
