@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const projects = [
-  { id: 1, title: 'BBC World Awards', category: 'International', img: 'https://images.unsplash.com/photo-1470229722913-7c092bceade4?q=80&w=1200&auto=format&fit=crop', desc: 'Award-winning percussion at the global stage' },
   { id: 2, title: 'Wine Festival', category: 'Cultural', img: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1200&auto=format&fit=crop', desc: 'Rhythmic energy at Bangalore\'s finest festivals' },
   { id: 3, title: 'Corporate Gala', category: 'Event', img: 'https://images.unsplash.com/photo-1505236858219-8359eb29e329?q=80&w=1200&auto=format&fit=crop', desc: 'High-energy performances for prestigious events' },
   { id: 4, title: 'Norway Cultural Evening', category: 'International', img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1200&auto=format&fit=crop', desc: 'Cross-cultural fusion on international stages' },
