@@ -1,18 +1,16 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle, FaGoogleDrive } from 'react-icons/fa';
+import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle } from 'react-icons/fa';
 
 
 const socialLinks = [
-  { name: 'YouTube', url: 'https://m.youtube.com/@BeatGurus', icon: <FaYoutube size={24} />, id: 'youtube' },
-  { name: 'Facebook', url: 'https://www.facebook.com/share/1G8v4BVcoJ/', icon: <FaFacebookF size={24} />, id: 'facebook' },
-  { name: 'Instagram', url: 'https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94', icon: <FaInstagram size={24} />, id: 'instagram' },
-  { name: 'Website', url: 'https://www.beatgurus.org/', icon: <FaGlobe size={24} />, id: 'website' },
-  { name: 'Google Reviews', url: 'https://maps.app.goo.gl/U3CVeMZm7xq5gdw96', icon: <FaGoogle size={24} />, id: 'google', primary: true },
-  { name: 'Flute Fusion', url: 'https://drive.google.com/drive/folders/1YsDWWyZWExfwH7IlHyGNXINr4XNiRGp1', icon: <FaGoogleDrive size={24} />, id: 'drive1' },
-  { name: 'Drum Circle', url: 'https://drive.google.com/drive/folders/14iqZ8zuTiPTlLasgg7LmVp6bz7jwX4vj', icon: <FaGoogleDrive size={24} />, id: 'drive2' },
-  { name: 'DJ x Percussion', url: 'https://drive.google.com/drive/folders/1ZrlbT8I60V6ULuKDBSLx-clOfD8dik4O', icon: <FaGoogleDrive size={24} />, id: 'drive3' }
+  { name: 'YouTube',        url: 'https://m.youtube.com/@BeatGurus',                            icon: <FaYoutube size={32} />,   id: 'youtube' },
+  { name: 'Facebook',       url: 'https://www.facebook.com/share/1G8v4BVcoJ/',                  icon: <FaFacebookF size={32} />, id: 'facebook' },
+  { name: 'Instagram',      url: 'https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94', icon: <FaInstagram size={32} />, id: 'instagram' },
+  { name: 'Website',        url: 'https://www.beatgurus.org/',                                  icon: <FaGlobe size={32} />,     id: 'website' },
+  { name: 'Google Reviews', url: 'https://maps.app.goo.gl/U3CVeMZm7xq5gdw96',                  icon: <FaGoogle size={32} />,    id: 'google', primary: true },
 ];
+
 
 
 const floatingMediaLinks = [
@@ -25,10 +23,11 @@ const GRAVITY = 0.45;
 const DAMPING = 0.62;
 const FRICTION = 0.988;
 
-function useGravityLinks(containerRef, links) {
+function useGravityLinks(containerRef, links, shouldStart) {
   const bodiesRef = useRef([]);
   const rafRef    = useRef(null);
   const dragRef   = useRef(null); // { idx, offsetX, offsetY }
+  const startedRef = useRef(false);
 
   const initBodies = useCallback(() => {
     const el = containerRef.current;
@@ -39,9 +38,9 @@ function useGravityLinks(containerRef, links) {
       const spread = width / (links.length + 1);
       return {
         x: spread * (i + 1),
-        y: -80 - i * 60,          // stagger drop start above container
-        vx: (Math.random() - 0.5) * 2,
-        vy: Math.random() * 2,
+        y: -220 - i * 120,
+        vx: (Math.random() - 0.5) * 3,
+        vy: Math.random() * 0.8,
         w: 0, h: 0,               // filled after first layout measure
         rotation: (i % 2 === 0 ? -1 : 1) * (i + 2),
         settled: false,
@@ -134,6 +133,8 @@ function useGravityLinks(containerRef, links) {
   }, []);
 
   useEffect(() => {
+    if (!shouldStart || startedRef.current) return;
+    startedRef.current = true;
     initBodies();
     rafRef.current = requestAnimationFrame(tick);
     window.addEventListener('mousemove', onPointerMove);
@@ -147,7 +148,7 @@ function useGravityLinks(containerRef, links) {
       window.removeEventListener('touchmove', onPointerMove);
       window.removeEventListener('touchend',  onPointerUp);
     };
-  }, [initBodies, tick, onPointerMove, onPointerUp]);
+  }, [shouldStart, initBodies, tick, onPointerMove, onPointerUp]);
 
   return { measureNode, onPointerDown };
 }
@@ -167,7 +168,26 @@ const QrCodePage = () => {
   // Ref for the full percussion section (not a small box)
   const percSectionRef = useRef(null);
 
-  const { measureNode, onPointerDown } = useGravityLinks(percSectionRef, floatingMediaLinks);
+  const [percSectionVisible, setPercSectionVisible] = useState(false);
+
+  useEffect(() => {
+    const el = percSectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPercSectionVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const { measureNode, onPointerDown } = useGravityLinks(percSectionRef, floatingMediaLinks, percSectionVisible);
 
   const glitchHover = {
     hover: {
@@ -219,12 +239,35 @@ const QrCodePage = () => {
         .street-tag.hover-website:hover { background: #2e7d32 !important; }
         .street-tag.hover-google { box-shadow: 4px 4px 0px #4285F4; }
         .street-tag.hover-google:hover { background: linear-gradient(to right, #4285F4, #F4B400) !important; }
-        .street-tag.hover-drive1 { box-shadow: 4px 4px 0px #F4B400; }
-        .street-tag.hover-drive1:hover { background: #FFD04B !important; color: #111 !important; }
-        .street-tag.hover-drive2 { box-shadow: 4px 4px 0px #0F9D58; }
-        .street-tag.hover-drive2:hover { background: #1FA463 !important; }
-        .street-tag.hover-drive3 { box-shadow: 4px 4px 0px #4285F4; }
-        .street-tag.hover-drive3:hover { background: #4C8BF5 !important; }
+                .street-tag.hover-flute { box-shadow: 4px 4px 0px #F4B400; }
+        .street-tag.hover-flute:hover { background: #FFD04B !important; color: #111 !important; }
+        .street-tag.hover-drum { box-shadow: 4px 4px 0px #0F9D58; }
+        .street-tag.hover-drum:hover { background: #1FA463 !important; }
+        .street-tag.hover-dj { box-shadow: 4px 4px 0px #4285F4; }
+        .street-tag.hover-dj:hover { background: #4C8BF5 !important; }
+
+        .social-link-card {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 150px;
+          height: 150px;
+          gap: 12px;
+          border: 2.5px solid #E8E1D9;
+          background: #111;
+          color: #E8E1D9;
+          text-transform: uppercase;
+          text-decoration: none;
+          font-size: 0.8rem;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          transition: color 0.2s ease, background 0.25s ease;
+          position: relative;
+        }
+        @media (min-width: 768px) {
+          .social-link-card { width: 185px; height: 185px; font-size: 0.95rem; gap: 14px; }
+        }
 
       `}</style>
       <div className="noise-overlay"></div>
@@ -282,8 +325,14 @@ const QrCodePage = () => {
             onMouseDown={e => onPointerDown(e, idx)}
             onTouchStart={e => onPointerDown(e, idx)}
             onClick={e => { /* allow click only if barely moved */ }}
-            className="absolute top-0 left-0 z-20 street-tag px-5 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white select-none cursor-grab active:cursor-grabbing"
-            style={{ willChange: 'transform', touchAction: 'none' }}
+            className={`absolute top-0 left-0 z-20 street-tag ${idx === 0 ? 'hover-flute' : idx === 1 ? 'hover-drum' : 'hover-dj'} px-5 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white select-none cursor-grab active:cursor-grabbing`}
+            style={{
+              willChange: 'transform',
+              touchAction: 'none',
+              opacity: percSectionVisible ? 1 : 0,
+              pointerEvents: percSectionVisible ? 'auto' : 'none',
+              transition: 'opacity 0.35s ease',
+            }}
           >
             {link.name}
           </a>
@@ -363,7 +412,7 @@ const QrCodePage = () => {
       {/* Section 4: Social Links */}
       <section className="relative w-full py-28 md:py-32 bg-[#0B0B0B] flex flex-col items-center px-4">
         <h2 className="font-omega text-5xl md:text-7xl text-[#E8E1D9] mb-14 uppercase text-center">Connect with the Tribe</h2>
-        <div className="flex flex-wrap justify-center gap-x-7 gap-y-8 md:gap-x-10 md:gap-y-10 max-w-5xl px-2 md:px-6">
+        <div className="flex flex-wrap justify-center gap-6 md:gap-8 max-w-5xl px-4">
           {socialLinks.map((link, idx) => {
             const rot = (idx % 2 === 0 ? 1 : -1) * ((idx % 3) + 1.2);
             return (
@@ -372,14 +421,19 @@ const QrCodePage = () => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.05, x: [0, -2, 2, -1, 0], y: [0, 1, -1, 1, 0], rotate: [`${rot}deg`, `${rot - 1}deg`, `${rot + 1}deg`, `${rot}deg`] }}
+                initial={{ opacity: 0, y: 40, rotate: rot }}
+                whileInView={{ opacity: 1, y: 0, rotate: rot }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                whileHover={{ scale: 1.08, rotate: rot + (rot > 0 ? -1.5 : 1.5), transition: { duration: 0.2 } }}
                 whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-                className={`street-tag hover-${link.id} ${link.primary ? 'ring-2 ring-[#D4A72C]/60' : ''} flex items-center gap-4 px-7 md:px-8 py-4 md:py-5 text-[#E8E1D9] font-bold text-xl md:text-2xl uppercase transition-colors hover:text-white`}
-                style={{ transform: `rotate(${rot}deg)` }}
+                className={`social-link-card street-tag hover-${link.id}`}
               >
                 {link.icon}
-                {link.name}
+                <span>{link.name}</span>
+                {link.primary && (
+                  <span style={{ position: 'absolute', top: '-10px', right: '-10px', background: '#D4A72C', color: '#0B0B0B', fontSize: '0.6rem', fontWeight: 900, letterSpacing: '0.05em', padding: '3px 7px', border: '2px solid #0B0B0B' }}>REVIEW US</span>
+                )}
               </motion.a>
             );
           })}
