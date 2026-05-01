@@ -27,9 +27,15 @@ const DRAG_CLICK_THRESHOLD = 7;
 function useGravityLinks(containerRef, links, shouldStart) {
   const bodiesRef = useRef([]);
   const rafRef    = useRef(null);
+<<<<<<< codex/update-social-links-design-and-remove-drive-links-nga3fd
+  const dragRef   = useRef(null); // { idx, offsetX, offsetY }
+  const startedRef = useRef(false);
+  const suppressClickRef = useRef(false);
+=======
   const dragRef   = useRef(null); // { idx, offsetX, offsetY, startClientX, startClientY, moved }
   const interactionMovedRef = useRef(false);
   const startedRef = useRef(false);
+>>>>>>> beatgurus
 
   const initBodies = useCallback(() => {
     const el = containerRef.current;
@@ -70,7 +76,11 @@ function useGravityLinks(containerRef, links, shouldStart) {
       b.x  += b.vx;
       b.y  += b.vy;
 
+<<<<<<< codex/update-social-links-design-and-remove-drive-links-nga3fd
+      // Floor
+=======
       // Floor (with safe bottom padding)
+>>>>>>> beatgurus
       const floor = height - b.h - 4;
       if (b.y >= floor) {
         b.y  = floor;
@@ -80,13 +90,17 @@ function useGravityLinks(containerRef, links, shouldStart) {
       }
       // Ceiling
       if (b.y < 0) { b.y = 0; b.vy = Math.abs(b.vy) * DAMPING; }
+      b.y = Math.min(Math.max(b.y, 0), floor);
       // Walls
       if (b.x < 0) { b.x = 0; b.vx = Math.abs(b.vx) * DAMPING; }
       const rightWall = width - b.w;
       if (b.x > rightWall) { b.x = rightWall; b.vx = -Math.abs(b.vx) * DAMPING; }
+<<<<<<< codex/update-social-links-design-and-remove-drive-links-nga3fd
+=======
 
       // Hard-clamp every frame after velocity/position updates
       b.y = Math.min(Math.max(b.y, 0), floor);
+>>>>>>> beatgurus
       b.x = Math.min(Math.max(b.x, 0), rightWall);
     });
 
@@ -114,10 +128,16 @@ function useGravityLinks(containerRef, links, shouldStart) {
       idx,
       offsetX: clientX - rect.left - b.x,
       offsetY: clientY - rect.top  - b.y,
+<<<<<<< codex/update-social-links-design-and-remove-drive-links-nga3fd
+      startX: clientX,
+      startY: clientY,
+=======
       startClientX: clientX,
       startClientY: clientY,
+>>>>>>> beatgurus
       moved: false,
     };
+    suppressClickRef.current = false;
     b.vx = 0; b.vy = 0; b.settled = false;
   }, [containerRef]);
 
@@ -130,6 +150,12 @@ function useGravityLinks(containerRef, links, shouldStart) {
     const b = bodiesRef.current[idx];
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    const dx = clientX - dragRef.current.startX;
+    const dy = clientY - dragRef.current.startY;
+    if (!dragRef.current.moved && Math.hypot(dx, dy) > 8) {
+      dragRef.current.moved = true;
+      suppressClickRef.current = true;
+    }
     const newX = clientX - rect.left - offsetX;
     const newY = clientY - rect.top  - offsetY;
     const deltaX = clientX - startClientX;
@@ -144,8 +170,15 @@ function useGravityLinks(containerRef, links, shouldStart) {
   }, [containerRef]);
 
   const onPointerUp = useCallback(() => {
+<<<<<<< codex/update-social-links-design-and-remove-drive-links-nga3fd
+    const wasDragged = Boolean(dragRef.current?.moved);
+=======
     interactionMovedRef.current = !!dragRef.current?.moved;
+>>>>>>> beatgurus
     dragRef.current = null;
+    if (wasDragged) {
+      setTimeout(() => { suppressClickRef.current = false; }, 0);
+    }
   }, []);
 
   const onLinkClick = useCallback((e) => {
@@ -173,6 +206,13 @@ function useGravityLinks(containerRef, links, shouldStart) {
     };
   }, [shouldStart, initBodies, tick, onPointerMove, onPointerUp]);
 
+<<<<<<< codex/update-social-links-design-and-remove-drive-links-nga3fd
+  const onLinkClick = useCallback((e) => {
+    if (suppressClickRef.current) e.preventDefault();
+  }, []);
+
+=======
+>>>>>>> beatgurus
   return { measureNode, onPointerDown, onLinkClick };
 }
 
@@ -271,6 +311,10 @@ const QrCodePage = () => {
         .street-tag.hover-drum:hover { background: #1FA463 !important; }
         .street-tag.hover-dj { box-shadow: 4px 4px 0px #4285F4; }
         .street-tag.hover-dj:hover { background: #4C8BF5 !important; }
+<<<<<<< codex/update-social-links-design-and-remove-drive-links-nga3fd
+
+=======
+>>>>>>> beatgurus
       `}</style>
       <div className="noise-overlay"></div>
 
@@ -326,8 +370,13 @@ const QrCodePage = () => {
             ref={el => measureNode(el, idx)}
             onMouseDown={e => onPointerDown(e, idx)}
             onTouchStart={e => onPointerDown(e, idx)}
+<<<<<<< codex/update-social-links-design-and-remove-drive-links-nga3fd
+            onClick={onLinkClick}
+            className={`absolute top-0 left-0 z-20 street-tag ${idx === 0 ? 'hover-flute' : idx === 1 ? 'hover-drum' : 'hover-dj'} px-5 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white select-none`}
+=======
             onClick={e => { /* allow click only if barely moved */ }}
             className={`absolute top-0 left-0 z-20 street-tag cursor-drag-affordance ${idx === 0 ? 'hover-flute' : idx === 1 ? 'hover-drum' : 'hover-dj'} px-5 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white select-none`}
+>>>>>>> beatgurus
             style={{
               willChange: 'transform',
               touchAction: 'none',
