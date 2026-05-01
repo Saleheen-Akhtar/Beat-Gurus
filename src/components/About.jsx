@@ -6,7 +6,7 @@ const tags = ['BBC World Award', 'Norway Cultural Evening', 'Wine Festivals', 'C
 const stats = [
   { end: 20, suffix: '+', label: 'Years', desc: 'Two decades of live performance, refining the craft on stages worldwide.' },
   { end: 25, suffix: '+', label: 'Countries', desc: 'From Bangalore to Oslo, our rhythm speaks every language.' },
-  { end: 5000, suffix: '+', label: 'Shows', desc: 'Corporate galas, festivals, weddings, each one unforgettable.' },
+  { end: 500, suffix: '+', label: 'Shows', desc: 'Corporate galas, festivals, weddings, each one unforgettable.' },
 ];
 
 const CountUp = ({ end, suffix, inView }) => {
