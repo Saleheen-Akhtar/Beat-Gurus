@@ -301,7 +301,7 @@ const QrCodePage = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-flicker text-xl md:text-3xl tracking-widest text-[#C89B3C] font-bold"
+            className="text-flicker text-base md:text-xl tracking-wide text-[#C89B3C] font-bold"
           >
             LIVE. ACOUSTIC. POWERFUL. WORLDWIDE.
           </motion.p>
@@ -347,7 +347,7 @@ const QrCodePage = () => {
         >
           <div className="relative w-full max-w-md aspect-[4/5] border-4 border-[#E8E1D9] p-2 bg-[#111] transform -rotate-2">
              <img src="/images/perc-image.png" alt="Live Drumming" className="w-full h-full object-cover filter contrast-125 grayscale hover:grayscale-0 transition-all duration-700" />
-             <div className="absolute -bottom-4 -right-4 bg-[#D4A72C] text-[#E8E1D9] px-4 py-2 font-bold text-xl md:text-2xl transform rotate-6 border-2 border-[#0B0B0B]">RAW ENERGY</div>
+             <div className="absolute -bottom-4 -right-4 bg-[#D4A72C] text-[#E8E1D9] px-3 py-1 font-bold text-base md:text-lg transform rotate-6 border border-[#0B0B0B]">RAW ENERGY</div>
           </div>
         </motion.div>
 
