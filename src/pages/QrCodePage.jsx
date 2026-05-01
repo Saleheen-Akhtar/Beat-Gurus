@@ -229,6 +229,9 @@ const QrCodePage = () => {
 
           background: #111;
         }
+        .cursor-drag-affordance {
+          cursor: inherit;
+        }
         .street-tag.hover-youtube { box-shadow: 4px 4px 0px #FF0000; }
         .street-tag.hover-youtube:hover { background: #FF0000 !important; }
         .street-tag.hover-facebook { box-shadow: 4px 4px 0px #1877F2; }
@@ -325,7 +328,7 @@ const QrCodePage = () => {
             onMouseDown={e => onPointerDown(e, idx)}
             onTouchStart={e => onPointerDown(e, idx)}
             onClick={e => { /* allow click only if barely moved */ }}
-            className={`absolute top-0 left-0 z-20 street-tag ${idx === 0 ? 'hover-flute' : idx === 1 ? 'hover-drum' : 'hover-dj'} px-5 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white select-none cursor-grab active:cursor-grabbing`}
+            className={`absolute top-0 left-0 z-20 street-tag cursor-drag-affordance ${idx === 0 ? 'hover-flute' : idx === 1 ? 'hover-drum' : 'hover-dj'} px-5 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white select-none`}
             style={{
               willChange: 'transform',
               touchAction: 'none',
