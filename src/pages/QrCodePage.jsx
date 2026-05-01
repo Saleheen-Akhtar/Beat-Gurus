@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle } from 'react-icons/fa';
+import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle, FaGoogleDrive } from 'react-icons/fa';
 
 
 const socialLinks = [
@@ -8,7 +8,10 @@ const socialLinks = [
   { name: 'Facebook', url: 'https://www.facebook.com/share/1G8v4BVcoJ/', icon: <FaFacebookF size={24} />, brandColor: '#1877F2', shadowColor: '#115CBE' },
   { name: 'Instagram', url: 'https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94', icon: <FaInstagram size={24} />, brandColor: 'linear-gradient(45deg, #f09433 0%, #dc2743 50%, #bc1888 100%)', shadowColor: '#dc2743' },
   { name: 'Website', url: 'https://www.beatgurus.org/', icon: <FaGlobe size={24} />, brandColor: '#00B140', shadowColor: '#00802E' },
-  { name: 'Google Reviews', url: 'https://maps.app.goo.gl/U3CVeMZm7xq5gdw96', icon: <FaGoogle size={24} />, brandColor: 'linear-gradient(90deg, #4285F4 50%, #FBBC05 50%)', shadowColor: '#34A853' }
+  { name: 'Google Reviews', url: 'https://maps.app.goo.gl/U3CVeMZm7xq5gdw96', icon: <FaGoogle size={24} />, brandColor: 'linear-gradient(90deg, #4285F4 50%, #FBBC05 50%)', shadowColor: '#34A853' },
+  { name: 'Flute Fusion', id: 'drive1', url: 'https://drive.google.com/drive/folders/1YsDWWyZWExfwH7IlHyGNXINr4XNiRGp1', icon: <FaGoogleDrive size={24} />, brandColor: '#FFD04B', shadowColor: '#F4B400' },
+  { name: 'Drum Circle', id: 'drive2', url: 'https://drive.google.com/drive/folders/14iqZ8zuTiPTlLasgg7LmVp6bz7jwX4vj', icon: <FaGoogleDrive size={24} />, brandColor: '#1FA463', shadowColor: '#0F9D58' },
+  { name: 'DJ x Percussion', id: 'drive3', url: 'https://drive.google.com/drive/folders/1ZrlbT8I60V6ULuKDBSLx-clOfD8dik4O', icon: <FaGoogleDrive size={24} />, brandColor: '#4C8BF5', shadowColor: '#4285F4' }
 ];
 
 const QrCodePage = () => {
@@ -73,6 +76,12 @@ const QrCodePage = () => {
         .street-tag.hover-website:hover { background: #2e7d32 !important; }
         .street-tag.hover-google { box-shadow: 4px 4px 0px #4285F4; }
         .street-tag.hover-google:hover { background: linear-gradient(to right, #4285F4, #F4B400) !important; }
+        .street-tag.hover-drive1 { box-shadow: 4px 4px 0px #F4B400; }
+        .street-tag.hover-drive1:hover { background: #FFD04B !important; color: #111 !important; }
+        .street-tag.hover-drive2 { box-shadow: 4px 4px 0px #0F9D58; }
+        .street-tag.hover-drive2:hover { background: #1FA463 !important; }
+        .street-tag.hover-drive3 { box-shadow: 4px 4px 0px #4285F4; }
+        .street-tag.hover-drive3:hover { background: #4C8BF5 !important; }
 
       `}</style>
       <div className="noise-overlay"></div>
@@ -94,7 +103,7 @@ const QrCodePage = () => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="font-omega text-7xl md:text-[10rem] leading-none text-white mb-4 flex flex-col items-start drop-shadow-[4px_4px_0_#B30000]" style={{ textShadow: "0px 4px 20px rgba(179,0,0,0.9), 0px 0px 10px rgba(179,0,0,0.8)" }}
+            className="font-omega text-7xl md:text-[10rem] leading-none text-white mb-4 flex flex-col items-start drop-shadow-[4px_4px_0_#B30000]" style={{ textShadow: "4px 4px 0px #B30000" }}
           >
             <div className="relative">
               <span className="block">BEAT</span>
@@ -190,7 +199,7 @@ const QrCodePage = () => {
          <div className="flex flex-wrap justify-center gap-6 md:gap-10 max-w-5xl">
             {socialLinks.map((link, idx) => {
                const rot = (idx % 2 === 0 ? 1 : -1) * ((idx % 3) + 1.5);
-               const hoverClass = link.name === 'Google Reviews' ? 'hover-google' : `hover-${link.name.toLowerCase()}`;
+               const hoverClass = link.id ? `hover-${link.id}` : (link.name === 'Google Reviews' ? 'hover-google' : `hover-${link.name.toLowerCase()}`);
                return (
                   <motion.a
                      key={idx}
