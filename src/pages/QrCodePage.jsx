@@ -61,11 +61,11 @@ const QrCodePage = () => {
         }
         .street-tag {
           border: 2px solid #E8E1D9;
-          box-shadow: 4px 4px 0px #B30000;
+          box-shadow: 4px 4px 0px #D4A72C;
           background: #111;
         }
         .street-tag:hover {
-          background: #B30000;
+          background: #D4A72C;
           color: #0B0B0B;
           box-shadow: 6px 6px 0px #C89B3C;
         }
@@ -77,19 +77,19 @@ const QrCodePage = () => {
         <motion.div
           className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2000&auto=format&fit=crop')",
+            backgroundImage: "url('/images/hero-bg.jpg')",
             y: yHero,
             filter: 'grayscale(100%) contrast(1.2) brightness(0.4)'
           }}
         />
-        <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#0B0B0B] via-transparent to-transparent opacity-100"></div>
+        <div className="absolute inset-0 z-0 bg-[#0B0B0B]/60"></div><div className="absolute inset-0 z-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/40 to-transparent opacity-100"></div>
 
         <div className="relative z-10 text-center px-4 pt-20">
           <motion.h1
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="font-omega text-7xl md:text-[10rem] leading-none text-[#E8E1D9] mb-4 drop-shadow-[4px_4px_0_#B30000]"
+            className="font-omega text-7xl md:text-[10rem] leading-none text-[#E8E1D9] mb-4 drop-shadow-[4px_4px_0_#0B0B0B]" style={{ textShadow: "0px 4px 20px rgba(0,0,0,0.9), 0px 0px 10px rgba(0,0,0,0.8)" }}
           >
             BEATGURUS
           </motion.h1>
@@ -113,8 +113,8 @@ const QrCodePage = () => {
           className="w-full md:w-1/2 p-6 md:p-12 flex justify-center items-center"
         >
           <div className="relative w-full max-w-md aspect-[4/5] border-4 border-[#E8E1D9] p-2 bg-[#111] transform -rotate-2">
-             <img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?q=80&w=1200&auto=format&fit=crop" alt="Live Drumming" className="w-full h-full object-cover filter contrast-125 grayscale hover:grayscale-0 transition-all duration-700" />
-             <div className="absolute -bottom-4 -right-4 bg-[#B30000] text-[#E8E1D9] px-4 py-2 font-bold text-xl md:text-2xl transform rotate-6 border-2 border-[#0B0B0B]">RAW ENERGY</div>
+             <img src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?q=80&w=1200&auto=format&fit=crop" alt="Live Drumming" className="w-full h-full object-cover filter contrast-125 grayscale hover:grayscale-0 transition-all duration-700" />
+             <div className="absolute -bottom-4 -right-4 bg-[#D4A72C] text-[#E8E1D9] px-4 py-2 font-bold text-xl md:text-2xl transform rotate-6 border-2 border-[#0B0B0B]">RAW ENERGY</div>
           </div>
         </motion.div>
 
@@ -125,7 +125,7 @@ const QrCodePage = () => {
           className="w-full md:w-1/2 p-6 md:p-12 flex flex-col justify-center"
         >
           <h2 className="font-omega text-5xl md:text-7xl mb-8 leading-tight text-[#E8E1D9]">
-            PERCUSSION IS <br/><span className="text-[#B30000] drop-shadow-[2px_2px_0_#E8E1D9]">OUR LANGUAGE.</span>
+            PERCUSSION IS <br/><span className="text-[#D4A72C] drop-shadow-[2px_2px_0_#E8E1D9]">OUR LANGUAGE.</span>
           </h2>
           <h2 className="font-omega text-5xl md:text-7xl leading-tight text-[#C89B3C]">
             ENERGY IS OUR IDENTITY.
@@ -134,7 +134,7 @@ const QrCodePage = () => {
       </section>
 
       {/* Section 3: Global Presence */}
-      <section className="relative w-full py-24 bg-[#B30000] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-16">
+      <section className="relative w-full py-24 bg-[#D4A72C] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-16">
         <div className="relative w-full flex whitespace-nowrap overflow-hidden">
           <motion.div
              animate={{ x: ["0%", "-50%"] }}
@@ -159,13 +159,13 @@ const QrCodePage = () => {
             {[...Array(3)].map((_, j) => (
                <React.Fragment key={j}>
                  <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-72 md:w-[28rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[8px_8px_0_#E8E1D9]">
-                    <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?q=80&w=800&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" />
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" />
                     <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                        <FaYoutube className="text-[#C89B3C] text-6xl drop-shadow-md" />
                     </div>
                  </a>
                  <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-72 md:w-[28rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[8px_8px_0_#E8E1D9]">
-                    <img src="https://images.unsplash.com/photo-1470229722913-7c092bceade4?q=80&w=800&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" />
+                    <img src="https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?q=80&w=800&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" />
                     <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                        <FaYoutube className="text-[#C89B3C] text-6xl drop-shadow-md" />
                     </div>
@@ -200,42 +200,6 @@ const QrCodePage = () => {
                   </motion.a>
                );
             })}
-         </div>
-      </section>
-
-      {/* Section 5: Final CTA */}
-      <section className="relative w-full py-32 bg-[#E8E1D9] flex flex-col items-center justify-center text-[#0B0B0B] overflow-hidden border-t-8 border-[#C89B3C]">
-         <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center filter grayscale mix-blend-multiply"></div>
-         <div className="relative z-10 flex flex-col items-center text-center px-4">
-            <motion.h2
-               initial={{ y: 20, opacity: 0 }}
-               whileInView={{ y: 0, opacity: 1 }}
-               viewport={{ once: true }}
-               className="font-omega text-6xl md:text-[7rem] mb-12 text-[#B30000] drop-shadow-[3px_3px_0_#0B0B0B]"
-            >
-               JOIN THE RHYTHM
-            </motion.h2>
-
-            <motion.div
-               initial={{ scale: 0.9, opacity: 0 }}
-               whileInView={{ scale: 1, opacity: 1 }}
-               viewport={{ once: true }}
-               whileHover={{ scale: 1.05 }}
-               transition={{ type: "spring", stiffness: 300 }}
-               className="bg-[#0B0B0B] p-4 md:p-6 border-4 border-[#B30000] mb-12"
-               style={{ boxShadow: '12px 12px 0px #C89B3C' }}
-            >
-               <img src={qrCodeImg} alt="Beat Gurus QR" loading="lazy" decoding="async" className="w-56 h-56 md:w-72 md:h-72 object-contain filter-none bg-white p-2" />
-            </motion.div>
-
-            <motion.p
-               initial={{ y: 20, opacity: 0 }}
-               whileInView={{ y: 0, opacity: 1 }}
-               viewport={{ once: true }}
-               className="text-3xl md:text-5xl font-bold tracking-[0.2em] uppercase text-[#0B0B0B]"
-            >
-               SCAN. <span className="text-[#B30000]">FEEL.</span> EXPERIENCE.
-            </motion.p>
          </div>
       </section>
     </div>
