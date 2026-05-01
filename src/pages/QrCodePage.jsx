@@ -22,7 +22,7 @@ const floatingMediaLinks = [
 const GRAVITY = 0.45;
 const DAMPING = 0.62;
 const FRICTION = 0.988;
-const FLOOR_SAFE_GAP_MOBILE = 15;
+const FLOOR_SAFE_GAP_MOBILE = 13;
 const FLOOR_SAFE_GAP_DESKTOP = 13;
 
 function useGravityLinks(containerRef, links, shouldStart) {
