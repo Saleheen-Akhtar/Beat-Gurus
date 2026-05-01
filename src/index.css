@@ -1082,7 +1082,11 @@ p {
   border-bottom: 1px solid rgba(245, 241, 236, 0.1);
   padding: 20px 0;
 }
-.usp-marquee-track {
+.usp-marquee-track-motion {
+  display: inline-flex;
+  width: max-content;
+}
+.usp-marquee-track-old {
   display: inline-flex;
   animation: marquee-run 18s linear infinite;
 }
@@ -1125,7 +1129,11 @@ p {
   border-top: 1px solid rgba(245, 241, 236, 0.1);
   padding: 20px 0;
 }
-.usp-bottom-track {
+.usp-bottom-track-motion {
+  display: inline-flex;
+  width: max-content;
+}
+.usp-bottom-track-old {
   display: inline-flex;
   animation: marquee-run 22s linear infinite reverse;
 }

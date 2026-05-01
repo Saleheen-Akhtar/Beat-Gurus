@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
 import { FaArrowRight, FaPlay } from 'react-icons/fa';
-import logoImg from '../../images/logo.png';
+import logoImg from '../../images/logo.webp';
 
 const Hero = () => {
   const ref = useRef(null);
