@@ -62,19 +62,15 @@ const TestimonialsColumn = ({ testimonials: columnTestimonials, className, durat
 
   return (
     <div className={className} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-      <motion.div
-        animate={shouldReduceMotion || paused ? { y: 0 } : { y: direction === "up" ? ["0%", "-50%"] : ["-50%", "0%"] }}
-        transition={
-          shouldReduceMotion
-            ? { duration: 0 }
-            : {
-                duration,
-                repeat: Infinity,
-                ease: "linear",
-                repeatType: "loop",
-              }
-        }
+      <div
         className="flex flex-col gap-6 pb-6 will-change-transform"
+        style={shouldReduceMotion ? {} : {
+          animationName: direction === "up" ? 'testiScrollUp' : 'testiScrollDown',
+          animationDuration: `${duration}s`,
+          animationTimingFunction: 'linear',
+          animationIterationCount: 'infinite',
+          animationPlayState: paused ? 'paused' : 'running',
+        }}
       >
         {loopedContent.map(({ text, name, role }, i) => (
           <div
@@ -110,7 +106,7 @@ const TestimonialsColumn = ({ testimonials: columnTestimonials, className, durat
             </div>
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 };

@@ -77,6 +77,13 @@ const Preloader = ({ onComplete }) => {
             className="preloader-logo"
             aria-hidden="true"
           />
+          <motion.div
+            className="preloader-invert-overlay"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.9, ease: 'easeInOut' } }}
+            aria-hidden="true"
+          />
         </motion.div>
       )}
     </AnimatePresence>

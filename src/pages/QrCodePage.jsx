@@ -22,7 +22,7 @@ const floatingMediaLinks = [
 const GRAVITY = 0.45;
 const DAMPING = 0.62;
 const FRICTION = 0.988;
-const FLOOR_SAFE_GAP_MOBILE = 14;
+const FLOOR_SAFE_GAP_MOBILE = 18;
 const FLOOR_SAFE_GAP_DESKTOP = 36;
 
 function useGravityLinks(containerRef, links, shouldStart) {
@@ -368,7 +368,7 @@ const QrCodePage = () => {
       </section>
 
       {/* Section 3: Global Presence */}
-      <section className="relative w-full py-24 bg-[#C29423] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-16">
+      <section className="relative w-full py-16 md:py-20 bg-[#C29423] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-12 md:gap-16">
         <div className="relative w-full flex whitespace-nowrap overflow-hidden">
           <motion.div
              animate={{ x: ["0%", "-50%"] }}
@@ -392,13 +392,13 @@ const QrCodePage = () => {
           >
             {[...Array(4)].map((_, j) => (
                <React.Fragment key={j}>
-                 <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-72 md:w-[28rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[8px_8px_0_#E8E1D9]">
+                 <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-80 md:w-[30rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[8px_8px_0_#E8E1D9]">
                     <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" />
                     <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                        <FaYoutube className="text-[#C89B3C] text-6xl drop-shadow-md" />
                     </div>
                  </a>
-                 <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-72 md:w-[28rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[8px_8px_0_#E8E1D9]">
+                 <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-80 md:w-[30rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[8px_8px_0_#E8E1D9]">
                     <img src="https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?q=80&w=800&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" />
                     <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                        <FaYoutube className="text-[#C89B3C] text-6xl drop-shadow-md" />
