@@ -55,37 +55,14 @@ const thirdColumn = testimonials.slice(6, 9);
 
 const TestimonialsColumn = (props) => {
   const shouldReduceMotion = useReducedMotion();
-  const controls = useAnimationControls();
-  const isPaused = props.paused;
 
-  useEffect(() => {
-    if (shouldReduceMotion) {
-      controls.set({ y: "0%" });
-      return;
-    }
-
-    if (isPaused) {
-      controls.stop();
-      return;
-    }
-
-    controls.start({
-      y: ["0%", "-50%"],
-      transition: {
-        duration: props.duration || 10,
-        repeat: Infinity,
-        ease: "linear",
-        repeatType: "loop",
-      },
-    });
-  }, [controls, isPaused, props.duration, shouldReduceMotion]);
 
   return (
     <div
       className={props.className}
     >
       <motion.div
-        animate={controls}
+        animate={{ y: shouldReduceMotion ? "0%" : ["0%", "-50%"] }}
         transition={
           shouldReduceMotion
           ? { duration: 0 }

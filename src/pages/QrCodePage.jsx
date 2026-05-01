@@ -60,13 +60,18 @@ const QrCodePage = () => {
         }
         .street-tag {
           border: 2px solid #E8E1D9;
-          box-shadow: 4px 4px 0px #D4A72C;
+
           background: #111;
         }
+        .street-tag.hover-youtube { box-shadow: 4px 4px 0px #FF0000; }
         .street-tag.hover-youtube:hover { background: #FF0000 !important; }
+        .street-tag.hover-facebook { box-shadow: 4px 4px 0px #1877F2; }
         .street-tag.hover-facebook:hover { background: #1877F2 !important; }
+        .street-tag.hover-instagram { box-shadow: 4px 4px 0px #E1306C; }
         .street-tag.hover-instagram:hover { background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045) !important; }
+        .street-tag.hover-website { box-shadow: 4px 4px 0px #2e7d32; }
         .street-tag.hover-website:hover { background: #2e7d32 !important; }
+        .street-tag.hover-google { box-shadow: 4px 4px 0px #4285F4; }
         .street-tag.hover-google:hover { background: linear-gradient(to right, #4285F4, #F4B400) !important; }
 
       `}</style>
@@ -193,7 +198,7 @@ const QrCodePage = () => {
                         scale: 1.05,
 
 
-                        boxShadow: `6px 6px 0px ${link.shadowColor}`,
+                        /* boxShadow removed */
                         x: [0, -2, 2, -2, 0],
                         y: [0, 1, -1, 1, 0],
                         rotate: [`${rot}deg`, `${rot-1}deg`, `${rot+1}deg`, `${rot}deg`]

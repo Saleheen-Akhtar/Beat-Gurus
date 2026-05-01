@@ -214,7 +214,7 @@ const Contact = () => {
 
               <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
                 <div style={{ flex: '1 1 200px' }}>
-                  <input type="date" name="date" value={formData.date} onChange={handleChange} className="contact-input" />
+                  <input type="text" name="date" placeholder="DD/MM/YYYY" value={formData.date} onChange={handleChange} className="contact-input" />
                 </div>
                 <div style={{ flex: '1 1 200px' }}>
                   <input type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Event Location/City" className="contact-input" />
