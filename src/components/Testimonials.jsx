@@ -53,7 +53,7 @@ const firstColumn = testimonials.slice(0, 3);
 const secondColumn = testimonials.slice(3, 6);
 const thirdColumn = testimonials.slice(6, 9);
 
-const TestimonialsColumn = ({ testimonials: columnTestimonials, className, duration = 10 }) => {
+const TestimonialsColumn = ({ testimonials: columnTestimonials, className, duration = 10, direction = "up" }) => {
   const shouldReduceMotion = useReducedMotion();
   const loopedContent = shouldReduceMotion
     ? columnTestimonials
@@ -62,7 +62,7 @@ const TestimonialsColumn = ({ testimonials: columnTestimonials, className, durat
   return (
     <div className={className}>
       <motion.div
-        animate={shouldReduceMotion ? { y: 0 } : { y: ["0%", "-50%"] }}
+        animate={shouldReduceMotion ? { y: 0 } : { y: direction === "up" ? ["0%", "-50%"] : ["-50%", "0%"] }}
         transition={
           shouldReduceMotion
             ? { duration: 0 }
@@ -74,7 +74,6 @@ const TestimonialsColumn = ({ testimonials: columnTestimonials, className, durat
               }
         }
         className="flex flex-col gap-6 pb-6 will-change-transform"
-        style={{ transform: "translate3d(0,0,0)" }}
       >
         {loopedContent.map(({ text, name, role }, i) => (
           <div
@@ -150,9 +149,9 @@ const Testimonials = () => {
         </div>
 
         <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] h-[650px] overflow-hidden">
-          <TestimonialsColumn testimonials={firstColumn} duration={35} />
-          <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={42} />
-          <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={38} />
+          <TestimonialsColumn testimonials={firstColumn} duration={35} direction="up" />
+          <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={42} direction="down" />
+          <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={38} direction="up" />
         </div>
       </div>
     </section>
