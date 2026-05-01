@@ -1502,7 +1502,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 @media (max-width: 480px) {
   .hero-title-line {
     font-size: clamp(2.8rem, 18vw, 4rem) !important;
-  }  .instruments-grid { grid-template-columns: 1fr; }
+  }
+  .logo, .logo-light { font-size: clamp(1.2rem, 5vw, 1.7rem) !important; letter-spacing: 0px; }  .instruments-grid { grid-template-columns: 1fr; }
   .showcase-carousel { height: clamp(280px, 45vh, 380px); }
   .showcase-card-title { font-size: 1.4rem; }
   .showcase-card-info { padding: 16px; }
