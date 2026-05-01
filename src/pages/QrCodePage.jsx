@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle, FaGoogleDrive } from 'react-icons/fa';
 
@@ -20,6 +20,138 @@ const floatingMediaLinks = [
   { name: 'Drum Circle', url: 'https://drive.google.com/drive/folders/14iqZ8zuTiPTlLasgg7LmVp6bz7jwX4vj' },
   { name: 'DJ x Percussion', url: 'https://drive.google.com/drive/folders/1ZrlbT8I60V6ULuKDBSLx-clOfD8dik4O' },
 ];
+/* ─── Gravity physics for floating links ─── */
+const GRAVITY = 0.45;
+const DAMPING = 0.62;
+const FRICTION = 0.988;
+
+function useGravityLinks(containerRef, links) {
+  const bodiesRef = useRef([]);
+  const rafRef    = useRef(null);
+  const dragRef   = useRef(null); // { idx, offsetX, offsetY }
+
+  const initBodies = useCallback(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const { width, height } = el.getBoundingClientRect();
+
+    bodiesRef.current = links.map((_, i) => {
+      const spread = width / (links.length + 1);
+      return {
+        x: spread * (i + 1),
+        y: -80 - i * 60,          // stagger drop start above container
+        vx: (Math.random() - 0.5) * 2,
+        vy: Math.random() * 2,
+        w: 0, h: 0,               // filled after first layout measure
+        rotation: (i % 2 === 0 ? -1 : 1) * (i + 2),
+        settled: false,
+      };
+    });
+  }, [links, containerRef]);
+
+  const measureNode = useCallback((el, idx) => {
+    if (!el || !bodiesRef.current[idx]) return;
+    bodiesRef.current[idx].w = el.offsetWidth;
+    bodiesRef.current[idx].h = el.offsetHeight;
+  }, []);
+
+  const tick = useCallback(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const { width, height } = el.getBoundingClientRect();
+
+    bodiesRef.current.forEach((b, i) => {
+      if (dragRef.current?.idx === i) return; // skip dragged body
+
+      b.vy += GRAVITY;
+      b.vx *= FRICTION;
+      b.vy *= FRICTION;
+      b.x  += b.vx;
+      b.y  += b.vy;
+
+      // Floor
+      const floor = height - b.h;
+      if (b.y >= floor) {
+        b.y  = floor;
+        b.vy = -b.vy * DAMPING;
+        b.vx *= 0.85;
+        if (Math.abs(b.vy) < 0.8) { b.vy = 0; b.settled = true; }
+      }
+      // Ceiling
+      if (b.y < 0) { b.y = 0; b.vy = Math.abs(b.vy) * DAMPING; }
+      // Walls
+      if (b.x < 0) { b.x = 0; b.vx = Math.abs(b.vx) * DAMPING; }
+      const rightWall = width - b.w;
+      if (b.x > rightWall) { b.x = rightWall; b.vx = -Math.abs(b.vx) * DAMPING; }
+    });
+
+    // Apply positions to DOM directly (bypass React re-renders)
+    el.querySelectorAll('[data-gravity-body]').forEach((node, i) => {
+      const b = bodiesRef.current[i];
+      if (!b) return;
+      node.style.transform = `translate(${b.x}px, ${b.y}px) rotate(${b.rotation}deg)`;
+    });
+
+    rafRef.current = requestAnimationFrame(tick);
+  }, [containerRef]);
+
+  // Pointer drag
+  const onPointerDown = useCallback((e, idx) => {
+    e.preventDefault();
+    const el = containerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const b = bodiesRef.current[idx];
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    dragRef.current = {
+      idx,
+      offsetX: clientX - rect.left - b.x,
+      offsetY: clientY - rect.top  - b.y,
+    };
+    b.vx = 0; b.vy = 0; b.settled = false;
+  }, [containerRef]);
+
+  const onPointerMove = useCallback((e) => {
+    if (!dragRef.current) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const { idx, offsetX, offsetY } = dragRef.current;
+    const b = bodiesRef.current[idx];
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    const newX = clientX - rect.left - offsetX;
+    const newY = clientY - rect.top  - offsetY;
+    b.vx = newX - b.x;
+    b.vy = newY - b.y;
+    b.x  = newX;
+    b.y  = newY;
+  }, [containerRef]);
+
+  const onPointerUp = useCallback(() => {
+    dragRef.current = null;
+  }, []);
+
+  useEffect(() => {
+    initBodies();
+    rafRef.current = requestAnimationFrame(tick);
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('mouseup',   onPointerUp);
+    window.addEventListener('touchmove', onPointerMove, { passive: true });
+    window.addEventListener('touchend',  onPointerUp);
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      window.removeEventListener('mousemove', onPointerMove);
+      window.removeEventListener('mouseup',   onPointerUp);
+      window.removeEventListener('touchmove', onPointerMove);
+      window.removeEventListener('touchend',  onPointerUp);
+    };
+  }, [initBodies, tick, onPointerMove, onPointerUp]);
+
+  return { measureNode, onPointerDown };
+}
+
 const QrCodePage = () => {
   useEffect(() => {
     document.title = "Campaign | Beat Gurus";
@@ -31,7 +163,11 @@ const QrCodePage = () => {
 
   const { scrollYProgress } = useScroll();
   const yHero = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const floatingLinksRef = useRef(null);
+
+  // Ref for the full percussion section (not a small box)
+  const percSectionRef = useRef(null);
+
+  const { measureNode, onPointerDown } = useGravityLinks(percSectionRef, floatingMediaLinks);
 
   const glitchHover = {
     hover: {
@@ -128,8 +264,31 @@ const QrCodePage = () => {
         </div>
       </section>
 
-      {/* Section 2: The Experience */}
-      <section className="relative w-full min-h-screen py-24 flex flex-col md:flex-row bg-[#0B0B0B] z-10 border-t-4 border-[#E8E1D9]">
+      {/* Section 2: The Experience — Percussion */}
+      <section
+        ref={percSectionRef}
+        className="relative w-full min-h-screen py-24 flex flex-col md:flex-row bg-[#0B0B0B] z-10 border-t-4 border-[#E8E1D9]"
+        style={{ overflow: 'hidden' }}
+      >
+        {/* Gravity-physics floating links — rendered over the whole section */}
+        {floatingMediaLinks.map((link, idx) => (
+          <a
+            key={link.name}
+            data-gravity-body
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            ref={el => measureNode(el, idx)}
+            onMouseDown={e => onPointerDown(e, idx)}
+            onTouchStart={e => onPointerDown(e, idx)}
+            onClick={e => { /* allow click only if barely moved */ }}
+            className="absolute top-0 left-0 z-20 street-tag px-5 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white select-none cursor-grab active:cursor-grabbing"
+            style={{ willChange: 'transform', touchAction: 'none' }}
+          >
+            {link.name}
+          </a>
+        ))}
+
         <motion.div
           initial={{ x: -50, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
@@ -154,32 +313,7 @@ const QrCodePage = () => {
           <h2 className="font-omega text-5xl md:text-7xl leading-tight text-[#C89B3C]">
             ENERGY IS OUR IDENTITY.
           </h2>
-
-          <div ref={floatingLinksRef} className="relative mt-8 h-[280px] md:h-[320px] w-full max-w-xl overflow-hidden rounded-2xl border-2 border-[#E8E1D9]/50 bg-[#111]/70">
-            {floatingMediaLinks.map((link, idx) => {
-              const left = ["6%", "36%", "66%"];
-              return (
-                <motion.a
-                  key={link.name}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  drag
-                  dragConstraints={floatingLinksRef}
-                  dragElastic={0.2}
-                  initial={{ y: -180, opacity: 0, rotate: idx % 2 === 0 ? -5 : 4 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  viewport={{ once: true, margin: "-20%" }}
-                  transition={{ delay: idx * 0.18, duration: 0.8, type: "spring", bounce: 0.35 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="absolute top-6 street-tag px-4 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white cursor-grab active:cursor-grabbing"
-                  style={{ left: left[idx] }}
-                >
-                  {link.name}
-                </motion.a>
-              );
-            })}
-          </div>
+          <p className="mt-8 text-[#E8E1D9]/50 text-sm uppercase tracking-widest">↑ Drag the links above ↑</p>
         </motion.div>
       </section>
 
