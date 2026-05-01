@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
+
 const navItems = [
   { label: 'About', href: '#about' },
   { label: 'Gallery', href: '#work' },
@@ -12,7 +13,12 @@ const navItems = [
 
 const Navbar = ({ isHomeRoute }) => {
 
-  const isQrRoute = typeof window !== 'undefined' && window.location.pathname === '/qr-code';
+  let pathname = '';
+  if (typeof window !== 'undefined') {
+    pathname = window.location.pathname;
+  }
+
+  const isQrRoute = pathname === '/qr-code';
   const logoStyle = isQrRoute ? { color: '#FFFFFF' } : {};
   const logoSpanStyle = isQrRoute ? { color: '#D4A72C' } : {};
 

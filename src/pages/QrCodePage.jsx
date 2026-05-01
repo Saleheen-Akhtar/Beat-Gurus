@@ -63,6 +63,11 @@ const QrCodePage = () => {
           box-shadow: 4px 4px 0px #D4A72C;
           background: #111;
         }
+        .street-tag.hover-youtube:hover { background: #FF0000 !important; }
+        .street-tag.hover-facebook:hover { background: #1877F2 !important; }
+        .street-tag.hover-instagram:hover { background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045) !important; }
+        .street-tag.hover-website:hover { background: #2e7d32 !important; }
+        .street-tag.hover-google:hover { background: linear-gradient(to right, #4285F4, #F4B400) !important; }
 
       `}</style>
       <div className="noise-overlay"></div>
@@ -72,7 +77,7 @@ const QrCodePage = () => {
         <motion.div
           className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2000&auto=format&fit=crop')",
+            backgroundImage: "url('/images/hero-bg.jpg')",
             y: yHero,
             filter: 'grayscale(100%) contrast(1.2) brightness(0.4)'
           }}
@@ -177,6 +182,7 @@ const QrCodePage = () => {
          <div className="flex flex-wrap justify-center gap-6 md:gap-10 max-w-5xl">
             {socialLinks.map((link, idx) => {
                const rot = (idx % 2 === 0 ? 1 : -1) * ((idx % 3) + 1.5);
+               const hoverClass = link.name === 'Google Reviews' ? 'hover-google' : `hover-${link.name.toLowerCase()}`;
                return (
                   <motion.a
                      key={idx}
@@ -185,8 +191,8 @@ const QrCodePage = () => {
                      rel="noopener noreferrer"
                      whileHover={{
                         scale: 1.05,
-                        background: link.brandColor,
-                        color: '#FFFFFF',
+
+
                         boxShadow: `6px 6px 0px ${link.shadowColor}`,
                         x: [0, -2, 2, -2, 0],
                         y: [0, 1, -1, 1, 0],
@@ -194,7 +200,7 @@ const QrCodePage = () => {
                      }}
                      transition={{ duration: 0.2 }}
                      whileTap={{ scale: 0.95 }}
-                     className="street-tag flex items-center gap-4 px-6 md:px-8 py-4 md:py-5 text-[#E8E1D9] font-bold text-xl md:text-2xl uppercase transition-colors"
+                     className={`street-tag ${hoverClass} flex items-center gap-4 px-6 md:px-8 py-4 md:py-5 text-[#E8E1D9] font-bold text-xl md:text-2xl uppercase transition-colors hover:text-white`}
                      style={{ transform: `rotate(${rot}deg)` }}
                   >
                      {link.icon}
