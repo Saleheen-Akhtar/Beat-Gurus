@@ -70,8 +70,8 @@ function useGravityLinks(containerRef, links, shouldStart) {
       b.x  += b.vx;
       b.y  += b.vy;
 
-      // Floor
-      const floor = height - b.h;
+      // Floor (with safe bottom padding)
+      const floor = height - b.h - 4;
       if (b.y >= floor) {
         b.y  = floor;
         b.vy = -b.vy * DAMPING;
@@ -84,6 +84,10 @@ function useGravityLinks(containerRef, links, shouldStart) {
       if (b.x < 0) { b.x = 0; b.vx = Math.abs(b.vx) * DAMPING; }
       const rightWall = width - b.w;
       if (b.x > rightWall) { b.x = rightWall; b.vx = -Math.abs(b.vx) * DAMPING; }
+
+      // Hard-clamp every frame after velocity/position updates
+      b.y = Math.min(Math.max(b.y, 0), floor);
+      b.x = Math.min(Math.max(b.x, 0), rightWall);
     });
 
     // Apply positions to DOM directly (bypass React re-renders)
@@ -329,8 +333,8 @@ const QrCodePage = () => {
       {/* Section 2: The Experience — Percussion */}
       <section
         ref={percSectionRef}
-        className="relative w-full min-h-screen py-24 flex flex-col md:flex-row bg-[#0B0B0B] z-10 border-t-4 border-[#E8E1D9]"
-        style={{ overflow: 'hidden' }}
+        className="relative w-full min-h-screen py-24 flex flex-col md:flex-row bg-[#0B0B0B] border-t-4 border-[#E8E1D9]"
+        style={{ overflow: 'hidden', isolation: 'isolate' }}
       >
         {/* Gravity-physics floating links — rendered over the whole section */}
         {floatingMediaLinks.map((link, idx) => (
