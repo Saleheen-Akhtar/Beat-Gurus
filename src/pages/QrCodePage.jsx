@@ -22,11 +22,13 @@ const floatingMediaLinks = [
 const GRAVITY = 0.45;
 const DAMPING = 0.62;
 const FRICTION = 0.988;
+const DRAG_CLICK_THRESHOLD = 7;
 
 function useGravityLinks(containerRef, links, shouldStart) {
   const bodiesRef = useRef([]);
   const rafRef    = useRef(null);
-  const dragRef   = useRef(null); // { idx, offsetX, offsetY }
+  const dragRef   = useRef(null); // { idx, offsetX, offsetY, startClientX, startClientY, moved }
+  const interactionMovedRef = useRef(false);
   const startedRef = useRef(false);
 
   const initBodies = useCallback(() => {
@@ -101,6 +103,7 @@ function useGravityLinks(containerRef, links, shouldStart) {
   // Pointer drag
   const onPointerDown = useCallback((e, idx) => {
     e.preventDefault();
+    interactionMovedRef.current = false;
     const el = containerRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -111,6 +114,9 @@ function useGravityLinks(containerRef, links, shouldStart) {
       idx,
       offsetX: clientX - rect.left - b.x,
       offsetY: clientY - rect.top  - b.y,
+      startClientX: clientX,
+      startClientY: clientY,
+      moved: false,
     };
     b.vx = 0; b.vy = 0; b.settled = false;
   }, [containerRef]);
@@ -120,12 +126,17 @@ function useGravityLinks(containerRef, links, shouldStart) {
     const el = containerRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const { idx, offsetX, offsetY } = dragRef.current;
+    const { idx, offsetX, offsetY, startClientX, startClientY } = dragRef.current;
     const b = bodiesRef.current[idx];
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
     const newX = clientX - rect.left - offsetX;
     const newY = clientY - rect.top  - offsetY;
+    const deltaX = clientX - startClientX;
+    const deltaY = clientY - startClientY;
+    if (!dragRef.current.moved && Math.hypot(deltaX, deltaY) > DRAG_CLICK_THRESHOLD) {
+      dragRef.current.moved = true;
+    }
     b.vx = newX - b.x;
     b.vy = newY - b.y;
     b.x  = newX;
@@ -133,7 +144,15 @@ function useGravityLinks(containerRef, links, shouldStart) {
   }, [containerRef]);
 
   const onPointerUp = useCallback(() => {
+    interactionMovedRef.current = !!dragRef.current?.moved;
     dragRef.current = null;
+  }, []);
+
+  const onLinkClick = useCallback((e) => {
+    if (interactionMovedRef.current) {
+      e.preventDefault();
+    }
+    interactionMovedRef.current = false;
   }, []);
 
   useEffect(() => {
@@ -154,7 +173,7 @@ function useGravityLinks(containerRef, links, shouldStart) {
     };
   }, [shouldStart, initBodies, tick, onPointerMove, onPointerUp]);
 
-  return { measureNode, onPointerDown };
+  return { measureNode, onPointerDown, onLinkClick };
 }
 
 const QrCodePage = () => {
@@ -191,7 +210,7 @@ const QrCodePage = () => {
     return () => observer.disconnect();
   }, []);
 
-  const { measureNode, onPointerDown } = useGravityLinks(percSectionRef, floatingMediaLinks, percSectionVisible);
+  const { measureNode, onPointerDown, onLinkClick } = useGravityLinks(percSectionRef, floatingMediaLinks, percSectionVisible);
 
   const glitchHover = {
     hover: {
@@ -328,8 +347,8 @@ const QrCodePage = () => {
             ref={el => measureNode(el, idx)}
             onMouseDown={e => onPointerDown(e, idx)}
             onTouchStart={e => onPointerDown(e, idx)}
-            onClick={e => { /* allow click only if barely moved */ }}
-            className={`absolute top-0 left-0 z-10 street-tag ${idx === 0 ? 'hover-flute' : idx === 1 ? 'hover-drum' : 'hover-dj'} px-5 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white select-none cursor-grab active:cursor-grabbing`}
+            onClick={onLinkClick}
+            className={`absolute top-0 left-0 z-20 street-tag ${idx === 0 ? 'hover-flute' : idx === 1 ? 'hover-drum' : 'hover-dj'} px-5 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white select-none cursor-grab active:cursor-grabbing`}
             style={{
               willChange: 'transform',
               touchAction: 'none',
