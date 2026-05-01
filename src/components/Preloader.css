@@ -21,8 +21,8 @@
 .preloader-invert-overlay {
   position: absolute;
   inset: 0;
-  background: #fff;
-  mix-blend-mode: difference;
+  background: rgba(5, 5, 5, 0.35);
+  mix-blend-mode: normal;
   z-index: 1;
   pointer-events: none;
 }

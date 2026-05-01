@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import logoImg from '../../images/logo.webp';
 import './Preloader.css';
 
-const MIN_VISIBLE_MS = 2200;   // always visible for at least 2.2 s
+const MIN_VISIBLE_MS = 2600;   // always visible for at least 2.6 s
 const MAX_WAIT_MS    = 5000;   // hard cap at 5 s
 
 const Preloader = ({ onComplete }) => {
