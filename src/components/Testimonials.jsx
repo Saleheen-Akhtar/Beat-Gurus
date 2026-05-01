@@ -55,35 +55,25 @@ const thirdColumn = testimonials.slice(6, 9);
 
 const TestimonialsColumn = ({ testimonials: columnTestimonials, className, duration = 10, direction = "up" }) => {
   const shouldReduceMotion = useReducedMotion();
-  const controls = useAnimationControls();
-
-  useEffect(() => {
-    if (shouldReduceMotion) {
-      controls.stop();
-      return;
-    }
-
-    if (props.paused) {
-      controls.stop();
-    } else {
-      controls.start({
-        y: ["0%", "-50%"],
-        transition: {
-          duration: props.duration || 10,
-          repeat: Infinity,
-          ease: "linear",
-          repeatType: "loop",
-        }
-      });
-    }
-  }, [props.paused, shouldReduceMotion, controls, props.duration]);
+  const loopedContent = shouldReduceMotion
+    ? columnTestimonials
+    : [...columnTestimonials, ...columnTestimonials];
 
   return (
     <div className={className}>
       <motion.div
-        animate={controls}
-        initial={{ y: "0%" }}
-        className="flex flex-col gap-6 pb-6"
+        animate={shouldReduceMotion ? { y: 0 } : { y: direction === "up" ? ["0%", "-50%"] : ["-50%", "0%"] }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : {
+                duration,
+                repeat: Infinity,
+                ease: "linear",
+                repeatType: "loop",
+              }
+        }
+        className="flex flex-col gap-6 pb-6 will-change-transform"
       >
         {loopedContent.map(({ text, name, role }, i) => (
           <div

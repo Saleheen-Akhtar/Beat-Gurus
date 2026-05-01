@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle, FaGoogleDrive } from 'react-icons/fa';
 
@@ -14,6 +14,12 @@ const socialLinks = [
   { name: 'DJ x Percussion', url: 'https://drive.google.com/drive/folders/1ZrlbT8I60V6ULuKDBSLx-clOfD8dik4O', icon: <FaGoogleDrive size={24} />, id: 'drive3' }
 ];
 
+
+const floatingMediaLinks = [
+  { name: 'Flute Fusion', url: 'https://drive.google.com/drive/folders/1YsDWWyZWExfwH7IlHyGNXINr4XNiRGp1' },
+  { name: 'Drum Circle', url: 'https://drive.google.com/drive/folders/14iqZ8zuTiPTlLasgg7LmVp6bz7jwX4vj' },
+  { name: 'DJ x Percussion', url: 'https://drive.google.com/drive/folders/1ZrlbT8I60V6ULuKDBSLx-clOfD8dik4O' },
+];
 const QrCodePage = () => {
   useEffect(() => {
     document.title = "Campaign | Beat Gurus";
@@ -25,6 +31,7 @@ const QrCodePage = () => {
 
   const { scrollYProgress } = useScroll();
   const yHero = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const floatingLinksRef = useRef(null);
 
   const glitchHover = {
     hover: {
@@ -147,6 +154,32 @@ const QrCodePage = () => {
           <h2 className="font-omega text-5xl md:text-7xl leading-tight text-[#C89B3C]">
             ENERGY IS OUR IDENTITY.
           </h2>
+
+          <div ref={floatingLinksRef} className="relative mt-8 h-[280px] md:h-[320px] w-full max-w-xl overflow-hidden rounded-2xl border-2 border-[#E8E1D9]/50 bg-[#111]/70">
+            {floatingMediaLinks.map((link, idx) => {
+              const left = ["6%", "36%", "66%"];
+              return (
+                <motion.a
+                  key={link.name}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  drag
+                  dragConstraints={floatingLinksRef}
+                  dragElastic={0.2}
+                  initial={{ y: -180, opacity: 0, rotate: idx % 2 === 0 ? -5 : 4 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true, margin: "-20%" }}
+                  transition={{ delay: idx * 0.18, duration: 0.8, type: "spring", bounce: 0.35 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="absolute top-6 street-tag px-4 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white cursor-grab active:cursor-grabbing"
+                  style={{ left: left[idx] }}
+                >
+                  {link.name}
+                </motion.a>
+              );
+            })}
+          </div>
         </motion.div>
       </section>
 
