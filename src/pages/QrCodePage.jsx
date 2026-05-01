@@ -1,18 +1,16 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle, FaGoogleDrive } from 'react-icons/fa';
+import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle } from 'react-icons/fa';
 
 
 const socialLinks = [
-  { name: 'YouTube', url: 'https://m.youtube.com/@BeatGurus', icon: <FaYoutube size={24} />, id: 'youtube' },
-  { name: 'Facebook', url: 'https://www.facebook.com/share/1G8v4BVcoJ/', icon: <FaFacebookF size={24} />, id: 'facebook' },
-  { name: 'Instagram', url: 'https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94', icon: <FaInstagram size={24} />, id: 'instagram' },
-  { name: 'Website', url: 'https://www.beatgurus.org/', icon: <FaGlobe size={24} />, id: 'website' },
-  { name: 'Google Reviews', url: 'https://maps.app.goo.gl/U3CVeMZm7xq5gdw96', icon: <FaGoogle size={24} />, id: 'google', primary: true },
-  { name: 'Flute Fusion', url: 'https://drive.google.com/drive/folders/1YsDWWyZWExfwH7IlHyGNXINr4XNiRGp1', icon: <FaGoogleDrive size={24} />, id: 'drive1' },
-  { name: 'Drum Circle', url: 'https://drive.google.com/drive/folders/14iqZ8zuTiPTlLasgg7LmVp6bz7jwX4vj', icon: <FaGoogleDrive size={24} />, id: 'drive2' },
-  { name: 'DJ x Percussion', url: 'https://drive.google.com/drive/folders/1ZrlbT8I60V6ULuKDBSLx-clOfD8dik4O', icon: <FaGoogleDrive size={24} />, id: 'drive3' }
+  { name: 'YouTube',        url: 'https://m.youtube.com/@BeatGurus',                            icon: <FaYoutube size={32} />,   id: 'youtube' },
+  { name: 'Facebook',       url: 'https://www.facebook.com/share/1G8v4BVcoJ/',                  icon: <FaFacebookF size={32} />, id: 'facebook' },
+  { name: 'Instagram',      url: 'https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94', icon: <FaInstagram size={32} />, id: 'instagram' },
+  { name: 'Website',        url: 'https://www.beatgurus.org/',                                  icon: <FaGlobe size={32} />,     id: 'website' },
+  { name: 'Google Reviews', url: 'https://maps.app.goo.gl/U3CVeMZm7xq5gdw96',                  icon: <FaGoogle size={32} />,    id: 'google', primary: true },
 ];
+
 
 
 const floatingMediaLinks = [
@@ -24,11 +22,15 @@ const floatingMediaLinks = [
 const GRAVITY = 0.45;
 const DAMPING = 0.62;
 const FRICTION = 0.988;
+const FLOOR_SAFE_GAP_MOBILE = 18;
+const FLOOR_SAFE_GAP_DESKTOP = 36;
 
-function useGravityLinks(containerRef, links) {
+function useGravityLinks(containerRef, links, shouldStart) {
   const bodiesRef = useRef([]);
   const rafRef    = useRef(null);
   const dragRef   = useRef(null); // { idx, offsetX, offsetY }
+  const startedRef = useRef(false);
+  const suppressClickRef = useRef(false);
 
   const initBodies = useCallback(() => {
     const el = containerRef.current;
@@ -39,9 +41,9 @@ function useGravityLinks(containerRef, links) {
       const spread = width / (links.length + 1);
       return {
         x: spread * (i + 1),
-        y: -80 - i * 60,          // stagger drop start above container
-        vx: (Math.random() - 0.5) * 2,
-        vy: Math.random() * 2,
+        y: -220 - i * 120,
+        vx: (Math.random() - 0.5) * 3,
+        vy: Math.random() * 0.8,
         w: 0, h: 0,               // filled after first layout measure
         rotation: (i % 2 === 0 ? -1 : 1) * (i + 2),
         settled: false,
@@ -70,7 +72,8 @@ function useGravityLinks(containerRef, links) {
       b.y  += b.vy;
 
       // Floor
-      const floor = height - b.h;
+      const floorGap = width >= 768 ? FLOOR_SAFE_GAP_DESKTOP : FLOOR_SAFE_GAP_MOBILE;
+      const floor = Math.max(0, height - b.h - floorGap);
       if (b.y >= floor) {
         b.y  = floor;
         b.vy = -b.vy * DAMPING;
@@ -79,10 +82,12 @@ function useGravityLinks(containerRef, links) {
       }
       // Ceiling
       if (b.y < 0) { b.y = 0; b.vy = Math.abs(b.vy) * DAMPING; }
+      b.y = Math.min(Math.max(b.y, 0), floor);
       // Walls
       if (b.x < 0) { b.x = 0; b.vx = Math.abs(b.vx) * DAMPING; }
       const rightWall = width - b.w;
       if (b.x > rightWall) { b.x = rightWall; b.vx = -Math.abs(b.vx) * DAMPING; }
+      b.x = Math.min(Math.max(b.x, 0), rightWall);
     });
 
     // Apply positions to DOM directly (bypass React re-renders)
@@ -108,7 +113,11 @@ function useGravityLinks(containerRef, links) {
       idx,
       offsetX: clientX - rect.left - b.x,
       offsetY: clientY - rect.top  - b.y,
+      startX: clientX,
+      startY: clientY,
+      moved: false,
     };
+    suppressClickRef.current = false;
     b.vx = 0; b.vy = 0; b.settled = false;
   }, [containerRef]);
 
@@ -121,6 +130,12 @@ function useGravityLinks(containerRef, links) {
     const b = bodiesRef.current[idx];
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    const dx = clientX - dragRef.current.startX;
+    const dy = clientY - dragRef.current.startY;
+    if (!dragRef.current.moved && Math.hypot(dx, dy) > 8) {
+      dragRef.current.moved = true;
+      suppressClickRef.current = true;
+    }
     const newX = clientX - rect.left - offsetX;
     const newY = clientY - rect.top  - offsetY;
     b.vx = newX - b.x;
@@ -130,10 +145,16 @@ function useGravityLinks(containerRef, links) {
   }, [containerRef]);
 
   const onPointerUp = useCallback(() => {
+    const wasDragged = Boolean(dragRef.current?.moved);
     dragRef.current = null;
+    if (wasDragged) {
+      setTimeout(() => { suppressClickRef.current = false; }, 0);
+    }
   }, []);
 
   useEffect(() => {
+    if (!shouldStart || startedRef.current) return;
+    startedRef.current = true;
     initBodies();
     rafRef.current = requestAnimationFrame(tick);
     window.addEventListener('mousemove', onPointerMove);
@@ -147,9 +168,13 @@ function useGravityLinks(containerRef, links) {
       window.removeEventListener('touchmove', onPointerMove);
       window.removeEventListener('touchend',  onPointerUp);
     };
-  }, [initBodies, tick, onPointerMove, onPointerUp]);
+  }, [shouldStart, initBodies, tick, onPointerMove, onPointerUp]);
 
-  return { measureNode, onPointerDown };
+  const onLinkClick = useCallback((e) => {
+    if (suppressClickRef.current) e.preventDefault();
+  }, []);
+
+  return { measureNode, onPointerDown, onLinkClick };
 }
 
 const QrCodePage = () => {
@@ -167,7 +192,26 @@ const QrCodePage = () => {
   // Ref for the full percussion section (not a small box)
   const percSectionRef = useRef(null);
 
-  const { measureNode, onPointerDown } = useGravityLinks(percSectionRef, floatingMediaLinks);
+  const [percSectionVisible, setPercSectionVisible] = useState(false);
+
+  useEffect(() => {
+    const el = percSectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPercSectionVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const { measureNode, onPointerDown, onLinkClick } = useGravityLinks(percSectionRef, floatingMediaLinks, percSectionVisible);
 
   const glitchHover = {
     hover: {
@@ -219,12 +263,12 @@ const QrCodePage = () => {
         .street-tag.hover-website:hover { background: #2e7d32 !important; }
         .street-tag.hover-google { box-shadow: 4px 4px 0px #4285F4; }
         .street-tag.hover-google:hover { background: linear-gradient(to right, #4285F4, #F4B400) !important; }
-        .street-tag.hover-drive1 { box-shadow: 4px 4px 0px #F4B400; }
-        .street-tag.hover-drive1:hover { background: #FFD04B !important; color: #111 !important; }
-        .street-tag.hover-drive2 { box-shadow: 4px 4px 0px #0F9D58; }
-        .street-tag.hover-drive2:hover { background: #1FA463 !important; }
-        .street-tag.hover-drive3 { box-shadow: 4px 4px 0px #4285F4; }
-        .street-tag.hover-drive3:hover { background: #4C8BF5 !important; }
+                .street-tag.hover-flute { box-shadow: 4px 4px 0px #F4B400; }
+        .street-tag.hover-flute:hover { background: #FFD04B !important; color: #111 !important; }
+        .street-tag.hover-drum { box-shadow: 4px 4px 0px #0F9D58; }
+        .street-tag.hover-drum:hover { background: #1FA463 !important; }
+        .street-tag.hover-dj { box-shadow: 4px 4px 0px #4285F4; }
+        .street-tag.hover-dj:hover { background: #4C8BF5 !important; }
 
       `}</style>
       <div className="noise-overlay"></div>
@@ -281,9 +325,15 @@ const QrCodePage = () => {
             ref={el => measureNode(el, idx)}
             onMouseDown={e => onPointerDown(e, idx)}
             onTouchStart={e => onPointerDown(e, idx)}
-            onClick={e => { /* allow click only if barely moved */ }}
-            className="absolute top-0 left-0 z-20 street-tag px-5 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white select-none cursor-grab active:cursor-grabbing"
-            style={{ willChange: 'transform', touchAction: 'none' }}
+            onClick={onLinkClick}
+            className={`absolute top-0 left-0 z-20 street-tag ${idx === 0 ? 'hover-flute' : idx === 1 ? 'hover-drum' : 'hover-dj'} px-5 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white select-none`}
+            style={{
+              willChange: 'transform',
+              touchAction: 'none',
+              opacity: percSectionVisible ? 1 : 0,
+              pointerEvents: percSectionVisible ? 'auto' : 'none',
+              transition: 'opacity 0.35s ease',
+            }}
           >
             {link.name}
           </a>
@@ -318,7 +368,7 @@ const QrCodePage = () => {
       </section>
 
       {/* Section 3: Global Presence */}
-      <section className="relative w-full py-24 bg-[#D4A72C] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-16">
+      <section className="relative w-full py-16 md:py-20 bg-[#C29423] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-12 md:gap-16">
         <div className="relative w-full flex whitespace-nowrap overflow-hidden">
           <motion.div
              animate={{ x: ["0%", "-50%"] }}
@@ -327,7 +377,7 @@ const QrCodePage = () => {
           >
             {[...Array(4)].map((_, i) => (
               <div key={i} className="flex items-center">
-                <span className="font-omega text-7xl md:text-9xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
+                <span className="font-omega text-5xl md:text-7xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
                 <span className="text-[#E8E1D9] text-6xl px-4">✦</span>
               </div>
             ))}
@@ -336,19 +386,19 @@ const QrCodePage = () => {
 
         <div className="relative w-full flex whitespace-nowrap overflow-hidden">
           <motion.div
-             animate={{ x: ["-50%", "0%"] }}
+             animate={{ x: ["0%", "-50%"] }}
              transition={{ duration: 35, ease: "linear", repeat: Infinity }}
              className="flex gap-6 md:gap-10 px-6"
           >
-            {[...Array(3)].map((_, j) => (
+            {[...Array(4)].map((_, j) => (
                <React.Fragment key={j}>
-                 <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-72 md:w-[28rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[8px_8px_0_#E8E1D9]">
+                 <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-80 md:w-[30rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[8px_8px_0_#E8E1D9]">
                     <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" />
                     <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                        <FaYoutube className="text-[#C89B3C] text-6xl drop-shadow-md" />
                     </div>
                  </a>
-                 <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-72 md:w-[28rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[8px_8px_0_#E8E1D9]">
+                 <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-80 md:w-[30rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[8px_8px_0_#E8E1D9]">
                     <img src="https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?q=80&w=800&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" />
                     <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                        <FaYoutube className="text-[#C89B3C] text-6xl drop-shadow-md" />

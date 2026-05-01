@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 const testimonials = [
@@ -55,25 +55,22 @@ const thirdColumn = testimonials.slice(6, 9);
 
 const TestimonialsColumn = ({ testimonials: columnTestimonials, className, duration = 10, direction = "up" }) => {
   const shouldReduceMotion = useReducedMotion();
+  const [paused, setPaused] = useState(false);
   const loopedContent = shouldReduceMotion
     ? columnTestimonials
     : [...columnTestimonials, ...columnTestimonials];
 
   return (
-    <div className={className}>
-      <motion.div
-        animate={shouldReduceMotion ? { y: 0 } : { y: direction === "up" ? ["0%", "-50%"] : ["-50%", "0%"] }}
-        transition={
-          shouldReduceMotion
-            ? { duration: 0 }
-            : {
-                duration,
-                repeat: Infinity,
-                ease: "linear",
-                repeatType: "loop",
-              }
-        }
+    <div className={className} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <div
         className="flex flex-col gap-6 pb-6 will-change-transform"
+        style={shouldReduceMotion ? {} : {
+          animationName: direction === "up" ? 'testiScrollUp' : 'testiScrollDown',
+          animationDuration: `${duration}s`,
+          animationTimingFunction: 'linear',
+          animationIterationCount: 'infinite',
+          animationPlayState: paused ? 'paused' : 'running',
+        }}
       >
         {loopedContent.map(({ text, name, role }, i) => (
           <div
@@ -109,7 +106,7 @@ const TestimonialsColumn = ({ testimonials: columnTestimonials, className, durat
             </div>
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 };

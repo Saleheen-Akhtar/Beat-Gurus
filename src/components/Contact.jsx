@@ -202,7 +202,19 @@ const Contact = () => {
                   <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" className="contact-input" />
                 </div>
                 <div style={{ flex: '1 1 200px' }}>
-                  <select name="eventType" value={formData.eventType} onChange={handleChange} required className="contact-input" style={{ appearance: 'none' }}>
+                  <select
+                    name="eventType"
+                    value={formData.eventType}
+                    onChange={handleChange}
+                    required
+                    className="contact-input"
+                    style={{
+                      appearance: 'none',
+                      backgroundColor: 'transparent',
+                      color: 'var(--bg-sand)',
+                      borderColor: 'rgba(245, 241, 236, 0.3)'
+                    }}
+                  >
                     <option value="" disabled>Select Event Type</option>
                     {services.map((s) => (
                       <option key={s.title} value={s.title}>{s.title}</option>

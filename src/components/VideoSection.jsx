@@ -47,7 +47,7 @@ const VideoSection = () => {
             <iframe
               width="100%"
               height="100%"
-              src="https://www.youtube.com/embed/dBz3WugMS0A?autoplay=1&rel=0"
+              src="https://www.youtube.com/embed?listType=user_uploads&list=BeatGurus&autoplay=1&rel=0"
               title="Beat Gurus Live Performance"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -57,7 +57,7 @@ const VideoSection = () => {
           ) : (
             <>
               <img
-                src="https://images.unsplash.com/photo-1501612780327-45045538702b?q=80&w=1600&auto=format&fit=crop"
+                src="https://i.ytimg.com/vi/dBz3WugMS0A/hqdefault.jpg"
                 alt="Beat Gurus live djembe performance on stage"
                 loading="lazy"
                 decoding="async"
