@@ -1,38 +1,62 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logoImg from '../../images/logo.webp';
 import './Preloader.css';
 
+const MIN_VISIBLE_MS = 700;
+const MAX_WAIT_MS = 2500;
+
 const Preloader = ({ onComplete }) => {
   const [loading, setLoading] = useState(true);
+  const hasCompletedRef = useRef(false);
 
   useEffect(() => {
-    let isMinTimeElapsed = false;
-    let isPageLoaded = document.readyState === 'complete';
+    const startTime = performance.now();
+    let minTimerId;
+    let maxTimerId;
+    let rafId;
 
-    const checkComplete = () => {
-      if (isMinTimeElapsed && isPageLoaded) {
-        setLoading(false);
+    const completeOnce = () => {
+      if (hasCompletedRef.current) {
+        return;
+      }
+      hasCompletedRef.current = true;
+      setLoading(false);
+    };
+
+    const finishWhenReady = () => {
+      if (hasCompletedRef.current) {
+        return;
+      }
+
+      const elapsed = performance.now() - startTime;
+      const remaining = Math.max(0, MIN_VISIBLE_MS - elapsed);
+
+      if (remaining === 0) {
+        completeOnce();
+        return;
+      }
+
+      minTimerId = window.setTimeout(completeOnce, remaining);
+    };
+
+    const watchReadyState = () => {
+      if (document.readyState === 'complete') {
+        finishWhenReady();
+      } else {
+        rafId = window.requestAnimationFrame(watchReadyState);
       }
     };
 
-    const minTimer = setTimeout(() => {
-      isMinTimeElapsed = true;
-      checkComplete();
-    }, 450);
-
-    const handleLoad = () => {
-      isPageLoaded = true;
-      checkComplete();
-    };
-
-    if (!isPageLoaded) {
-      window.addEventListener('load', handleLoad);
-    }
+    watchReadyState();
+    maxTimerId = window.setTimeout(completeOnce, MAX_WAIT_MS);
 
     return () => {
-      clearTimeout(minTimer);
-      window.removeEventListener('load', handleLoad);
+      window.clearTimeout(minTimerId);
+      window.clearTimeout(maxTimerId);
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+      }
     };
   }, []);
 
@@ -41,8 +65,9 @@ const Preloader = ({ onComplete }) => {
       {loading && (
         <motion.div
           className="preloader-shell"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.4, ease: 'easeInOut' } }}
+          initial={{ opacity: 1, scale: 1.02 }}
+          animate={{ opacity: 1, scale: 1, transition: { duration: 0.35, ease: 'easeOut' } }}
+          exit={{ opacity: 0, scale: 0.98, transition: { duration: 0.45, ease: 'easeInOut' } }}
           role="status"
           aria-label="Loading Beat Gurus website"
         >
