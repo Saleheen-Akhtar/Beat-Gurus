@@ -186,7 +186,7 @@ function App() {
       </AnimatePresence>
 
       <GlobalBackground />
-      <Navbar isHomeRoute={routeInfo.page === 'home'} />
+      {routeInfo.page !== 'qr-code' && <Navbar isHomeRoute={routeInfo.page === 'home'} />}
 
       {routeInfo.page === 'qr-code' && <QrCodePage />}
       {routeInfo.page === 'home' && <HomePage navigate={navigate} />}
