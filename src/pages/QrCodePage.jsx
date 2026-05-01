@@ -3,15 +3,30 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle, FaGoogleDrive } from 'react-icons/fa';
 
 
-const socialLinks = [
-  { name: 'YouTube', url: 'https://m.youtube.com/@BeatGurus', icon: <FaYoutube size={24} />, brandColor: '#FF0000', shadowColor: '#CC0000' },
-  { name: 'Facebook', url: 'https://www.facebook.com/share/1G8v4BVcoJ/', icon: <FaFacebookF size={24} />, brandColor: '#1877F2', shadowColor: '#115CBE' },
-  { name: 'Instagram', url: 'https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94', icon: <FaInstagram size={24} />, brandColor: 'linear-gradient(45deg, #f09433 0%, #dc2743 50%, #bc1888 100%)', shadowColor: '#dc2743' },
-  { name: 'Website', url: 'https://www.beatgurus.org/', icon: <FaGlobe size={24} />, brandColor: '#00B140', shadowColor: '#00802E' },
-  { name: 'Google Reviews', url: 'https://maps.app.goo.gl/U3CVeMZm7xq5gdw96', icon: <FaGoogle size={24} />, brandColor: 'linear-gradient(90deg, #4285F4 50%, #FBBC05 50%)', shadowColor: '#34A853' },
-  { name: 'Flute Fusion', id: 'drive1', url: 'https://drive.google.com/drive/folders/1YsDWWyZWExfwH7IlHyGNXINr4XNiRGp1', icon: <FaGoogleDrive size={24} />, brandColor: '#FFD04B', shadowColor: '#F4B400' },
-  { name: 'Drum Circle', id: 'drive2', url: 'https://drive.google.com/drive/folders/14iqZ8zuTiPTlLasgg7LmVp6bz7jwX4vj', icon: <FaGoogleDrive size={24} />, brandColor: '#1FA463', shadowColor: '#0F9D58' },
-  { name: 'DJ x Percussion', id: 'drive3', url: 'https://drive.google.com/drive/folders/1ZrlbT8I60V6ULuKDBSLx-clOfD8dik4O', icon: <FaGoogleDrive size={24} />, brandColor: '#4C8BF5', shadowColor: '#4285F4' }
+const linkGroups = [
+  {
+    title: 'Social',
+    links: [
+      { name: 'YouTube', url: 'https://m.youtube.com/@BeatGurus', icon: <FaYoutube size={22} />, style: 'hover-youtube' },
+      { name: 'Facebook', url: 'https://www.facebook.com/share/1G8v4BVcoJ/', icon: <FaFacebookF size={22} />, style: 'hover-facebook' },
+      { name: 'Instagram', url: 'https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94', icon: <FaInstagram size={22} />, style: 'hover-instagram' },
+      { name: 'Website', url: 'https://www.beatgurus.org/', icon: <FaGlobe size={22} />, style: 'hover-website' },
+    ],
+  },
+  {
+    title: 'Reviews',
+    links: [
+      { name: 'Google Reviews', url: 'https://maps.app.goo.gl/U3CVeMZm7xq5gdw96', icon: <FaGoogle size={22} />, style: 'hover-google', primary: true },
+    ],
+  },
+  {
+    title: 'Media Folders',
+    links: [
+      { name: 'Flute Fusion', url: 'https://drive.google.com/drive/folders/1YsDWWyZWExfwH7IlHyGNXINr4XNiRGp1', icon: <FaGoogleDrive size={22} />, style: 'hover-drive1' },
+      { name: 'Drum Circle', url: 'https://drive.google.com/drive/folders/14iqZ8zuTiPTlLasgg7LmVp6bz7jwX4vj', icon: <FaGoogleDrive size={22} />, style: 'hover-drive2' },
+      { name: 'DJ x Percussion', url: 'https://drive.google.com/drive/folders/1ZrlbT8I60V6ULuKDBSLx-clOfD8dik4O', icon: <FaGoogleDrive size={22} />, style: 'hover-drive3' },
+    ],
+  },
 ];
 
 const QrCodePage = () => {
@@ -98,16 +113,16 @@ const QrCodePage = () => {
         />
         <div className="absolute inset-0 z-0 bg-[#0B0B0B]/60"></div><div className="absolute inset-0 z-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/40 to-transparent opacity-100"></div>
 
-        <div className="relative z-10 flex flex-col items-center justify-center px-4 pt-20">
+        <div className="relative z-10 flex flex-col items-center justify-center px-4 pt-8 md:pt-20 -translate-y-6 md:translate-y-0">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="font-omega text-7xl md:text-[10rem] leading-none text-white mb-4 flex flex-col items-start drop-shadow-[4px_4px_0_#B30000]" style={{ textShadow: "4px 4px 0px #B30000" }}
+            className="font-omega text-7xl md:text-[10rem] leading-none text-white mb-4 flex flex-col items-center md:items-start drop-shadow-[4px_4px_0_#B30000]" style={{ textShadow: "4px 4px 0px #B30000" }}
           >
             <div className="relative">
               <span className="block">BEAT</span>
-              <span className="block" style={{ marginLeft: "1.25em" }}>GURUS</span>
+              <span className="block ml-[0.8em] sm:ml-[1em] md:ml-[1.25em]">GURUS</span>
             </div>
           </motion.div>
           <motion.p
@@ -194,38 +209,33 @@ const QrCodePage = () => {
       </section>
 
       {/* Section 4: Social Links */}
-      <section className="relative w-full py-32 bg-[#0B0B0B] flex flex-col items-center px-4">
-         <h2 className="font-omega text-5xl md:text-7xl text-[#E8E1D9] mb-16 uppercase text-center">Connect with the Tribe</h2>
-         <div className="flex flex-wrap justify-center gap-6 md:gap-10 max-w-5xl">
-            {socialLinks.map((link, idx) => {
-               const rot = (idx % 2 === 0 ? 1 : -1) * ((idx % 3) + 1.5);
-               const hoverClass = link.id ? `hover-${link.id}` : (link.name === 'Google Reviews' ? 'hover-google' : `hover-${link.name.toLowerCase()}`);
-               return (
+      <section className="relative w-full py-24 md:py-32 bg-[#0B0B0B] flex flex-col items-center px-4">
+        <h2 className="font-omega text-5xl md:text-7xl text-[#E8E1D9] mb-12 uppercase text-center">Connect with the Tribe</h2>
+        <p className="text-[#E8E1D9]/70 uppercase tracking-[0.25em] text-xs md:text-sm mb-8 text-center">Pick your lane • tap to connect</p>
+        <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {linkGroups.map((group) => (
+            <div key={group.title} className="border-2 border-[#E8E1D9]/50 bg-[#101010] p-5 md:p-6 shadow-[6px_6px_0_#2B2B2B]">
+              <h3 className="font-omega text-2xl text-[#D4A72C] mb-4 tracking-wide">{group.title}</h3>
+              <div className="flex flex-col gap-3">
+                {group.links.map((link) => (
                   <motion.a
-                     key={idx}
-                     href={link.url}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     whileHover={{
-                        scale: 1.05,
-
-
-                        /* boxShadow removed */
-                        x: [0, -2, 2, -2, 0],
-                        y: [0, 1, -1, 1, 0],
-                        rotate: [`${rot}deg`, `${rot-1}deg`, `${rot+1}deg`, `${rot}deg`]
-                     }}
-                     transition={{ duration: 0.2 }}
-                     whileTap={{ scale: 0.95 }}
-                     className={`street-tag ${hoverClass} flex items-center gap-4 px-6 md:px-8 py-4 md:py-5 text-[#E8E1D9] font-bold text-xl md:text-2xl uppercase transition-colors hover:text-white`}
-                     style={{ transform: `rotate(${rot}deg)` }}
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.02, x: [0, -1, 1, 0] }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.2 }}
+                    className={`street-tag ${link.style} ${link.primary ? 'border-[#D4A72C] bg-[#1A1A1A] shadow-[0_0_0_2px_rgba(212,167,44,0.2)]' : ''} flex items-center justify-between px-4 py-3 text-[#E8E1D9] font-bold text-base md:text-lg uppercase transition-colors hover:text-white`}
                   >
-                     {link.icon}
-                     {link.name}
+                    <span className="flex items-center gap-3">{link.icon}{link.name}</span>
+                    <span className="text-[#D4A72C]">↗</span>
                   </motion.a>
-               );
-            })}
-         </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   );
