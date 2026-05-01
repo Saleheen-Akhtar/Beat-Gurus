@@ -22,7 +22,8 @@ const floatingMediaLinks = [
 const GRAVITY = 0.45;
 const DAMPING = 0.62;
 const FRICTION = 0.988;
-const FLOOR_SAFE_GAP = 28;
+const FLOOR_SAFE_GAP_MOBILE = 14;
+const FLOOR_SAFE_GAP_DESKTOP = 36;
 
 function useGravityLinks(containerRef, links, shouldStart) {
   const bodiesRef = useRef([]);
@@ -71,7 +72,8 @@ function useGravityLinks(containerRef, links, shouldStart) {
       b.y  += b.vy;
 
       // Floor
-      const floor = Math.max(0, height - b.h - FLOOR_SAFE_GAP);
+      const floorGap = width >= 768 ? FLOOR_SAFE_GAP_DESKTOP : FLOOR_SAFE_GAP_MOBILE;
+      const floor = Math.max(0, height - b.h - floorGap);
       if (b.y >= floor) {
         b.y  = floor;
         b.vy = -b.vy * DAMPING;
@@ -366,7 +368,7 @@ const QrCodePage = () => {
       </section>
 
       {/* Section 3: Global Presence */}
-      <section className="relative w-full py-24 bg-[#D4A72C] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-16">
+      <section className="relative w-full py-24 bg-[#C29423] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-16">
         <div className="relative w-full flex whitespace-nowrap overflow-hidden">
           <motion.div
              animate={{ x: ["0%", "-50%"] }}
@@ -375,7 +377,7 @@ const QrCodePage = () => {
           >
             {[...Array(4)].map((_, i) => (
               <div key={i} className="flex items-center">
-                <span className="font-omega text-7xl md:text-9xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
+                <span className="font-omega text-5xl md:text-7xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
                 <span className="text-[#E8E1D9] text-6xl px-4">✦</span>
               </div>
             ))}
@@ -384,11 +386,11 @@ const QrCodePage = () => {
 
         <div className="relative w-full flex whitespace-nowrap overflow-hidden">
           <motion.div
-             animate={{ x: ["-50%", "0%"] }}
+             animate={{ x: ["0%", "-50%"] }}
              transition={{ duration: 35, ease: "linear", repeat: Infinity }}
              className="flex gap-6 md:gap-10 px-6"
           >
-            {[...Array(3)].map((_, j) => (
+            {[...Array(4)].map((_, j) => (
                <React.Fragment key={j}>
                  <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-72 md:w-[28rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[8px_8px_0_#E8E1D9]">
                     <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" />

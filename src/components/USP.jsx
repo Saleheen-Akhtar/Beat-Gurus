@@ -1,16 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const words = ['Raw Energy', 'Acoustic Power', 'Djembe Rhythms', 'Live Percussion', 'African Roots', 'Indian Soul'];
+const words = ['Acoustic Power', 'Djembe Rhythms', 'Raw Energy', 'Live Percussion', 'African Roots', 'Indian Soul'];
 
 // We pre-calculate to optimize re-renders as requested by guidelines
-const topTrackContent = [...words, ...words].map((w, i) => (
+const topTrackContent = [...words, ...words, ...words].map((w, i) => (
   <span key={i} className={`usp-marquee-item${i % 5 === 2 ? ' lit' : ''}`}>
     {w} <span style={{ color: 'var(--gold)', opacity: 0.5 }}>/</span>
   </span>
 ));
 
-const bottomTrackContent = [...words, ...words].map((w, i) => (
+const bottomTrackContent = [...words, ...words, ...words].map((w, i) => (
   <span key={i} className={`usp-marquee-item${i % 4 === 1 ? ' lit' : ''}`}>
     {w} <span style={{ color: 'var(--gold)', opacity: 0.5 }}>&bull;</span>
   </span>
@@ -24,7 +24,7 @@ const USP = () => {
       <div className="usp-marquee-outer">
         <motion.div
           className="usp-marquee-track-motion"
-          animate={{ x: ["0%", "-50%"] }}
+          animate={{ x: ["0%", "-33.333%"] }}
           transition={{
             ease: "linear",
             duration: 18,
@@ -80,7 +80,7 @@ const USP = () => {
       <div className="usp-bottom-marquee">
         <motion.div
           className="usp-bottom-track-motion"
-          animate={{ x: ["-50%", "0%"] }}
+          animate={{ x: ["-33.333%", "0%"] }}
           transition={{
             ease: "linear",
             duration: 22,

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 const testimonials = [
@@ -55,14 +55,15 @@ const thirdColumn = testimonials.slice(6, 9);
 
 const TestimonialsColumn = ({ testimonials: columnTestimonials, className, duration = 10, direction = "up" }) => {
   const shouldReduceMotion = useReducedMotion();
+  const [paused, setPaused] = useState(false);
   const loopedContent = shouldReduceMotion
     ? columnTestimonials
     : [...columnTestimonials, ...columnTestimonials];
 
   return (
-    <div className={className}>
+    <div className={className} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <motion.div
-        animate={shouldReduceMotion ? { y: 0 } : { y: direction === "up" ? ["0%", "-50%"] : ["-50%", "0%"] }}
+        animate={shouldReduceMotion || paused ? { y: 0 } : { y: direction === "up" ? ["0%", "-50%"] : ["-50%", "0%"] }}
         transition={
           shouldReduceMotion
             ? { duration: 0 }

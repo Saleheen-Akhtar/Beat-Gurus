@@ -40,7 +40,6 @@ const ShowRow = ({ show, index, navigate }) => {
         <div className="showtype-img-overlay" />
 
         <div className="showtype-content-mobile">
-          <span className="showtype-num">0{index + 1}</span>
           <h3 className="showtype-title">{show.title}</h3>
           <p className="showtype-desc">{show.cardDescription}</p>
           <span className="btn-outline mobile-btn">View Show Page <FaArrowRight size={12} style={{ marginLeft: '8px' }} /></span>
@@ -48,7 +47,6 @@ const ShowRow = ({ show, index, navigate }) => {
       </a>
 
       <div className="showtype-content showtype-content-desktop">
-        <span className="showtype-num">0{index + 1}</span>
         <h3 className="showtype-title">{show.title}</h3>
         <p className="showtype-desc">{show.cardDescription}</p>
 
