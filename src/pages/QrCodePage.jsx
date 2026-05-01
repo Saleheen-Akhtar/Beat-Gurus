@@ -4,11 +4,11 @@ import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle } from 'react-ic
 
 
 const socialLinks = [
-  { name: 'YouTube', url: 'https://m.youtube.com/@BeatGurus', icon: <FaYoutube size={24} /> },
-  { name: 'Facebook', url: 'https://www.facebook.com/share/1G8v4BVcoJ/', icon: <FaFacebookF size={24} /> },
-  { name: 'Instagram', url: 'https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94', icon: <FaInstagram size={24} /> },
-  { name: 'Website', url: 'https://www.beatgurus.org/', icon: <FaGlobe size={24} /> },
-  { name: 'Google Reviews', url: 'https://maps.app.goo.gl/U3CVeMZm7xq5gdw96', icon: <FaGoogle size={24} /> }
+  { name: 'YouTube', url: 'https://m.youtube.com/@BeatGurus', icon: <FaYoutube size={24} />, brandColor: '#FF0000', shadowColor: '#CC0000' },
+  { name: 'Facebook', url: 'https://www.facebook.com/share/1G8v4BVcoJ/', icon: <FaFacebookF size={24} />, brandColor: '#1877F2', shadowColor: '#115CBE' },
+  { name: 'Instagram', url: 'https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94', icon: <FaInstagram size={24} />, brandColor: 'linear-gradient(45deg, #f09433 0%, #dc2743 50%, #bc1888 100%)', shadowColor: '#dc2743' },
+  { name: 'Website', url: 'https://www.beatgurus.org/', icon: <FaGlobe size={24} />, brandColor: '#00B140', shadowColor: '#00802E' },
+  { name: 'Google Reviews', url: 'https://maps.app.goo.gl/U3CVeMZm7xq5gdw96', icon: <FaGoogle size={24} />, brandColor: 'linear-gradient(90deg, #4285F4 50%, #FBBC05 50%)', shadowColor: '#34A853' }
 ];
 
 const QrCodePage = () => {
@@ -63,11 +63,7 @@ const QrCodePage = () => {
           box-shadow: 4px 4px 0px #D4A72C;
           background: #111;
         }
-        .street-tag:hover {
-          background: #D4A72C;
-          color: #0B0B0B;
-          box-shadow: 6px 6px 0px #C89B3C;
-        }
+
       `}</style>
       <div className="noise-overlay"></div>
 
@@ -180,7 +176,6 @@ const QrCodePage = () => {
          <h2 className="font-omega text-5xl md:text-7xl text-[#E8E1D9] mb-16 uppercase text-center">Connect with the Tribe</h2>
          <div className="flex flex-wrap justify-center gap-6 md:gap-10 max-w-5xl">
             {socialLinks.map((link, idx) => {
-               // Pseudo-random rotation between -4deg and 4deg
                const rot = (idx % 2 === 0 ? 1 : -1) * ((idx % 3) + 1.5);
                return (
                   <motion.a
@@ -188,8 +183,16 @@ const QrCodePage = () => {
                      href={link.url}
                      target="_blank"
                      rel="noopener noreferrer"
-                     variants={glitchHover}
-                     whileHover="hover"
+                     whileHover={{
+                        scale: 1.05,
+                        background: link.brandColor,
+                        color: '#FFFFFF',
+                        boxShadow: `6px 6px 0px ${link.shadowColor}`,
+                        x: [0, -2, 2, -2, 0],
+                        y: [0, 1, -1, 1, 0],
+                        rotate: [`${rot}deg`, `${rot-1}deg`, `${rot+1}deg`, `${rot}deg`]
+                     }}
+                     transition={{ duration: 0.2 }}
                      whileTap={{ scale: 0.95 }}
                      className="street-tag flex items-center gap-4 px-6 md:px-8 py-4 md:py-5 text-[#E8E1D9] font-bold text-xl md:text-2xl uppercase transition-colors"
                      style={{ transform: `rotate(${rot}deg)` }}

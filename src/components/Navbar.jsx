@@ -11,6 +11,11 @@ const navItems = [
 ];
 
 const Navbar = ({ isHomeRoute }) => {
+
+  const isQrRoute = typeof window !== 'undefined' && window.location.pathname === '/qr-code';
+  const logoStyle = isQrRoute ? { color: '#FFFFFF' } : {};
+  const logoSpanStyle = isQrRoute ? { color: '#D4A72C' } : {};
+
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -43,7 +48,7 @@ const Navbar = ({ isHomeRoute }) => {
         style={{ willChange: 'transform' }}
       >
         <div className="container nav-container">
-          <a href="/" className="logo">BEAT<span>GURUS</span></a>
+          <a href="/" className="logo" style={logoStyle}>BEAT<span style={logoSpanStyle}>GURUS</span></a>
 
           <div className="nav-right">
             <ul className="nav-links-list">
