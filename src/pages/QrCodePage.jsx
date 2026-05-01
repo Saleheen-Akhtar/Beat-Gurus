@@ -245,30 +245,6 @@ const QrCodePage = () => {
         .street-tag.hover-drum:hover { background: #1FA463 !important; }
         .street-tag.hover-dj { box-shadow: 4px 4px 0px #4285F4; }
         .street-tag.hover-dj:hover { background: #4C8BF5 !important; }
-
-        .social-link-card {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          width: 150px;
-          height: 150px;
-          gap: 12px;
-          border: 2.5px solid #E8E1D9;
-          background: #111;
-          color: #E8E1D9;
-          text-transform: uppercase;
-          text-decoration: none;
-          font-size: 0.8rem;
-          font-weight: 700;
-          letter-spacing: 0.1em;
-          transition: color 0.2s ease, background 0.25s ease;
-          position: relative;
-        }
-        @media (min-width: 768px) {
-          .social-link-card { width: 185px; height: 185px; font-size: 0.95rem; gap: 14px; }
-        }
-
       `}</style>
       <div className="noise-overlay"></div>
 
@@ -412,7 +388,7 @@ const QrCodePage = () => {
       {/* Section 4: Social Links */}
       <section className="relative w-full py-28 md:py-32 bg-[#0B0B0B] flex flex-col items-center px-4">
         <h2 className="font-omega text-5xl md:text-7xl text-[#E8E1D9] mb-14 uppercase text-center">Connect with the Tribe</h2>
-        <div className="flex flex-wrap justify-center gap-6 md:gap-8 max-w-5xl px-4">
+        <div className="flex flex-wrap justify-center gap-x-7 gap-y-8 md:gap-x-10 md:gap-y-10 max-w-5xl px-2 md:px-6">
           {socialLinks.map((link, idx) => {
             const rot = (idx % 2 === 0 ? 1 : -1) * ((idx % 3) + 1.2);
             return (
@@ -421,19 +397,14 @@ const QrCodePage = () => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 40, rotate: rot }}
-                whileInView={{ opacity: 1, y: 0, rotate: rot }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
-                whileHover={{ scale: 1.08, rotate: rot + (rot > 0 ? -1.5 : 1.5), transition: { duration: 0.2 } }}
+                whileHover={{ scale: 1.05, x: [0, -2, 2, -1, 0], y: [0, 1, -1, 1, 0], rotate: [`${rot}deg`, `${rot - 1}deg`, `${rot + 1}deg`, `${rot}deg`] }}
                 whileTap={{ scale: 0.95 }}
-                className={`social-link-card street-tag hover-${link.id}`}
+                transition={{ duration: 0.2 }}
+                className={`street-tag hover-${link.id} ${link.primary ? 'ring-2 ring-[#D4A72C]/60' : ''} flex items-center gap-4 px-7 md:px-8 py-4 md:py-5 text-[#E8E1D9] font-bold text-xl md:text-2xl uppercase transition-colors hover:text-white`}
+                style={{ transform: `rotate(${rot}deg)` }}
               >
                 {link.icon}
-                <span>{link.name}</span>
-                {link.primary && (
-                  <span style={{ position: 'absolute', top: '-10px', right: '-10px', background: '#D4A72C', color: '#0B0B0B', fontSize: '0.6rem', fontWeight: 900, letterSpacing: '0.05em', padding: '3px 7px', border: '2px solid #0B0B0B' }}>REVIEW US</span>
-                )}
+                {link.name}
               </motion.a>
             );
           })}
