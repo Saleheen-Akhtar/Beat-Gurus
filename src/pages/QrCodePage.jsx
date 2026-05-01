@@ -68,8 +68,8 @@ function useGravityLinks(containerRef, links, shouldStart) {
       b.x  += b.vx;
       b.y  += b.vy;
 
-      // Floor
-      const floor = height - b.h;
+      // Floor (with safe bottom padding)
+      const floor = height - b.h - 4;
       if (b.y >= floor) {
         b.y  = floor;
         b.vy = -b.vy * DAMPING;
@@ -82,6 +82,10 @@ function useGravityLinks(containerRef, links, shouldStart) {
       if (b.x < 0) { b.x = 0; b.vx = Math.abs(b.vx) * DAMPING; }
       const rightWall = width - b.w;
       if (b.x > rightWall) { b.x = rightWall; b.vx = -Math.abs(b.vx) * DAMPING; }
+
+      // Hard-clamp every frame after velocity/position updates
+      b.y = Math.min(Math.max(b.y, 0), floor);
+      b.x = Math.min(Math.max(b.x, 0), rightWall);
     });
 
     // Apply positions to DOM directly (bypass React re-renders)
@@ -310,8 +314,8 @@ const QrCodePage = () => {
       {/* Section 2: The Experience — Percussion */}
       <section
         ref={percSectionRef}
-        className="relative w-full min-h-screen py-24 flex flex-col md:flex-row bg-[#0B0B0B] z-10 border-t-4 border-[#E8E1D9]"
-        style={{ overflow: 'hidden' }}
+        className="relative w-full min-h-screen py-24 flex flex-col md:flex-row bg-[#0B0B0B] border-t-4 border-[#E8E1D9]"
+        style={{ overflow: 'hidden', isolation: 'isolate' }}
       >
         {/* Gravity-physics floating links — rendered over the whole section */}
         {floatingMediaLinks.map((link, idx) => (
@@ -325,7 +329,7 @@ const QrCodePage = () => {
             onMouseDown={e => onPointerDown(e, idx)}
             onTouchStart={e => onPointerDown(e, idx)}
             onClick={e => { /* allow click only if barely moved */ }}
-            className={`absolute top-0 left-0 z-20 street-tag ${idx === 0 ? 'hover-flute' : idx === 1 ? 'hover-drum' : 'hover-dj'} px-5 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white select-none cursor-grab active:cursor-grabbing`}
+            className={`absolute top-0 left-0 z-10 street-tag ${idx === 0 ? 'hover-flute' : idx === 1 ? 'hover-drum' : 'hover-dj'} px-5 py-3 text-sm md:text-base font-bold uppercase text-[#E8E1D9] hover:text-white select-none cursor-grab active:cursor-grabbing`}
             style={{
               willChange: 'transform',
               touchAction: 'none',
