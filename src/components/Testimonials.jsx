@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { motion, useAnimationControls, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 const testimonials = [
   {
@@ -53,68 +53,62 @@ const firstColumn = testimonials.slice(0, 3);
 const secondColumn = testimonials.slice(3, 6);
 const thirdColumn = testimonials.slice(6, 9);
 
-const TestimonialsColumn = (props) => {
+const TestimonialsColumn = ({ testimonials: columnTestimonials, className, duration = 10, direction = "up" }) => {
   const shouldReduceMotion = useReducedMotion();
-
+  const loopedContent = shouldReduceMotion
+    ? columnTestimonials
+    : [...columnTestimonials, ...columnTestimonials];
 
   return (
-    <div
-      className={props.className}
-    >
+    <div className={className}>
       <motion.div
-        animate={{ y: shouldReduceMotion ? "0%" : ["0%", "-50%"] }}
+        animate={shouldReduceMotion ? { y: 0 } : { y: direction === "up" ? ["0%", "-50%"] : ["-50%", "0%"] }}
         transition={
           shouldReduceMotion
-          ? { duration: 0 }
-          : {
-              duration: props.duration || 10,
-              repeat: Infinity,
-              ease: "linear",
-              repeatType: "loop",
-            }
+            ? { duration: 0 }
+            : {
+                duration,
+                repeat: Infinity,
+                ease: "linear",
+                repeatType: "loop",
+              }
         }
-        className="flex flex-col gap-6 pb-6"
+        className="flex flex-col gap-6 pb-6 will-change-transform"
       >
-        {[
-          ...new Array(shouldReduceMotion ? 1 : 2).fill(0).map((_, index) => (
-            <React.Fragment key={index}>
-              {props.testimonials.map(({ text, name, role }, i) => (
-                <div
-                  aria-hidden={index === 1 ? "true" : "false"}
-                  className="p-10 rounded-3xl border shadow-lg bg-[var(--text-dark)] max-w-xs w-full"
-                  style={{
-                    borderColor: 'rgba(212, 167, 44, 0.2)',
-                    boxShadow: "0 10px 30px -10px rgba(212, 167, 44, 0.1)"
-                  }}
-                  key={i}
-                >
-                  <div className="text-[var(--bg-sand)] opacity-90">{text}</div>
-                  <div className="flex items-center gap-3 mt-5">
-                    <div
-                      aria-hidden="true"
-                      className="h-10 w-10 rounded-full border flex items-center justify-center text-sm font-bold"
-                      style={{
-                        borderColor: 'rgba(212, 167, 44, 0.4)',
-                        backgroundColor: '#121212',
-                        color: 'var(--gold)'
-                      }}
-                    >
-                      {name.charAt(0).toUpperCase()}
-                    </div>
-                    <div className="flex flex-col">
-                      <div className="font-medium tracking-tight leading-5 text-[var(--gold)]">
-                        {name}
-                      </div>
-                      <div className="leading-5 opacity-60 tracking-tight text-[var(--bg-sand)] text-sm">
-                        {role}
-                      </div>
-                    </div>
-                  </div>
+        {loopedContent.map(({ text, name, role }, i) => (
+          <div
+            aria-hidden={!shouldReduceMotion && i >= columnTestimonials.length ? "true" : "false"}
+            className="p-10 rounded-3xl border shadow-lg bg-[var(--text-dark)] max-w-xs w-full"
+            style={{
+              borderColor: 'rgba(212, 167, 44, 0.2)',
+              boxShadow: "0 10px 30px -10px rgba(212, 167, 44, 0.1)",
+            }}
+            key={`${name}-${i}`}
+          >
+            <div className="text-[var(--bg-sand)] opacity-90">{text}</div>
+            <div className="flex items-center gap-3 mt-5">
+              <div
+                aria-hidden="true"
+                className="h-10 w-10 rounded-full border flex items-center justify-center text-sm font-bold"
+                style={{
+                  borderColor: 'rgba(212, 167, 44, 0.4)',
+                  backgroundColor: '#121212',
+                  color: 'var(--gold)',
+                }}
+              >
+                {name.charAt(0).toUpperCase()}
+              </div>
+              <div className="flex flex-col">
+                <div className="font-medium tracking-tight leading-5 text-[var(--gold)]">
+                  {name}
                 </div>
-              ))}
-            </React.Fragment>
-          )),
-        ]}
+                <div className="leading-5 opacity-60 tracking-tight text-[var(--bg-sand)] text-sm">
+                  {role}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </motion.div>
     </div>
   );
@@ -122,7 +116,6 @@ const TestimonialsColumn = (props) => {
 
 const Testimonials = () => {
   const sectionRef = useRef(null);
-  const [allPaused, setAllPaused] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -132,7 +125,6 @@ const Testimonials = () => {
 
   return (
     <section ref={sectionRef} className="testimonials-section relative overflow-hidden">
-      {/* Floating background text */}
       <motion.div
         className="testi-bg-text absolute top-[20%] left-1/2 -translate-x-1/2 whitespace-nowrap z-0 pointer-events-none"
         style={{ y: shouldReduceMotion ? 0 : bgY, opacity: 0.05 }}
@@ -154,31 +146,12 @@ const Testimonials = () => {
               <span style={{ color: 'var(--gold)' }}>STORIES</span>
             </h2>
           </motion.div>
-          <button
-            type="button"
-            onClick={() => setAllPaused((prev) => !prev)}
-            aria-pressed={allPaused}
-            style={{
-              marginTop: '20px',
-              border: '1.5px solid rgba(212, 167, 44, 0.4)',
-              borderRadius: '999px',
-              background: 'var(--text-dark)',
-              color: 'var(--bg-sand)',
-              padding: '10px 20px',
-              fontSize: '0.9rem',
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-            }}
-          >
-            {allPaused ? 'Play testimonials' : 'Pause testimonials'}
-          </button>
         </div>
 
         <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] h-[650px] overflow-hidden">
-          <TestimonialsColumn testimonials={firstColumn} duration={35} paused={allPaused} />
-          <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={42} paused={allPaused} />
-          <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={38} paused={allPaused} />
+          <TestimonialsColumn testimonials={firstColumn} duration={35} direction="up" />
+          <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={42} direction="down" />
+          <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={38} direction="up" />
         </div>
       </div>
     </section>
