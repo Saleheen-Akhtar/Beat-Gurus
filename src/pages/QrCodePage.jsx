@@ -392,7 +392,19 @@ const QrCodePage = () => {
       <section className="relative w-full py-8 md:py-10 bg-[#C29423] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-8 md:gap-10">
         <div className="relative w-full flex whitespace-nowrap overflow-hidden">
           <motion.div
-             animate={{ x: ["0%", "-50%"] }}
+             animate={{ x: ["0%", "50%"] }}
+             transition={{ duration: 25, ease: "linear", repeat: Infinity }}
+             className="flex w-max pr-8"
+          >
+            {[...Array(8)].map((_, i) => (
+              <div key={`a-${i}`} className="flex items-center shrink-0">
+                <span className="font-omega text-4xl md:text-6xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
+                <span className="text-[#E8E1D9] text-6xl px-4">✦</span>
+              </div>
+            ))}
+          </motion.div>
+          <motion.div
+             animate={{ x: ["-50%", "0%"] }}
              transition={{ duration: 25, ease: "linear", repeat: Infinity }}
              className="flex w-max pr-8"
           >
