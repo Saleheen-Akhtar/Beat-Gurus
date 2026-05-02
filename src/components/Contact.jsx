@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { services } from './Services';
 import { showTypes } from '../data/showData';
@@ -7,9 +7,13 @@ import { FaInstagram, FaFacebookF, FaYoutube, FaGoogle } from 'react-icons/fa';
 const showTitles = showTypes.map((show) => show.title);
 const validEventTitlesSet = new Set([...services.map((s) => s.title), ...showTitles]);
 validEventTitlesSet.add('Other');
+const SUBMIT_COOLDOWN_MS = 30000;
+const MAX_MESSAGE_LENGTH = 5000;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const Contact = () => {
   const CONTACT_API_URL = import.meta.env.VITE_CONTACT_API_URL || '/api/contact';
+  const lastSubmitRef = useRef(0);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -45,42 +49,91 @@ const Contact = () => {
       window.removeEventListener('popstate', parseEventParam);
     };
   }, []);
-  const [submitState, setSubmitState] = useState({ loading: false, message: '', error: false });
+  const [submitState, setSubmitState] = useState({ loading: false, message: '', error: false, field: '' });
   const [emailError, setEmailError] = useState('');
 
   const handleChange = (e) => {
     if (e.target.name === 'email' && emailError) {
       setEmailError('');
     }
+    if (!submitState.loading && submitState.error && submitState.field === e.target.name) {
+      setSubmitState({ loading: false, message: '', error: false, field: '' });
+    }
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitState({ loading: true, message: '', error: false });
+    if (submitState.loading) return;
 
     // Honeypot check
     if (formData.website) {
-       setSubmitState({ loading: false, error: true, message: "Spam detected." });
+       setSubmitState({ loading: false, error: true, message: "Spam detected.", field: '' });
        return;
     }
 
-    try {
-      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "YOUR_WEB3FORMS_ACCESS_KEY";
+    const trimmed = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      phone: formData.phone.trim(),
+      eventType: formData.eventType.trim(),
+      date: formData.date.trim(),
+      location: formData.location.trim(),
+      message: formData.message.trim(),
+      website: formData.website.trim()
+    };
 
+    if (!trimmed.name) {
+      setSubmitState({ loading: false, error: true, message: 'Please enter your name.', field: 'name' });
+      return;
+    }
+    if (!trimmed.email) {
+      setSubmitState({ loading: false, error: true, message: 'Please enter your email address.', field: 'email' });
+      return;
+    }
+    if (!EMAIL_REGEX.test(trimmed.email)) {
+      setEmailError('Please enter a valid email address.');
+      setSubmitState({ loading: false, error: true, message: 'Please enter a valid email address.', field: 'email' });
+      return;
+    }
+    if (!trimmed.eventType || !validEventTitlesSet.has(trimmed.eventType)) {
+      setSubmitState({ loading: false, error: true, message: 'Please select a valid event type.', field: 'eventType' });
+      return;
+    }
+    if (!trimmed.message) {
+      setSubmitState({ loading: false, error: true, message: 'Please tell us about your event.', field: 'message' });
+      return;
+    }
+    if (trimmed.message.length > MAX_MESSAGE_LENGTH) {
+      setSubmitState({ loading: false, error: true, message: 'Message is too long. Please keep it under 5000 characters.', field: 'message' });
+      return;
+    }
+
+    // Client-side cooldown is for UX only; server enforces real rate limits.
+    const now = Date.now();
+    const elapsedMs = now - lastSubmitRef.current;
+    if (elapsedMs < SUBMIT_COOLDOWN_MS) {
+      const secondsLeft = Math.ceil((SUBMIT_COOLDOWN_MS - elapsedMs) / 1000);
+      setSubmitState({ loading: false, error: true, message: `Please wait ${secondsLeft}s before sending another inquiry.`, field: '' });
+      return;
+    }
+
+    setSubmitState({ loading: true, message: '', error: false, field: '' });
+    lastSubmitRef.current = now;
+
+    try {
       const payload = {
-        access_key: accessKey,
-        subject: `Booking Inquiry: ${formData.eventType || 'General'} - ${formData.name}`,
-        from_name: formData.name,
-        email: formData.email,
-        phone: formData.phone || 'N/A',
-        eventType: formData.eventType || 'N/A',
-        date: formData.date || 'N/A',
-        location: formData.location || 'N/A',
-        message: formData.message,
+        name: trimmed.name,
+        email: trimmed.email,
+        phone: trimmed.phone || 'N/A',
+        eventType: trimmed.eventType,
+        date: trimmed.date || 'N/A',
+        location: trimmed.location || 'N/A',
+        message: trimmed.message,
+        submittedAt: new Date().toISOString()
       };
 
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const res = await fetch(CONTACT_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,27 +142,35 @@ const Contact = () => {
         body: JSON.stringify(payload)
       });
 
-      const json = await res.json();
+      let json = null;
+      try {
+        json = await res.json();
+      } catch (error) {
+        json = null;
+      }
 
-      if (res.status === 200) {
+      if (res.ok && (!json || json.success !== false)) {
         setSubmitState({
           loading: false,
           error: false,
-          message: "Thank you! Your inquiry has been sent successfully."
+          message: "Thank you! Your inquiry has been sent successfully.",
+          field: ''
         });
         setFormData({ name: '', email: '', phone: '', eventType: '', date: '', location: '', message: '', website: '' });
       } else {
         setSubmitState({
           loading: false,
           error: true,
-          message: json.message || "Something went wrong. Please try again."
+          message: (json && json.message) || "Something went wrong. Please try again.",
+          field: ''
         });
       }
     } catch (error) {
       setSubmitState({
         loading: false,
         error: true,
-        message: "Network error. Please try again later."
+        message: "Network error. Please try again later.",
+        field: ''
       });
     }
   };
@@ -184,7 +245,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     onBlur={(e) => {
-                      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value);
+                      const valid = EMAIL_REGEX.test(e.target.value);
                       setEmailError(e.target.value && !valid ? 'Please enter a valid email address.' : '');
                     }}
                     placeholder="Email Address"

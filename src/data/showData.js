@@ -1,5 +1,3 @@
-export const FINAL_MEDIA_LINK = 'https://drive.google.com/drive/folders/1YsDWWyZWExfwH7IlHyGNXINr4XNiRGp1?usp=drive_link';
-
 export const showTypes = [
   {
     id: 'flute-fusion',
@@ -7,15 +5,16 @@ export const showTypes = [
     title: 'Flute Fusion',
     cardDescription: 'A pure rhythmic aura created by playing Indian melody using percussion from all around the world.',
     fullDescription: 'Consists of 6-8 artists on stage that play several instruments like Djembe, Darbouka, Digeridoo, Congo, Dun Dun Drums, Flute, Drum kit, Brazil drum, tamate, Chande and several side percussion along with cymbals, creating a pure rhythmic aura by playing Indian melody using percussion from all around the world. This creates a fusion of western rhythms and Indian melody leaving the viewers mesmerized.',
-    heroImage: 'https://github.com/user-attachments/assets/b24a8f87-5c53-4590-9728-ac0385b354d2',
+    heroImage: 'https://github.com/user-attachments/assets/b7e31bd1-1078-4280-ac8a-77636af40da9',
+    mediaLink: 'https://drive.google.com/drive/folders/1YsDWWyZWExfwH7IlHyGNXINr4XNiRGp1',
     align: 'left',
     duration: '45-90 minutes',
     idealFor: 'Corporate get togethers and stage events where the motto is to watch and be entertained',
     highlights: ['6-8 artists on stage', 'Fusion of western rhythms and Indian melody', 'Features Djembe, Darbouka, Digeridoo, Flute and more'],
     gallery: [
-      'https://github.com/user-attachments/assets/b24a8f87-5c53-4590-9728-ac0385b354d2',
-      'https://images.unsplash.com/photo-1524230659092-07f99a75c013?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1461784121038-f088ca1e7714?q=80&w=1200&auto=format&fit=crop'
+      'https://github.com/user-attachments/assets/b7e31bd1-1078-4280-ac8a-77636af40da9',
+      'https://github.com/user-attachments/assets/992f5185-be32-4dbf-83e5-be1573c042af',
+      'https://github.com/user-attachments/assets/5d53e97f-4012-49a4-baae-bd71c881cb0d'
     ],
     faqs: [
       { question: 'Can this format be fully acoustic?', answer: 'Yes. We can run this set unplugged for intimate spaces or add light reinforcement for large venues.' },
@@ -29,6 +28,7 @@ export const showTypes = [
     cardDescription: 'A workshop type event that makes the audience interact throughout the sessions.',
     fullDescription: 'Consists of 2-6 artists (depending upon the size of the audience) on stage while everyone in the audience gets their own drum. This is a workshop type event that makes the audience interact throughout the sessions. All the people play drums along with the artists on stage creating several different rhythms and providing a good exercise session to the bodies of the audience.',
     heroImage: 'https://github.com/user-attachments/assets/75bd819e-bcf4-45fb-9941-4c019c6ae6ab',
+    mediaLink: 'https://drive.google.com/drive/folders/14iqZ8zuTiPTlLasgg7LmVp6bz7jwX4vj',
     align: 'right',
     duration: '30-75 minutes',
     idealFor: 'Get togethers, corporate gatherings, weddings, etc. where everyone can participate',
@@ -50,6 +50,7 @@ export const showTypes = [
     cardDescription: 'A fusion that provides a lively touch to the DJ night and fills the whole crowd with energy.',
     fullDescription: 'Consists of 2-6 artists depending on the client’s requirement. This is a setup where the client books the DJ separately and we come with our percussion and mix the percussion rhythms along with the DJ tracks. This is a fusion that provides a lively touch to the DJ night and fills the whole crowd with energy.',
     heroImage: 'https://images.unsplash.com/photo-1505236858219-8359eb29e329?q=80&w=1400&auto=format&fit=crop',
+    mediaLink: 'https://drive.google.com/drive/folders/1ZrlbT8I60V6ULuKDBSLx-clOfD8dik4O',
     align: 'left',
     duration: '60-120 minutes',
     idealFor: 'Parties, Clubs, Sangeet, Corporate Parties, etc. where the audience wants to dance',
