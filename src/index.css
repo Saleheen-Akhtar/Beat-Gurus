@@ -183,7 +183,7 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 0.95rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -223,7 +223,7 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 0.95rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -635,7 +635,7 @@ p {
   margin-top: 70px;
 }
 .about-left h3 {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(2rem, 3.5vw, 3.2rem);
   line-height: 1.05;
   color: var(--text-dark);
@@ -678,7 +678,7 @@ p {
   min-width: 120px;
 }
 .stat-label-text {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 1.1rem;
   color: var(--text-dark);
   text-transform: uppercase;
@@ -973,7 +973,7 @@ p {
   color: var(--text-grey);
 }
 .service-list-title {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(2rem, 3.5vw, 3rem);
   color: var(--text-dark);
   line-height: 1.1;
@@ -1686,7 +1686,7 @@ input[type="date"].contact-input::-webkit-datetime-edit-year-field {
   letter-spacing: -2px;
 }
 .showtype-title {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   color: var(--text-dark);
   line-height: 1.05;
