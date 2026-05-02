@@ -72,13 +72,6 @@ const Contact = () => {
        return;
     }
 
-    const now = Date.now();
-    if (now - lastSubmitRef.current < SUBMIT_COOLDOWN_MS) {
-      const secondsLeft = Math.ceil((SUBMIT_COOLDOWN_MS - (now - lastSubmitRef.current)) / 1000);
-      setSubmitState({ loading: false, error: true, message: `Please wait ${secondsLeft}s before sending another inquiry.`, field: '' });
-      return;
-    }
-
     const trimmed = {
       name: formData.name.trim(),
       email: formData.email.trim(),
@@ -113,6 +106,13 @@ const Contact = () => {
     }
     if (trimmed.message.length > MAX_MESSAGE_LENGTH) {
       setSubmitState({ loading: false, error: true, message: 'Message is too long. Please keep it under 5000 characters.', field: 'message' });
+      return;
+    }
+
+    const now = Date.now();
+    if (now - lastSubmitRef.current < SUBMIT_COOLDOWN_MS) {
+      const secondsLeft = Math.ceil((SUBMIT_COOLDOWN_MS - (now - lastSubmitRef.current)) / 1000);
+      setSubmitState({ loading: false, error: true, message: `Please wait ${secondsLeft}s before sending another inquiry.`, field: '' });
       return;
     }
 
