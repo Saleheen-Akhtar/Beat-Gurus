@@ -389,52 +389,40 @@ const QrCodePage = () => {
       </motion.div>
 
       {/* Section 3: Global Presence */}
-      <section className="relative w-full py-8 md:py-10 bg-[#C29423] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-8 md:gap-10">
-        <div className="relative w-full flex whitespace-nowrap overflow-hidden">
+      <section className="relative w-full py-6 md:py-8 bg-[#C29423] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-6 md:gap-8">
+        <div className="relative w-full overflow-hidden">
           <motion.div
-             animate={{ x: ["0%", "50%"] }}
-             transition={{ duration: 25, ease: "linear", repeat: Infinity }}
-             className="flex w-max pr-8"
+             animate={{ x: ["0%", "-50%"] }}
+             transition={{ duration: 22, ease: "linear", repeat: Infinity }}
+             className="flex w-max items-center"
           >
-            {[...Array(8)].map((_, i) => (
-              <div key={`a-${i}`} className="flex items-center shrink-0">
-                <span className="font-omega text-4xl md:text-6xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
-                <span className="text-[#E8E1D9] text-6xl px-4">✦</span>
-              </div>
-            ))}
-          </motion.div>
-          <motion.div
-             animate={{ x: ["-50%", "0%"] }}
-             transition={{ duration: 25, ease: "linear", repeat: Infinity }}
-             className="absolute inset-y-0 left-0 flex w-max pr-8"
-          >
-            {[...Array(8)].map((_, i) => (
-              <div key={`b-${i}`} className="flex items-center shrink-0">
-                <span className="font-omega text-4xl md:text-6xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
-                <span className="text-[#E8E1D9] text-6xl px-4">✦</span>
+            {[...Array(10)].map((_, i) => (
+              <div key={i} className="flex items-center shrink-0">
+                <span className="font-omega text-2xl md:text-5xl text-[#0B0B0B] px-6 md:px-8">FROM BANGALORE TO THE WORLD</span>
+                <span className="text-[#E8E1D9] text-xl md:text-3xl px-2">•</span>
               </div>
             ))}
           </motion.div>
         </div>
 
-        <div className="relative w-full flex whitespace-nowrap overflow-hidden">
+        <div className="relative w-full overflow-hidden">
           <motion.div
-             animate={{ x: ["50%", "0%"] }}
-             transition={{ duration: 35, ease: "linear", repeat: Infinity }}
-             className="flex gap-6 md:gap-10 px-6 w-max"
+             animate={{ x: ["0%", "-50%"] }}
+             transition={{ duration: 30, ease: "linear", repeat: Infinity }}
+             className="flex gap-4 md:gap-8 px-4 md:px-6 w-max"
           >
-            {[...Array(4)].map((_, j) => (
+            {[...Array(6)].map((_, j) => (
                <React.Fragment key={j}>
-                 <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-[22rem] md:w-[34rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[8px_8px_0_#E8E1D9]">
-                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" />
-                    <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                       <FaYoutube className="text-[#C89B3C] text-6xl drop-shadow-md" />
+                 <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-[19rem] md:w-[34rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[6px_6px_0_#E8E1D9]">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1200&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                       <FaYoutube className="text-[#C89B3C] text-5xl drop-shadow-md" />
                     </div>
                  </a>
-                 <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-[22rem] md:w-[34rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[8px_8px_0_#E8E1D9]">
-                    <img src="https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?q=80&w=800&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" />
-                    <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                       <FaYoutube className="text-[#C89B3C] text-6xl drop-shadow-md" />
+                 <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-[19rem] md:w-[34rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[6px_6px_0_#E8E1D9]">
+                    <img src="https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?q=80&w=1200&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                       <FaYoutube className="text-[#C89B3C] text-5xl drop-shadow-md" />
                     </div>
                  </a>
                </React.Fragment>
