@@ -109,6 +109,7 @@ const Contact = () => {
       return;
     }
 
+    // Client-side cooldown is for UX only; server enforces real rate limits.
     const now = Date.now();
     if (now - lastSubmitRef.current < SUBMIT_COOLDOWN_MS) {
       const secondsLeft = Math.ceil((SUBMIT_COOLDOWN_MS - (now - lastSubmitRef.current)) / 1000);
