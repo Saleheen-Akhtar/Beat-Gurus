@@ -111,8 +111,9 @@ const Contact = () => {
 
     // Client-side cooldown is for UX only; server enforces real rate limits.
     const now = Date.now();
-    if (now - lastSubmitRef.current < SUBMIT_COOLDOWN_MS) {
-      const secondsLeft = Math.ceil((SUBMIT_COOLDOWN_MS - (now - lastSubmitRef.current)) / 1000);
+    const elapsedMs = now - lastSubmitRef.current;
+    if (elapsedMs < SUBMIT_COOLDOWN_MS) {
+      const secondsLeft = Math.ceil((SUBMIT_COOLDOWN_MS - elapsedMs) / 1000);
       setSubmitState({ loading: false, error: true, message: `Please wait ${secondsLeft}s before sending another inquiry.`, field: '' });
       return;
     }
