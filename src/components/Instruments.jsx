@@ -21,7 +21,7 @@ const instruments = [
     subtitle: 'Afro-Cuban tall hand drums driving deep, resonant polyrhythms that anchor the groove.',
     category: 'Percussion',
     index: '/03',
-    image: 'https://github.com/user-attachments/assets/cec432eb-3b98-43fb-be8f-507a020f3f5e',
+    image: 'https://github.com/user-attachments/assets/e9ae66a2-707d-42e7-b54e-f6ba739ccc7b',
   },
   {
     title: 'Bongos',
