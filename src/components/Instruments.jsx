@@ -119,23 +119,6 @@ export default function Instruments() {
             </AnimatePresence>
 
             {/* Right-edge gradient blend into dark panel */}
-            <div style={{
-              position: 'absolute', inset: 0,
-              background: 'linear-gradient(to right, transparent 55%, rgba(26, 26, 26, 0.72) 100%)',
-              pointerEvents: 'none',
-            }} />
-
-            {/* Index badge */}
-            <div style={{
-              position: 'absolute', top: '24px', left: '24px',
-              fontFamily: 'var(--font-main)', fontSize: '0.68rem',
-              letterSpacing: '3px', color: 'var(--gold)',
-              background: 'rgba(26, 26, 26, 0.55)', backdropFilter: 'blur(10px)',
-              padding: '6px 15px', borderRadius: '40px',
-              border: '1px solid rgba(212,167,44,0.35)',
-            }}>
-              {inst.index}
-            </div>
           </div>
 
           {/* Right - info pane */}
@@ -232,7 +215,7 @@ export default function Instruments() {
                 fontFamily: 'var(--font-main)', fontSize: '0.75rem',
                 color: 'rgba(245, 241, 236, 0.28)', letterSpacing: '2.5px',
               }}>
-                {String(active + 1).padStart(2, '0')} <span style={{ color: 'var(--gold)' }}>/</span> {String(instruments.length).padStart(2, '0')}
+                
               </span>
             </div>
 

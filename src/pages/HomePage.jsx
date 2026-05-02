@@ -12,7 +12,7 @@ import FAQ from '../components/FAQ';
 import Contact from '../components/Contact';
 
 const HomePage = ({ navigate }) => (
-  <main id="main-content">
+  <main id="main-content" className="home-screen">
     <Hero />
 
     <div className="marquee-outer">
