@@ -301,7 +301,7 @@ const Contact = () => {
           <div className="credit-block">
             <h4 style={{ fontFamily: 'var(--font-main)', color: 'var(--gold)', fontSize: '1.5rem', marginBottom: '15px' }}>STARRING</h4>
             <p style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', color: 'rgba(245, 241, 236, 0.7)', lineHeight: 1.6 }}>
-              <strong>The Founders</strong> - Ganesh Govindswamy.<br/><br/>
+              <strong>The Founder</strong> - Ganesh Govindswamy.<br/><br/>
               <strong>The Tribe</strong> - Our fellow musicians, keeping the heartbeat alive on every stage.
             </p>
           </div>
