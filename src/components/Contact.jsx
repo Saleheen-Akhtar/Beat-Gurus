@@ -49,15 +49,15 @@ const Contact = () => {
       window.removeEventListener('popstate', parseEventParam);
     };
   }, []);
-  const [submitState, setSubmitState] = useState({ loading: false, message: '', error: false });
+  const [submitState, setSubmitState] = useState({ loading: false, message: '', error: false, field: '' });
   const [emailError, setEmailError] = useState('');
 
   const handleChange = (e) => {
     if (e.target.name === 'email' && emailError) {
       setEmailError('');
     }
-    if (!submitState.loading && submitState.message) {
-      setSubmitState({ loading: false, message: '', error: false });
+    if (!submitState.loading && submitState.error && submitState.field === e.target.name) {
+      setSubmitState({ loading: false, message: '', error: false, field: '' });
     }
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -68,14 +68,14 @@ const Contact = () => {
 
     // Honeypot check
     if (formData.website) {
-       setSubmitState({ loading: false, error: true, message: "Spam detected." });
+       setSubmitState({ loading: false, error: true, message: "Spam detected.", field: '' });
        return;
     }
 
     const now = Date.now();
     if (now - lastSubmitRef.current < SUBMIT_COOLDOWN_MS) {
       const secondsLeft = Math.ceil((SUBMIT_COOLDOWN_MS - (now - lastSubmitRef.current)) / 1000);
-      setSubmitState({ loading: false, error: true, message: `Please wait ${secondsLeft}s before sending another inquiry.` });
+      setSubmitState({ loading: false, error: true, message: `Please wait ${secondsLeft}s before sending another inquiry.`, field: '' });
       return;
     }
 
@@ -91,32 +91,32 @@ const Contact = () => {
     };
 
     if (!trimmed.name) {
-      setSubmitState({ loading: false, error: true, message: 'Please enter your name.' });
+      setSubmitState({ loading: false, error: true, message: 'Please enter your name.', field: 'name' });
       return;
     }
     if (!trimmed.email) {
-      setSubmitState({ loading: false, error: true, message: 'Please enter your email address.' });
+      setSubmitState({ loading: false, error: true, message: 'Please enter your email address.', field: 'email' });
       return;
     }
     if (!EMAIL_REGEX.test(trimmed.email)) {
       setEmailError('Please enter a valid email address.');
-      setSubmitState({ loading: false, error: true, message: 'Please enter a valid email address.' });
+      setSubmitState({ loading: false, error: true, message: 'Please enter a valid email address.', field: 'email' });
       return;
     }
     if (!trimmed.eventType || !validEventTitlesSet.has(trimmed.eventType)) {
-      setSubmitState({ loading: false, error: true, message: 'Please select a valid event type.' });
+      setSubmitState({ loading: false, error: true, message: 'Please select a valid event type.', field: 'eventType' });
       return;
     }
     if (!trimmed.message) {
-      setSubmitState({ loading: false, error: true, message: 'Please tell us about your event.' });
+      setSubmitState({ loading: false, error: true, message: 'Please tell us about your event.', field: 'message' });
       return;
     }
     if (trimmed.message.length > MAX_MESSAGE_LENGTH) {
-      setSubmitState({ loading: false, error: true, message: 'Message is too long. Please keep it under 5000 characters.' });
+      setSubmitState({ loading: false, error: true, message: 'Message is too long. Please keep it under 5000 characters.', field: 'message' });
       return;
     }
 
-    setSubmitState({ loading: true, message: '', error: false });
+    setSubmitState({ loading: true, message: '', error: false, field: '' });
     lastSubmitRef.current = now;
 
     try {
@@ -151,21 +151,24 @@ const Contact = () => {
         setSubmitState({
           loading: false,
           error: false,
-          message: "Thank you! Your inquiry has been sent successfully."
+          message: "Thank you! Your inquiry has been sent successfully.",
+          field: ''
         });
         setFormData({ name: '', email: '', phone: '', eventType: '', date: '', location: '', message: '', website: '' });
       } else {
         setSubmitState({
           loading: false,
           error: true,
-          message: (json && json.message) || "Something went wrong. Please try again."
+          message: (json && json.message) || "Something went wrong. Please try again.",
+          field: ''
         });
       }
     } catch (error) {
       setSubmitState({
         loading: false,
         error: true,
-        message: "Network error. Please try again later."
+        message: "Network error. Please try again later.",
+        field: ''
       });
     }
   };
