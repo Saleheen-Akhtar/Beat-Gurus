@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useLayoutEffect, useRef } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { FaArrowRight, FaChevronDown } from 'react-icons/fa';
-import { FINAL_MEDIA_LINK, showTypes } from '../data/showData';
+import { showTypes } from '../data/showData';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
@@ -126,7 +126,7 @@ const ShowDetailPage = ({ slug }) => {
 
           <div className="show-detail-hero-cta">
             <a className="btn-dark" href={contactUrl} onClick={handleContactClick}>Enquire for this show <FaArrowRight size={12} /></a>
-            <a className="btn-outline" href={FINAL_MEDIA_LINK} target="_blank" rel="noreferrer noopener">Media Link <FaArrowRight size={12} /></a>
+            <a className="btn-outline" href={show.mediaLink} target="_blank" rel="noreferrer noopener">Media Link <FaArrowRight size={12} /></a>
           </div>
         </div>
       </section>
