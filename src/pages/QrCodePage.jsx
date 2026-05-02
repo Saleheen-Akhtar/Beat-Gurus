@@ -22,10 +22,10 @@ const floatingMediaLinks = [
 const GRAVITY = 0.45;
 const DAMPING = 0.62;
 const FRICTION = 0.988;
-const FLOOR_SAFE_GAP_MOBILE = 13;
-const FLOOR_SAFE_GAP_DESKTOP = 13;
+const FLOOR_SAFE_GAP_MOBILE = 10;
+const FLOOR_SAFE_GAP_DESKTOP = 14;
 
-function useGravityLinks(containerRef, links, shouldStart) {
+function useGravityLinks(containerRef, links, shouldStart, onImpact) {
   const bodiesRef = useRef([]);
   const rafRef    = useRef(null);
   const dragRef   = useRef(null); // { idx, offsetX, offsetY }
@@ -71,13 +71,19 @@ function useGravityLinks(containerRef, links, shouldStart) {
       b.x  += b.vx;
       b.y  += b.vy;
 
-      // Floor
+      // Viewport-aware dynamic floor
       const floorGap = width >= 768 ? FLOOR_SAFE_GAP_DESKTOP : FLOOR_SAFE_GAP_MOBILE;
-      const floor = Math.max(0, height - b.h - floorGap);
-      if (b.y >= floor) {
+      const viewportBottomInSection = window.innerHeight - el.getBoundingClientRect().top;
+      const sectionFloor = height - b.h - floorGap;
+      const viewportFloor = viewportBottomInSection - b.h - floorGap;
+      const floor = Math.max(0, Math.min(sectionFloor, viewportFloor));
+      const hitFloor = b.y >= floor;
+      if (hitFloor) {
+        const impactSpeed = Math.abs(b.vy);
         b.y  = floor;
         b.vy = -b.vy * DAMPING;
         b.vx *= 0.85;
+        if (impactSpeed > 1.15 && onImpact) onImpact(impactSpeed);
         if (Math.abs(b.vy) < 0.8) { b.vy = 0; b.settled = true; }
       }
       // Ceiling
@@ -98,7 +104,7 @@ function useGravityLinks(containerRef, links, shouldStart) {
     });
 
     rafRef.current = requestAnimationFrame(tick);
-  }, [containerRef]);
+  }, [containerRef, onImpact]);
 
   // Pointer drag
   const onPointerDown = useCallback((e, idx) => {
@@ -194,6 +200,16 @@ const QrCodePage = () => {
 
   const [percSectionVisible, setPercSectionVisible] = useState(false);
 
+  const [impactPulse, setImpactPulse] = useState(0);
+  const lastImpactRef = useRef(0);
+  const triggerImpact = useCallback((speed) => {
+    const now = performance.now();
+    if (now - lastImpactRef.current < 90) return;
+    lastImpactRef.current = now;
+    setImpactPulse(Math.min(1, speed / 7));
+  }, []);
+
+
   useEffect(() => {
     const el = percSectionRef.current;
     if (!el) return;
@@ -211,7 +227,7 @@ const QrCodePage = () => {
     return () => observer.disconnect();
   }, []);
 
-  const { measureNode, onPointerDown, onLinkClick } = useGravityLinks(percSectionRef, floatingMediaLinks, percSectionVisible);
+  const { measureNode, onPointerDown, onLinkClick } = useGravityLinks(percSectionRef, floatingMediaLinks, percSectionVisible, triggerImpact);
 
   const glitchHover = {
     hover: {
@@ -309,6 +325,10 @@ const QrCodePage = () => {
       </section>
 
       {/* Section 2: The Experience — Percussion */}
+      <motion.div
+        animate={{ x: [0, -0.7 * impactPulse, 0.7 * impactPulse, -0.35 * impactPulse, 0], y: [0, 0.4 * impactPulse, -0.4 * impactPulse, 0] }}
+        transition={{ duration: 0.22, ease: "easeOut" }}
+      >
       <section
         ref={percSectionRef}
         className="relative w-full min-h-screen py-24 flex flex-col md:flex-row bg-[#0B0B0B] z-10 border-t-4 border-[#E8E1D9]"
@@ -366,18 +386,31 @@ const QrCodePage = () => {
           <p className="mt-8 text-[#E8E1D9]/50 text-sm uppercase tracking-widest">↑ Drag the links above ↑</p>
         </motion.div>
       </section>
+      </motion.div>
 
       {/* Section 3: Global Presence */}
-      <section className="relative w-full py-16 md:py-20 bg-[#C29423] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-12 md:gap-16">
+      <section className="relative w-full py-12 md:py-14 bg-[#C29423] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-8 md:gap-10">
         <div className="relative w-full flex whitespace-nowrap overflow-hidden">
           <motion.div
-             animate={{ x: ["0%", "-50%"] }}
+             animate={{ x: ["0%", "50%"] }}
              transition={{ duration: 25, ease: "linear", repeat: Infinity }}
-             className="flex"
+             className="flex w-max pr-8"
           >
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="flex items-center">
-                <span className="font-omega text-5xl md:text-7xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
+            {[...Array(8)].map((_, i) => (
+              <div key={`a-${i}`} className="flex items-center shrink-0">
+                <span className="font-omega text-4xl md:text-6xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
+                <span className="text-[#E8E1D9] text-6xl px-4">✦</span>
+              </div>
+            ))}
+          </motion.div>
+          <motion.div
+             animate={{ x: ["-50%", "0%"] }}
+             transition={{ duration: 25, ease: "linear", repeat: Infinity }}
+             className="absolute inset-y-0 left-0 flex w-max pr-8"
+          >
+            {[...Array(8)].map((_, i) => (
+              <div key={`b-${i}`} className="flex items-center shrink-0">
+                <span className="font-omega text-4xl md:text-6xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
                 <span className="text-[#E8E1D9] text-6xl px-4">✦</span>
               </div>
             ))}
@@ -386,9 +419,9 @@ const QrCodePage = () => {
 
         <div className="relative w-full flex whitespace-nowrap overflow-hidden">
           <motion.div
-             animate={{ x: ["0%", "-50%"] }}
+             animate={{ x: ["50%", "0%"] }}
              transition={{ duration: 35, ease: "linear", repeat: Infinity }}
-             className="flex gap-6 md:gap-10 px-6"
+             className="flex gap-6 md:gap-10 px-6 w-max"
           >
             {[...Array(4)].map((_, j) => (
                <React.Fragment key={j}>
