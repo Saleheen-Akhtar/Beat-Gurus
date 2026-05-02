@@ -326,7 +326,7 @@ const QrCodePage = () => {
         <motion.div
           className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat"
           style={{
-            backgroundImage: "url('/images/qr-hero-bg.png')",
+            backgroundImage: "url('/images/qr-hero-bg.webp')",
             y: yHero,
             filter: 'grayscale(100%) contrast(1.2) brightness(0.4)'
           }}
@@ -410,7 +410,7 @@ const QrCodePage = () => {
           className="w-full md:w-1/2 p-6 md:p-12 flex justify-center items-center"
         >
           <div className="relative w-full max-w-md aspect-[4/5] border-4 border-[#E8E1D9] p-2 bg-[#111] transform -rotate-2">
-             <img src="/images/perc-image.png" alt="Live Drumming" className="w-full h-full object-cover filter contrast-125 grayscale hover:grayscale-0 transition-all duration-700" />
+             <img src="/images/perc-image.webp" alt="Live Drumming" loading="lazy" decoding="async" className="w-full h-full object-cover filter contrast-125 grayscale hover:grayscale-0 transition-all duration-700" />
              <div className="absolute -bottom-4 -right-4 bg-[#D4A72C] text-[#E8E1D9] px-3 py-1 font-bold text-base md:text-lg transform rotate-6 border border-[#0B0B0B]">RAW ENERGY</div>
           </div>
         </motion.div>

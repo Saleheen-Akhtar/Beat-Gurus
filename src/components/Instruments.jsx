@@ -256,11 +256,7 @@ export default function Instruments() {
                 transition: 'opacity 0.35s ease, outline-color 0.35s ease',
               }}
             >
-              <img
-                src={item.image}
-                alt={item.title}
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', pointerEvents: 'none' }}
-              />
+              <img src={item.image} alt={item.title} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", pointerEvents: "none" }} />
             </motion.button>
           ))}
         </motion.div>
