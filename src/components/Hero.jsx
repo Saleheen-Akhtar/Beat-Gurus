@@ -54,7 +54,7 @@ const Hero = () => {
         className="hero-bg-media"
         style={{
           position: 'absolute', inset: 0, zIndex: 0,
-          backgroundImage: 'url("https://images.unsplash.com/photo-1524230659092-07f99a75c013?q=80&w=2000&auto=format&fit=crop")',
+          backgroundImage: 'url("https://github.com/user-attachments/assets/251ce2b9-e3fd-4e9e-b3fb-711fdbe39896")',
           backgroundSize: 'cover', backgroundPosition: 'center',
           opacity: 0.15, mixBlendMode: 'multiply', pointerEvents: 'none',
         }}
@@ -94,7 +94,7 @@ const Hero = () => {
         </motion.div>
 
         <motion.p
-          className="hero-sub" style={{ maxWidth: "800px", margin: "28px auto 0", lineHeight: "1.6", whiteSpace: "normal" }}
+          className="hero-sub" style={{ maxWidth: "800px", margin: "12px auto 0", lineHeight: "1.6", whiteSpace: "normal" }}
           initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
         >

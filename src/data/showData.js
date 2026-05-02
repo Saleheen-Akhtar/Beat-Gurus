@@ -7,12 +7,12 @@ export const showTypes = [
     title: 'Flute Fusion',
     cardDescription: 'A pure rhythmic aura created by playing Indian melody using percussion from all around the world.',
     fullDescription: 'Consists of 6-8 artists on stage that play several instruments like Djembe, Darbouka, Digeridoo, Congo, Dun Dun Drums, Flute, Drum kit, Brazil drum, tamate, Chande and several side percussion along with cymbals, creating a pure rhythmic aura by playing Indian melody using percussion from all around the world. This creates a fusion of western rhythms and Indian melody leaving the viewers mesmerized.',
-    heroImage: '/images/flute.png',
+    heroImage: 'https://github.com/user-attachments/assets/b24a8f87-5c53-4590-9728-ac0385b354d2',
     align: 'left',
     duration: '45-90 minutes',
     idealFor: 'Corporate get togethers and stage events where the motto is to watch and be entertained',
     highlights: ['6-8 artists on stage', 'Fusion of western rhythms and Indian melody', 'Features Djembe, Darbouka, Digeridoo, Flute and more'],
-    gallery: ['/images/flute.png', '/images/flute.png', '/images/flute.png'],
+    gallery: ['https://github.com/user-attachments/assets/b24a8f87-5c53-4590-9728-ac0385b354d2', 'https://github.com/user-attachments/assets/b24a8f87-5c53-4590-9728-ac0385b354d2', 'https://github.com/user-attachments/assets/b24a8f87-5c53-4590-9728-ac0385b354d2'],
     faqs: [
       { question: 'Can this format be fully acoustic?', answer: 'Yes. We can run this set unplugged for intimate spaces or add light reinforcement for large venues.' },
       { question: 'Do you support custom entrance pieces?', answer: 'Absolutely. We can prepare a custom flute-led entrance, first dance, or welcome score.' }
@@ -24,12 +24,12 @@ export const showTypes = [
     title: 'Drum Circle',
     cardDescription: 'A workshop type event that makes the audience interact throughout the sessions.',
     fullDescription: 'Consists of 2-6 artists (depending upon the size of the audience) on stage while everyone in the audience gets their own drum. This is a workshop type event that makes the audience interact throughout the sessions. All the people play drums along with the artists on stage creating several different rhythms and providing a good exercise session to the bodies of the audience.',
-    heroImage: '/images/drum.jpeg',
+    heroImage: 'https://github.com/user-attachments/assets/75bd819e-bcf4-45fb-9941-4c019c6ae6ab',
     align: 'right',
     duration: '30-75 minutes',
     idealFor: 'Get togethers, corporate gatherings, weddings, etc. where everyone can participate',
     highlights: ['2-6 artists leading the session', 'Everyone in the audience gets their own drum', 'Interactive rhythm creation and exercise'],
-    gallery: ['/images/drum.jpeg', '/images/drum.jpeg', '/images/drum.jpeg'],
+    gallery: ['https://github.com/user-attachments/assets/75bd819e-bcf4-45fb-9941-4c019c6ae6ab', 'https://github.com/user-attachments/assets/75bd819e-bcf4-45fb-9941-4c019c6ae6ab', 'https://github.com/user-attachments/assets/75bd819e-bcf4-45fb-9941-4c019c6ae6ab'],
     faqs: [
       { question: 'How many participants can join?', answer: 'From 15 to 500+ participants. We scale with additional facilitators and instruments.' },
       { question: 'Do attendees need experience?', answer: 'Not at all. This format is beginner-friendly and accessible to all age groups.' }

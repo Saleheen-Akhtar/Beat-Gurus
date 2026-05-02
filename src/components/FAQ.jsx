@@ -95,7 +95,7 @@ const FAQ = () => {
                   >
                     <span style={{
                       fontFamily: 'var(--font-main)',
-                      fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                      fontSize: 'clamp(1rem, 2vw, 1.5rem)',
                       margin: 0,
                       color: isActive ? 'var(--gold)' : 'var(--bg-sand)',
                       transition: 'color 0.3s ease',
