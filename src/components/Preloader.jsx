@@ -67,7 +67,7 @@ const Preloader = ({ onComplete }) => {
           className="preloader-shell"
           initial={{ opacity: 1, scale: 1.02 }}
           animate={{ opacity: 1, scale: 1, transition: { duration: 0.35, ease: 'easeOut' } }}
-          exit={{ opacity: 0, scale: 1, transition: { duration: 0.6, ease: 'easeInOut' } }}
+          exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.85, ease: [0.4, 0, 0.2, 1] } }}
           role="status"
           aria-label="Loading Beat Gurus website"
         >
