@@ -541,11 +541,11 @@ p {
 .hero-sub {
   font-family: var(--font-main);
   font-size: clamp(0.75rem, 1.2vw, 1rem);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 5px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0.5px;
   color: var(--text-grey);
-  margin-top: 28px;
+  margin-top: 12px;
 }
 .hero-buttons {
   display: flex;
@@ -1455,7 +1455,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
   .hero-sub {
     font-size: 0.85rem !important;
-    letter-spacing: 2px;
+    letter-spacing: 0.3px;
     max-width: 90vw;
     padding: 0 16px;
   }
