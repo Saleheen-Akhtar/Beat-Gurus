@@ -133,7 +133,6 @@ const Showcase = () => {
                   {projects[active].desc}
                 </motion.p>
               </div>
-              <span className="showcase-card-num">0{active + 1}</span>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -155,9 +154,6 @@ const Showcase = () => {
             <FaChevronRight size={14} />
           </button>
         </div>
-        <span className="showcase-counter">
-          0{active + 1} <span className="showcase-counter-sep">/</span> 0{projects.length}
-        </span>
         <div className="showcase-dots">
           {projects.map((_, i) => (
             <button

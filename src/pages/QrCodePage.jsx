@@ -406,12 +406,24 @@ const QrCodePage = () => {
           <motion.div
              animate={{ x: ["-50%", "0%"] }}
              transition={{ duration: 25, ease: "linear", repeat: Infinity }}
+             className="flex w-max pr-8"
+          >
+            {[...Array(8)].map((_, i) => (
+              <div key={`a-${i}`} className="flex items-center shrink-0">
+                <span className="font-omega text-3xl md:text-5xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
+                <span className="text-[#E8E1D9] text-4xl md:text-5xl px-3">•</span>
+              </div>
+            ))}
+          </motion.div>
+          <motion.div
+             animate={{ x: ["50%", "0%"] }}
+             transition={{ duration: 25, ease: "linear", repeat: Infinity }}
              className="absolute inset-y-0 left-0 flex w-max pr-8"
           >
             {[...Array(8)].map((_, i) => (
               <div key={`b-${i}`} className="flex items-center shrink-0">
-                <span className="font-omega text-4xl md:text-6xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
-                <span className="text-[#E8E1D9] text-6xl px-4">✦</span>
+                <span className="font-omega text-3xl md:text-5xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
+                <span className="text-[#E8E1D9] text-4xl md:text-5xl px-3">•</span>
               </div>
             ))}
           </motion.div>
