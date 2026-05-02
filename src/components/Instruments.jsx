@@ -7,7 +7,7 @@ const instruments = [
     subtitle: 'The heartbeat of West Africa, driving rhythms that move the crowd and shake the earth.',
     category: 'Percussion',
     index: '/01',
-    image: 'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=1000&h=700&fit=crop',
+    image: 'https://github.com/user-attachments/assets/b578d5f5-ff82-40d8-935a-617c8810d5f1',
   },
   {
     title: 'Didgeridoo',

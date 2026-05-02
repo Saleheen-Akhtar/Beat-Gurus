@@ -47,7 +47,7 @@ const VideoSection = () => {
             <iframe
               width="100%"
               height="100%"
-              src="https://www.youtube.com/embed/hTL_CiQHAJA?autoplay=1&rel=0&modestbranding=1&playsinline=1"
+              src="https://www.youtube.com/embed/Y_Q1fq3f6FE?autoplay=1&rel=0&modestbranding=1&playsinline=1"
               title="Beat Gurus Live Performance"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
