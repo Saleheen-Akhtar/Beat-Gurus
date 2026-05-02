@@ -10,7 +10,7 @@
 }
 
 .preloader-logo {
-  width: clamp(240px, 30vw, 420px);
+  width: clamp(180px, 18vw, 280px);
   height: auto;
   animation: logoFloat 2s ease-in-out infinite;
   filter: none;
