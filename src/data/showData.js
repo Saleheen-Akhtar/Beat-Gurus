@@ -14,7 +14,7 @@ export const showTypes = [
     gallery: [
       'https://github.com/user-attachments/assets/f2f6f379-b6e6-43ce-80be-f81994c121f2',
       'https://github.com/user-attachments/assets/992f5185-be32-4dbf-83e5-be1573c042af',
-      'https://github.com/user-attachments/assets/5d53e97f-4012-49a4-baae-bd71c881cb0d'
+      'https://github.com/user-attachments/assets/fcdc2e7c-1ecf-459a-b905-f3f823960c54'
     ],
     faqs: [
       { question: 'Can this format be fully acoustic?', answer: 'Yes. We can run this set unplugged for intimate spaces or add light reinforcement for large venues.' },
@@ -35,8 +35,8 @@ export const showTypes = [
     highlights: ['2-6 artists leading the session', 'Everyone in the audience gets their own drum', 'Interactive rhythm creation and exercise'],
     gallery: [
       'https://github.com/user-attachments/assets/75bd819e-bcf4-45fb-9941-4c019c6ae6ab',
-      'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1501612780327-45045538702b?q=80&w=1200&auto=format&fit=crop'
+      'https://github.com/user-attachments/assets/d9357a8f-3637-4993-90f7-63b0d0ea155b',
+      'https://github.com/user-attachments/assets/cd2c98e5-b35c-4e45-b6e0-8297e7f673c3'
     ],
     faqs: [
       { question: 'How many participants can join?', answer: 'From 15 to 500+ participants. We scale with additional facilitators and instruments.' },
