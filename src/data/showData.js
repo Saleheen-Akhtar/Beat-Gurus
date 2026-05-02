@@ -5,14 +5,14 @@ export const showTypes = [
     title: 'Flute Fusion',
     cardDescription: 'A pure rhythmic aura created by playing Indian melody using percussion from all around the world.',
     fullDescription: 'Consists of 6-8 artists on stage that play several instruments like Djembe, Darbouka, Digeridoo, Congo, Dun Dun Drums, Flute, Drum kit, Brazil drum, tamate, Chande and several side percussion along with cymbals, creating a pure rhythmic aura by playing Indian melody using percussion from all around the world. This creates a fusion of western rhythms and Indian melody leaving the viewers mesmerized.',
-    heroImage: 'https://github.com/user-attachments/assets/b7e31bd1-1078-4280-ac8a-77636af40da9',
+    heroImage: 'https://github.com/user-attachments/assets/f2f6f379-b6e6-43ce-80be-f81994c121f2',
     mediaLink: 'https://drive.google.com/drive/folders/1YsDWWyZWExfwH7IlHyGNXINr4XNiRGp1',
     align: 'left',
     duration: '45-90 minutes',
     idealFor: 'Corporate get togethers and stage events where the motto is to watch and be entertained',
     highlights: ['6-8 artists on stage', 'Fusion of western rhythms and Indian melody', 'Features Djembe, Darbouka, Digeridoo, Flute and more'],
     gallery: [
-      'https://github.com/user-attachments/assets/b7e31bd1-1078-4280-ac8a-77636af40da9',
+      'https://github.com/user-attachments/assets/f2f6f379-b6e6-43ce-80be-f81994c121f2',
       'https://github.com/user-attachments/assets/992f5185-be32-4dbf-83e5-be1573c042af',
       'https://github.com/user-attachments/assets/5d53e97f-4012-49a4-baae-bd71c881cb0d'
     ],
@@ -49,16 +49,16 @@ export const showTypes = [
     title: 'DJ X Percussion',
     cardDescription: 'A fusion that provides a lively touch to the DJ night and fills the whole crowd with energy.',
     fullDescription: 'Consists of 2-6 artists depending on the client’s requirement. This is a setup where the client books the DJ separately and we come with our percussion and mix the percussion rhythms along with the DJ tracks. This is a fusion that provides a lively touch to the DJ night and fills the whole crowd with energy.',
-    heroImage: 'https://images.unsplash.com/photo-1505236858219-8359eb29e329?q=80&w=1400&auto=format&fit=crop',
+    heroImage: 'https://github.com/user-attachments/assets/bc28a5e8-d185-4f15-8cad-e6b01c800cd4',
     mediaLink: 'https://drive.google.com/drive/folders/1ZrlbT8I60V6ULuKDBSLx-clOfD8dik4O',
     align: 'left',
     duration: '60-120 minutes',
     idealFor: 'Parties, Clubs, Sangeet, Corporate Parties, etc. where the audience wants to dance',
     highlights: ['2-6 artists mixing live percussion with DJ tracks', 'High-energy fusion for dancefloors', 'Flexible and scalable setup based on requirements'],
     gallery: [
-      'https://images.unsplash.com/photo-1507878866276-a947ef722fee?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1200&auto=format&fit=crop'
+      'https://github.com/user-attachments/assets/bc28a5e8-d185-4f15-8cad-e6b01c800cd4',
+      'https://github.com/user-attachments/assets/855b4d5c-38dd-470d-a0f4-6eb27c0372e7',
+      'https://github.com/user-attachments/assets/69c1679a-bb9e-4099-b4d3-a9cfb7722f4c'
     ],
     faqs: [
       { question: 'Can we provide our own DJ?', answer: 'Yes. Our percussionists can collaborate with your DJ and sync to your planned set.' },
