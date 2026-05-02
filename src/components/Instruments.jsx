@@ -49,7 +49,7 @@ const instruments = [
     subtitle: 'Melodic winds soaring above the rhythm section, weaving trance-like aerial textures.',
     category: 'Wind',
     index: '/07',
-    image: 'https://images.unsplash.com/photo-1524230659092-07f99a75c013?w=1000&h=700&fit=crop',
+    image: 'https://github.com/user-attachments/assets/afb27431-fdba-443b-a6f3-cd74c72a1dc5',
   },
 ];
 
