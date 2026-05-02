@@ -54,7 +54,7 @@ const Hero = () => {
         className="hero-bg-media"
         style={{
           position: 'absolute', inset: 0, zIndex: 0,
-          backgroundImage: 'url("https://github.com/user-attachments/assets/251ce2b9-e3fd-4e9e-b3fb-711fdbe39896")',
+          backgroundImage: 'url("/images/hero-bg.jpg")',
           backgroundSize: 'cover', backgroundPosition: 'center',
           opacity: 0.15, mixBlendMode: 'multiply', pointerEvents: 'none',
         }}

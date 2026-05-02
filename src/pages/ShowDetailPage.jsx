@@ -81,6 +81,8 @@ const ShowDetailPage = ({ slug }) => {
     );
   }
 
+  const contactUrl = `/?event=${encodeURIComponent(show.title)}#contact`;
+
   return (
     <main className="show-detail-page" id="main-content" ref={containerRef}>
       <section className="show-detail-hero" style={{ backgroundImage: `linear-gradient(rgba(5,5,5,0.5), rgba(5,5,5,0.5)), url(${show.heroImage})` }}>
@@ -90,7 +92,7 @@ const ShowDetailPage = ({ slug }) => {
           <p className="hero-desc-anim" style={{ fontSize: '1.25rem', maxWidth: '800px', marginBottom: '2rem' }}>{show.cardDescription}</p>
 
           <div className="show-detail-hero-cta">
-            <a className="btn-dark" href="/#contact">Enquire for this show <FaArrowRight size={12} /></a>
+            <a className="btn-dark" href={contactUrl}>Enquire for this show <FaArrowRight size={12} /></a>
             <a className="btn-outline" href={FINAL_MEDIA_LINK} target="_blank" rel="noreferrer noopener">Media Link <FaArrowRight size={12} /></a>
           </div>
         </div>
@@ -177,7 +179,7 @@ const ShowDetailPage = ({ slug }) => {
         <div className="container">
           <h3>Ready to book {show.title}?</h3>
           <p>Share your event date, venue, and audience size. We will propose the best lineup and flow.</p>
-          <a href="/#contact" className="btn-dark">Send Enquiry <FaArrowRight size={12} /></a>
+          <a href={contactUrl} className="btn-dark">Send Enquiry <FaArrowRight size={12} /></a>
         </div>
       </section>
     </main>

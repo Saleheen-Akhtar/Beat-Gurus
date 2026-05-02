@@ -4,11 +4,11 @@ import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle } from 'react-ic
 
 
 const socialLinks = [
-  { name: 'YouTube',        url: 'https://m.youtube.com/@BeatGurus',                            icon: <FaYoutube size={32} />,   id: 'youtube' },
-  { name: 'Facebook',       url: 'https://www.facebook.com/share/1G8v4BVcoJ/',                  icon: <FaFacebookF size={32} />, id: 'facebook' },
-  { name: 'Instagram',      url: 'https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94', icon: <FaInstagram size={32} />, id: 'instagram' },
-  { name: 'Website',        url: 'https://www.beatgurus.org/',                                  icon: <FaGlobe size={32} />,     id: 'website' },
-  { name: 'Google Reviews', url: 'https://maps.app.goo.gl/U3CVeMZm7xq5gdw96',                  icon: <FaGoogle size={32} />,    id: 'google', primary: true },
+  { name: 'Instagram',          url: 'https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94', icon: <FaInstagram size={32} />, id: 'instagram' },
+  { name: 'Facebook',           url: 'https://www.facebook.com/share/1G8v4BVcoJ/',                  icon: <FaFacebookF size={32} />, id: 'facebook' },
+  { name: 'YouTube',            url: 'https://m.youtube.com/@BeatGurus',                            icon: <FaYoutube size={32} />,   id: 'youtube' },
+  { name: 'Want to know more?', url: 'https://www.beatgurus.org/',                                  icon: <FaGlobe size={32} />,     id: 'website' },
+  { name: 'Locate Us',          url: 'https://maps.app.goo.gl/U3CVeMZm7xq5gdw96',                  icon: <FaGoogle size={32} />,    id: 'google', primary: true },
 ];
 
 
@@ -321,6 +321,17 @@ const QrCodePage = () => {
           >
             LIVE. ACOUSTIC. POWERFUL. WORLDWIDE.
           </motion.p>
+          <motion.a
+            href="/#contact"
+            className="btn-dark mt-6"
+            initial={{ y: 16, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ delay: 0.7, duration: 0.6 }}
+          >
+            Book a Performance
+          </motion.a>
         </div>
       </section>
 
