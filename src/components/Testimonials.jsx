@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion
 
 const testimonials = [
   {
-    text: "Beat Gurus infused our event with an energy that was absolutely electric. The fusion of cultures left our international delegates completely spellbound.",
+    text: <><span className="font-brand-name">Beat Gurus</span> infused our event with an energy that was absolutely electric. The fusion of cultures left our international delegates completely spellbound.</>,
     name: "Tech Summit Organizers",
     role: "Corporate Event",
   },
@@ -28,7 +28,7 @@ const testimonials = [
     role: "Festival Organizers",
   },
   {
-    text: "Booking Beat Gurus was the best decision we made for our gala. The sound of the didgeridoo and djembe created an atmosphere of pure magic.",
+    text: <>Booking <span className="font-brand-name">Beat Gurus</span> was the best decision we made for our gala. The sound of the didgeridoo and djembe created an atmosphere of pure magic.</>,
     name: "Annual Charity Gala",
     role: "Event Coordinators",
   },
@@ -43,7 +43,7 @@ const testimonials = [
     role: "HR Director",
   },
   {
-    text: "From the dramatic entrances to the high energy drum battles, Beat Gurus delivered an interactive and mesmerizing experience for everyone.",
+    text: <>From the dramatic entrances to the high energy drum battles, <span className="font-brand-name">Beat Gurus</span> delivered an interactive and mesmerizing experience for everyone.</>,
     name: "Cultural Arts Society",
     role: "Event Director",
   },
@@ -139,8 +139,7 @@ const Testimonials = () => {
             transition={{ duration: 0.7 }}
           >
             <h2 style={{ margin: 0 }}>
-              SUCCESS <br />
-              <span style={{ color: 'var(--gold)' }}>STORIES</span>
+              SUCCESS <br className="hidden md:block" /> <span style={{ color: 'var(--gold)' }}>STORIES</span>
             </h2>
           </motion.div>
         </div>

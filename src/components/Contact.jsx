@@ -251,7 +251,7 @@ const Contact = () => {
                 alignSelf: 'flex-start',
                 background: 'var(--gold)',
                 color: 'var(--text-dark)',
-                fontFamily: 'var(--font-display)',
+                fontFamily: 'var(--font-main)',
                 fontSize: '1.2rem',
                 textTransform: 'uppercase',
                 padding: '20px 50px',
@@ -299,7 +299,7 @@ const Contact = () => {
           }}
         >
           <div className="credit-block">
-            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--gold)', fontSize: '1.5rem', marginBottom: '15px' }}>STARRING</h4>
+            <h4 style={{ fontFamily: 'var(--font-main)', color: 'var(--gold)', fontSize: '1.5rem', marginBottom: '15px' }}>STARRING</h4>
             <p style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', color: 'rgba(245, 241, 236, 0.7)', lineHeight: 1.6 }}>
               <strong>The Founders</strong> - Ganesh Govindswamy.<br/><br/>
               <strong>The Tribe</strong> - Our fellow musicians, keeping the heartbeat alive on every stage.
@@ -307,7 +307,7 @@ const Contact = () => {
           </div>
 
           <div className="credit-block">
-            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--gold)', fontSize: '1.5rem', marginBottom: '15px' }}>DIRECTED BY PASSION</h4>
+            <h4 style={{ fontFamily: 'var(--font-main)', color: 'var(--gold)', fontSize: '1.5rem', marginBottom: '15px' }}>DIRECTED BY PASSION</h4>
             <p style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', color: 'rgba(245, 241, 236, 0.7)', lineHeight: 1.6 }}>
               <strong>Produced By:</strong> Countless hours in practice rooms and on the road.<br/><br/>
               <strong>Soundtrack:</strong> Djembe, Didgeridoo, and Raw Indian Percussion.
@@ -315,22 +315,22 @@ const Contact = () => {
           </div>
 
           <div className="credit-block">
-            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--gold)', fontSize: '1.5rem', marginBottom: '15px' }}>FILMED ON LOCATION</h4>
+            <h4 style={{ fontFamily: 'var(--font-main)', color: 'var(--gold)', fontSize: '1.5rem', marginBottom: '15px' }}>FILMED ON LOCATION</h4>
             <p style={{ fontFamily: 'var(--font-main)', fontSize: '1rem', color: 'rgba(245, 241, 236, 0.7)', lineHeight: 1.6 }}>
               In smoky clubs, sun-drenched festival grounds, and grand corporate galas across the globe.<br/><br/>
               <em>Based in Bangalore, India.</em>
             </p>
             <div style={{ display: 'flex', gap: '14px', marginTop: '20px' }}>
-              <a href="https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94" target="_blank" rel="noreferrer" aria-label="Instagram" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
+              <a href="https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94" target="_blank" rel="noreferrer" aria-label="Instagram" className="footer-social-link instagram">
                 <FaInstagram size={16} />
               </a>
-              <a href="https://www.facebook.com/share/1G8v4BVcoJ/" target="_blank" rel="noreferrer" aria-label="Facebook" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
+              <a href="https://www.facebook.com/share/1G8v4BVcoJ/" target="_blank" rel="noreferrer" aria-label="Facebook" className="footer-social-link facebook">
                 <FaFacebookF size={16} />
               </a>
-              <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noreferrer" aria-label="YouTube" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
+              <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noreferrer" aria-label="YouTube" className="footer-social-link youtube">
                 <FaYoutube size={16} />
               </a>
-              <a href="https://maps.app.goo.gl/U3CVeMZm7xq5gdw96" target="_blank" rel="noreferrer" aria-label="Google Review" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '50%', border: '1.5px solid rgba(245, 241, 236, 0.5)', color: 'var(--bg-sand)', transition: 'all 0.3s ease' }}>
+              <a href="https://maps.app.goo.gl/U3CVeMZm7xq5gdw96" target="_blank" rel="noreferrer" aria-label="Google Review" className="footer-social-link google">
                 <FaGoogle size={16} />
               </a>
             </div>

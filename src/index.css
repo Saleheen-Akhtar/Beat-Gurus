@@ -321,7 +321,7 @@ p {
   align-items: center;
 }
 .logo {
-  font-family: var(--font-main);
+  font-family: var(--font-display);
   font-size: 1.7rem;
   letter-spacing: -0.5px;
   color: var(--text-dark);
@@ -394,7 +394,7 @@ p {
   align-items: center;
 }
 .logo-light {
-  font-family: var(--font-main);
+  font-family: var(--font-display);
   font-size: 1.7rem;
   color: var(--bg-sand);
   letter-spacing: -0.5px;
@@ -1095,7 +1095,7 @@ p {
   align-items: center;
   gap: 28px;
   padding: 0 28px;
-  font-family: var(--font-main);
+  font-family: var(--font-display);
   font-size: clamp(1.5rem, 3.5vw, 2.8rem);
   color: rgba(245, 241, 236, 0.14);
   text-transform: uppercase;
@@ -1107,7 +1107,7 @@ p {
   text-align: center;
 }
 .usp-big-title {
-  font-family: var(--font-main);
+  font-family: var(--font-display);
   font-size: clamp(5rem, 17vw, 15rem);
   line-height: 0.82;
   color: var(--bg-sand);
@@ -1352,6 +1352,36 @@ p {
 /* ================================================================
    CONTACT & FAQ
 ================================================================ */
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(245, 241, 236, 0.5);
+  color: var(--bg-sand);
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+.footer-social-link:hover {
+  background-color: rgba(245, 241, 236, 0.08);
+}
+.footer-social-link.instagram:hover {
+  color: #E4405F;
+  border-color: #E4405F;
+}
+.footer-social-link.facebook:hover {
+  color: #1877F2;
+  border-color: #1877F2;
+}
+.footer-social-link.youtube:hover {
+  color: #FF0000;
+  border-color: #FF0000;
+}
+.footer-social-link.google:hover {
+  color: #4285F4;
+  border-color: #4285F4;
+}
 .contact-input {
   width: 100%;
   padding: 16px 0;
@@ -1763,10 +1793,6 @@ input[type="date"].contact-input::-webkit-datetime-edit-year-field {
 }
 
 
-.showtypes-media-link {
-  margin-top: 20px;
-}
-
 .showtype-img-wrapper {
   text-decoration: none;
   color: inherit;
@@ -1784,6 +1810,16 @@ input[type="date"].contact-input::-webkit-datetime-edit-year-field {
   background-size: cover;
   background-position: center;
   padding: 72px 0;
+}
+
+.show-detail-hero .btn-outline {
+  color: var(--bg-sand);
+  border-color: var(--bg-sand);
+}
+
+.show-detail-hero .btn-outline:hover {
+  background: var(--bg-sand);
+  color: var(--text-dark);
 }
 
 

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
-import { FINAL_MEDIA_LINK, showTypes } from '../data/showData';
+import { showTypes } from '../data/showData';
 
 const ShowRow = ({ show, index, navigate }) => {
   const ref = useRef(null);
@@ -70,9 +70,6 @@ const ShowTypes = ({ navigate }) => {
           className="showtypes-header"
         >
           <h2>TYPES OF <span style={{ color: 'var(--gold)' }}>SHOWS</span></h2>
-          <a href={FINAL_MEDIA_LINK} target="_blank" rel="noreferrer noopener" className="btn-dark showtypes-media-link">
-            Media Link <FaArrowRight size={12} />
-          </a>
         </motion.div>
 
         <div className="showtypes-list">
