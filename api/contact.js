@@ -180,6 +180,27 @@ export default async function handler(req, res) {
       });
     }
 
+    // Secondary: forward to Web3Forms for email notification. Fire-and-forget; never blocks the response.
+    const web3formsKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
+    if (web3formsKey) {
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: web3formsKey,
+          name: sanitize(data.name),
+          email: sanitize(data.email),
+          phone: sanitize(data.phone),
+          message: sanitize(data.message),
+          eventType: sanitize(data.eventType),
+          date: sanitize(data.date),
+          location: sanitize(data.location),
+        }),
+      }).catch(() => {
+        // Web3Forms failure is intentionally ignored; Google Sheets write already succeeded.
+      });
+    }
+
     return res.status(200).json({ success: true, message: "Inquiry submitted! We'll get back to you soon." });
   } catch (error) {
     return res.status(502).json({
