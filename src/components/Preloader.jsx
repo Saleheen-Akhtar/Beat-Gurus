@@ -3,19 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import logoImg from '../../images/logo.webp';
 import './Preloader.css';
 
-const MIN_VISIBLE_MS = 2600;   // always visible for at least 2.6 s
-const MAX_WAIT_MS    = 5000;   // hard cap at 5 s
-
 const Preloader = ({ onComplete }) => {
   const [loading, setLoading] = useState(true);
   const hasCompletedRef = useRef(false);
 
   useEffect(() => {
-    const startTime = performance.now();
-    let minTimerId;
-    let maxTimerId;
-    let rafId;
-
     const completeOnce = () => {
       if (hasCompletedRef.current) {
         return;
@@ -24,39 +16,15 @@ const Preloader = ({ onComplete }) => {
       setLoading(false);
     };
 
-    const finishWhenReady = () => {
-      if (hasCompletedRef.current) {
-        return;
-      }
+    if (document.readyState === 'complete') {
+      completeOnce();
+      return undefined;
+    }
 
-      const elapsed = performance.now() - startTime;
-      const remaining = Math.max(0, MIN_VISIBLE_MS - elapsed);
-
-      if (remaining === 0) {
-        completeOnce();
-        return;
-      }
-
-      minTimerId = window.setTimeout(completeOnce, remaining);
-    };
-
-    const watchReadyState = () => {
-      if (document.readyState === 'complete') {
-        finishWhenReady();
-      } else {
-        rafId = window.requestAnimationFrame(watchReadyState);
-      }
-    };
-
-    watchReadyState();
-    maxTimerId = window.setTimeout(completeOnce, MAX_WAIT_MS);
+    window.addEventListener('load', completeOnce);
 
     return () => {
-      window.clearTimeout(minTimerId);
-      window.clearTimeout(maxTimerId);
-      if (rafId) {
-        window.cancelAnimationFrame(rafId);
-      }
+      window.removeEventListener('load', completeOnce);
     };
   }, []);
 

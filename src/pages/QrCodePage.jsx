@@ -238,6 +238,38 @@ const QrCodePage = () => {
     }
   };
 
+  const handleContactClick = (event) => {
+    if (typeof window === 'undefined') return;
+    if (
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      event.defaultPrevented
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const newUrl = new URL(window.location.href);
+    newUrl.pathname = '/';
+    newUrl.searchParams.delete('event');
+    newUrl.hash = '#contact';
+    window.history.pushState({}, '', newUrl);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'auto', block: 'start' });
+        }
+      });
+    });
+  };
+
   return (
     <div className="gritty-campaign-page relative min-h-screen" style={{ backgroundColor: '#0B0B0B', color: '#E8E1D9' }}>
       <style>{`
@@ -323,7 +355,8 @@ const QrCodePage = () => {
           </motion.p>
           <motion.a
             href="/#contact"
-            className="btn-dark mt-6"
+            onClick={handleContactClick}
+            className="street-tag hover-website mt-6 flex items-center gap-4 px-7 md:px-8 py-4 md:py-5 text-[#E8E1D9] font-bold text-xl md:text-2xl uppercase transition-colors hover:text-white"
             initial={{ y: 16, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             whileHover={{ scale: 1.04 }}
