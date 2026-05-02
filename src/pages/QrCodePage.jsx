@@ -31,7 +31,6 @@ function useGravityLinks(containerRef, links, shouldStart) {
   const dragRef   = useRef(null); // { idx, offsetX, offsetY }
   const startedRef = useRef(false);
   const suppressClickRef = useRef(false);
-  const impactRef = useRef(0);
 
   const initBodies = useCallback(() => {
     const el = containerRef.current;
@@ -61,22 +60,12 @@ function useGravityLinks(containerRef, links, shouldStart) {
   const tick = useCallback(() => {
     const el = containerRef.current;
     if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const width = rect.width;
-
-    // simulate periodic drum hit
-    if (Math.random() < 0.02) {
-      impactRef.current = 1;
-    }
-    // decay impact
-    impactRef.current *= 0.9;
+    const { width, height } = el.getBoundingClientRect();
 
     bodiesRef.current.forEach((b, i) => {
       if (dragRef.current?.idx === i) return; // skip dragged body
 
       b.vy += GRAVITY;
-      b.vy += impactRef.current * 2;
-      b.vx += (Math.random() - 0.5) * impactRef.current * 1.5;
       b.vx *= FRICTION;
       b.vy *= FRICTION;
       b.x  += b.vx;
@@ -84,15 +73,12 @@ function useGravityLinks(containerRef, links, shouldStart) {
 
       // Floor
       const floorGap = width >= 768 ? FLOOR_SAFE_GAP_DESKTOP : FLOOR_SAFE_GAP_MOBILE;
-      const viewportHeight = window.innerHeight;
-      const sectionBottomInViewport = rect.bottom;
-      const dynamicFloor = Math.min(sectionBottomInViewport, viewportHeight) - b.h - floorGap;
-      const floor = Math.max(0, dynamicFloor);
+      const floor = Math.max(0, height - b.h - floorGap);
       if (b.y >= floor) {
-        b.y = floor;
-        b.vy = -b.vy * 0.5;
-        b.vx *= 0.9;
-        if (Math.abs(b.vy) < 0.5) { b.vy = 0; b.settled = true; }
+        b.y  = floor;
+        b.vy = -b.vy * DAMPING;
+        b.vx *= 0.85;
+        if (Math.abs(b.vy) < 0.8) { b.vy = 0; b.settled = true; }
       }
       // Ceiling
       if (b.y < 0) { b.y = 0; b.vy = Math.abs(b.vy) * DAMPING; }
@@ -188,7 +174,7 @@ function useGravityLinks(containerRef, links, shouldStart) {
     if (suppressClickRef.current) e.preventDefault();
   }, []);
 
-  return { measureNode, onPointerDown, onLinkClick, impactRef };
+  return { measureNode, onPointerDown, onLinkClick };
 }
 
 const QrCodePage = () => {
@@ -200,7 +186,7 @@ const QrCodePage = () => {
     };
   }, []);
 
-  const { scrollYProgress, scrollY } = useScroll();
+  const { scrollYProgress } = useScroll();
   const yHero = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   // Ref for the full percussion section (not a small box)
@@ -225,22 +211,7 @@ const QrCodePage = () => {
     return () => observer.disconnect();
   }, []);
 
-  const { measureNode, onPointerDown, onLinkClick, impactRef } = useGravityLinks(percSectionRef, floatingMediaLinks, percSectionVisible);
-  const [hasImpact, setHasImpact] = useState(false);
-
-  useEffect(() => {
-    const unsubscribe = scrollY.on("change", (v) => {
-      impactRef.current += Math.min(0.5, v * 0.0005);
-    });
-    return () => unsubscribe();
-  }, [scrollY, impactRef]);
-
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setHasImpact(impactRef.current > 0.15);
-    }, 80);
-    return () => window.clearInterval(id);
-  }, [impactRef]);
+  const { measureNode, onPointerDown, onLinkClick } = useGravityLinks(percSectionRef, floatingMediaLinks, percSectionVisible);
 
   const glitchHover = {
     hover: {
@@ -338,17 +309,10 @@ const QrCodePage = () => {
       </section>
 
       {/* Section 2: The Experience — Percussion */}
-      <motion.div
-        animate={{
-          x: hasImpact ? [0, -2, 2, -1, 0] : 0,
-          y: hasImpact ? [0, 1, -1, 1, 0] : 0
-        }}
-        transition={{ duration: 0.2 }}
-      >
       <section
         ref={percSectionRef}
-        className="relative w-full min-h-screen py-6 md:py-8 flex flex-col md:flex-row bg-[#0B0B0B] z-10 border-t-4 border-[#E8E1D9]"
-        style={{ overflow: 'hidden', position: 'relative', contain: 'layout paint size' }}
+        className="relative w-full min-h-screen py-24 flex flex-col md:flex-row bg-[#0B0B0B] z-10 border-t-4 border-[#E8E1D9]"
+        style={{ overflow: 'hidden' }}
       >
         {/* Gravity-physics floating links — rendered over the whole section */}
         {floatingMediaLinks.map((link, idx) => (
@@ -402,19 +366,18 @@ const QrCodePage = () => {
           <p className="mt-8 text-[#E8E1D9]/50 text-sm uppercase tracking-widest">↑ Drag the links above ↑</p>
         </motion.div>
       </section>
-      </motion.div>
 
       {/* Section 3: Global Presence */}
-      <section className="relative w-full py-6 md:py-8 bg-[#C29423] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-4 md:gap-6">
+      <section className="relative w-full py-16 md:py-20 bg-[#C29423] overflow-hidden border-y-4 border-[#E8E1D9] flex flex-col gap-12 md:gap-16">
         <div className="relative w-full flex whitespace-nowrap overflow-hidden">
           <motion.div
-             animate={{ x: ["0%", "50%"] }}
+             animate={{ x: ["0%", "-50%"] }}
              transition={{ duration: 25, ease: "linear", repeat: Infinity }}
              className="flex"
           >
             {[...Array(4)].map((_, i) => (
               <div key={i} className="flex items-center">
-                <span className="font-omega text-4xl md:text-6xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
+                <span className="font-omega text-5xl md:text-7xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
                 <span className="text-[#E8E1D9] text-6xl px-4">✦</span>
               </div>
             ))}
@@ -423,9 +386,9 @@ const QrCodePage = () => {
 
         <div className="relative w-full flex whitespace-nowrap overflow-hidden">
           <motion.div
-             animate={{ x: ["0%", "50%"] }}
+             animate={{ x: ["0%", "-50%"] }}
              transition={{ duration: 35, ease: "linear", repeat: Infinity }}
-             className="flex gap-6 md:gap-8 px-4"
+             className="flex gap-6 md:gap-10 px-6"
           >
             {[...Array(4)].map((_, j) => (
                <React.Fragment key={j}>
