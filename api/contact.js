@@ -181,7 +181,7 @@ export default async function handler(req, res) {
     }
 
     // Secondary: forward to Web3Forms for email notification. Fire-and-forget; never blocks the response.
-    const web3formsKey = process.env.WEB3FORMS_ACCESS_KEY;
+    const web3formsKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
     if (web3formsKey) {
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
