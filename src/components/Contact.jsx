@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { services } from './Services';
+import { showTypes } from '../data/showData';
 import { FaInstagram, FaFacebookF, FaYoutube, FaGoogle } from 'react-icons/fa';
 
-const validEventTitlesSet = new Set(services.map(s => s.title));
+const showTitles = showTypes.map((show) => show.title);
+const validEventTitlesSet = new Set([...services.map((s) => s.title), ...showTitles]);
 validEventTitlesSet.add('Other');
 
 const Contact = () => {
@@ -216,6 +218,9 @@ const Contact = () => {
                     }}
                   >
                     <option value="" disabled>Select Event Type</option>
+                    {showTitles.map((title) => (
+                      <option key={title} value={title}>{title}</option>
+                    ))}
                     {services.map((s) => (
                       <option key={s.title} value={s.title}>{s.title}</option>
                     ))}

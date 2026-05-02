@@ -76,6 +76,9 @@ const Preloader = ({ onComplete }) => {
             alt="Beat Gurus Loading"
             className="preloader-logo"
             aria-hidden="true"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
           />
           <motion.div
             className="preloader-invert-overlay"
