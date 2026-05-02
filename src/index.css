@@ -147,7 +147,7 @@ body.custom-cursor-enabled * {
 
 /* ---- TYPOGRAPHY ---- */
 h1, h2, h3, h4 {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-weight: 400;
   text-transform: uppercase;
   line-height: 0.88;
@@ -157,7 +157,7 @@ h1 { font-size: clamp(4rem, 15vw, 16rem); }
 h2 { font-size: clamp(3rem, 8vw, 8rem); margin-bottom: 30px; }
 
 .accent-text {
-  font-family: var(--font-accent);
+  font-family: var(--font-main);
   color: var(--gold);
   text-transform: lowercase;
   font-size: clamp(1.5rem, 4vw, 3rem);
@@ -183,7 +183,7 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 0.95rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -223,7 +223,7 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 0.95rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -247,7 +247,7 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 0.95rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -280,7 +280,7 @@ p {
   gap: 28px;
   padding: 0 36px;
   white-space: nowrap;
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(1.2rem, 2.5vw, 2rem);
   text-transform: uppercase;
   color: var(--text-dark);
@@ -321,7 +321,7 @@ p {
   align-items: center;
 }
 .logo {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 1.7rem;
   letter-spacing: -0.5px;
   color: var(--text-dark);
@@ -394,7 +394,7 @@ p {
   align-items: center;
 }
 .logo-light {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 1.7rem;
   color: var(--bg-sand);
   letter-spacing: -0.5px;
@@ -433,7 +433,7 @@ p {
   cursor: inherit;
 }
 .menu-nav-item a {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(2.5rem, 7vw, 6.5rem);
   text-transform: uppercase;
   color: var(--bg-sand);
@@ -502,7 +502,7 @@ p {
   pointer-events: none;
 }
 .hero-watermark span {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(20rem, 60vw, 80rem);
   line-height: 0.75;
   color: var(--text-dark);
@@ -521,7 +521,7 @@ p {
   align-items: center;
 }
 .hero-title-line {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(5.5rem, 19vw, 19rem);
   line-height: 0.84;
   color: var(--text-dark);
@@ -585,7 +585,7 @@ p {
   gap: 3px;
 }
 .hero-stat-num {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 2.2rem;
   line-height: 1;
   color: var(--text-dark);
@@ -635,7 +635,7 @@ p {
   margin-top: 70px;
 }
 .about-left h3 {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(2rem, 3.5vw, 3.2rem);
   line-height: 1.05;
   color: var(--text-dark);
@@ -678,7 +678,7 @@ p {
   min-width: 120px;
 }
 .stat-label-text {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 1.1rem;
   color: var(--text-dark);
   text-transform: uppercase;
@@ -808,7 +808,7 @@ p {
   color: var(--gold);
 }
 .showcase-card-title {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(2rem, 4vw, 3.5rem);
   color: var(--bg-sand);
   line-height: 1;
@@ -825,7 +825,7 @@ p {
 .showcase-card-num {
   position: absolute;
   top: 24px; right: 24px;
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 1rem;
   color: rgba(245, 241, 236, 0.85);
   background: rgba(26, 26, 26, 0.5);
@@ -855,7 +855,7 @@ p {
 }
 
 .showcase-counter {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 1rem;
   color: var(--text-dark);
   letter-spacing: 2px;
@@ -955,7 +955,7 @@ p {
   margin-bottom: 24px;
 }
 .service-list-num {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 1.1rem;
   color: var(--text-grey);
   letter-spacing: 2px;
@@ -973,7 +973,7 @@ p {
   color: var(--text-grey);
 }
 .service-list-title {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(2rem, 3.5vw, 3rem);
   color: var(--text-dark);
   line-height: 1.1;
@@ -1095,7 +1095,7 @@ p {
   align-items: center;
   gap: 28px;
   padding: 0 28px;
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(1.5rem, 3.5vw, 2.8rem);
   color: rgba(245, 241, 236, 0.14);
   text-transform: uppercase;
@@ -1107,7 +1107,7 @@ p {
   text-align: center;
 }
 .usp-big-title {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(5rem, 17vw, 15rem);
   line-height: 0.82;
   color: var(--bg-sand);
@@ -1160,7 +1160,7 @@ p {
 }
 .instrument-card:hover { background: rgba(212, 167, 44, 0.08); }
 .instrument-card-num {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 0.75rem;
   color: var(--gold);
   letter-spacing: 3px;
@@ -1168,7 +1168,7 @@ p {
   display: block;
 }
 .instrument-card-name {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(1.8rem, 3vw, 2.6rem);
   color: var(--text-dark);
   line-height: 1;
@@ -1205,7 +1205,7 @@ p {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(8rem, 22vw, 18rem);
   color: var(--bg-sand);
   opacity: 0.3;
@@ -1258,7 +1258,7 @@ p {
 }
 
 .testi-slide-text {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(1.4rem, 2.5vw, 2.2rem);
   line-height: 1.4;
   color: var(--text-dark);
@@ -1281,7 +1281,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 1.1rem;
   flex-shrink: 0;
 }
@@ -1343,7 +1343,7 @@ p {
 }
 
 .testi-counter {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: 1.2rem;
   color: var(--text-dark);
   letter-spacing: 2px;
@@ -1677,7 +1677,7 @@ input[type="date"].contact-input::-webkit-datetime-edit-year-field {
   will-change: transform, opacity;
 }
 .showtype-num {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(4rem, 10vw, 8rem);
   line-height: 0.8;
   color: var(--text-dark);
@@ -1686,7 +1686,7 @@ input[type="date"].contact-input::-webkit-datetime-edit-year-field {
   letter-spacing: -2px;
 }
 .showtype-title {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   color: var(--text-dark);
   line-height: 1.05;
@@ -1854,7 +1854,7 @@ input[type="date"].contact-input::-webkit-datetime-edit-year-field {
 }
 
 .show-highlight-card span {
-  font-family: var(--font-display);
+  font-family: var(--font-main);
   color: var(--gold-dark);
   letter-spacing: 0.12em;
 }
@@ -1935,3 +1935,7 @@ input[type="date"].contact-input::-webkit-datetime-edit-year-field {
     grid-template-columns: 1fr;
   }
 }
+
+
+.about-left h3, .stat-label-text, .showtype-title, .service-list-title { font-family: var(--font-main) !important; }
+.service-list-num, .showtype-num, .showcase-counter, .showcase-card-num { display: none !important; }

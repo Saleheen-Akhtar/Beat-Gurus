@@ -59,8 +59,7 @@ const Services = () => {
                   viewport={{ once: true, margin: '-120px' }}
                 >
                   <div className="service-list-top">
-                    <span className="service-list-num">0{i + 1}</span>
-                    <span className="service-list-tag">{s.tag}</span>
+                                        <span className="service-list-tag">{s.tag}</span>
                   </div>
 
                   <h3 className="service-list-title">{s.title}</h3>
