@@ -394,10 +394,22 @@ const QrCodePage = () => {
           <motion.div
              animate={{ x: ["0%", "50%"] }}
              transition={{ duration: 25, ease: "linear", repeat: Infinity }}
-             className="flex"
+             className="flex w-max pr-8"
           >
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="flex items-center">
+            {[...Array(8)].map((_, i) => (
+              <div key={`a-${i}`} className="flex items-center shrink-0">
+                <span className="font-omega text-4xl md:text-6xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
+                <span className="text-[#E8E1D9] text-6xl px-4">✦</span>
+              </div>
+            ))}
+          </motion.div>
+          <motion.div
+             animate={{ x: ["-50%", "0%"] }}
+             transition={{ duration: 25, ease: "linear", repeat: Infinity }}
+             className="absolute inset-y-0 left-0 flex w-max pr-8"
+          >
+            {[...Array(8)].map((_, i) => (
+              <div key={`b-${i}`} className="flex items-center shrink-0">
                 <span className="font-omega text-4xl md:text-6xl text-[#0B0B0B] px-8">FROM BANGALORE TO THE WORLD</span>
                 <span className="text-[#E8E1D9] text-6xl px-4">✦</span>
               </div>
@@ -409,7 +421,7 @@ const QrCodePage = () => {
           <motion.div
              animate={{ x: ["50%", "0%"] }}
              transition={{ duration: 35, ease: "linear", repeat: Infinity }}
-             className="flex gap-6 md:gap-10 px-6"
+             className="flex gap-6 md:gap-10 px-6 w-max"
           >
             {[...Array(4)].map((_, j) => (
                <React.Fragment key={j}>
