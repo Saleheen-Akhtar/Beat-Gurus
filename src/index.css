@@ -1937,5 +1937,4 @@ input[type="date"].contact-input::-webkit-datetime-edit-year-field {
 }
 
 
-.about-left h3, .stat-label-text, .showtype-title, .service-list-title { font-family: var(--font-main) !important; }
 .service-list-num, .showtype-num, .showcase-counter, .showcase-card-num { display: none !important; }
