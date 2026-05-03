@@ -23,17 +23,12 @@ const Preloader = ({ onComplete }) => {
       setLoading(false);
     };
 
-    fallbackTimeout = window.setTimeout(completeOnce, PRELOADER_FALLBACK_TIMEOUT_MS);
-
     if (document.readyState !== 'loading') {
       window.requestAnimationFrame(completeOnce);
-      return () => {
-        if (fallbackTimeout) {
-          window.clearTimeout(fallbackTimeout);
-        }
-      };
+      return undefined;
     }
 
+    fallbackTimeout = window.setTimeout(completeOnce, PRELOADER_FALLBACK_TIMEOUT_MS);
     window.addEventListener('DOMContentLoaded', completeOnce);
 
     return () => {
