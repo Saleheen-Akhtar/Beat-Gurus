@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Lenis from 'lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AnimatePresence } from 'framer-motion';
 
 import Navbar from './components/Navbar';
@@ -56,15 +58,19 @@ function App() {
   };
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
     const lenis = new Lenis({
-      duration: 1.0,
+      duration: 0.85,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smooth: true,
-      smoothTouch: true,
+      smoothTouch: false,
     });
+    const handleLenisScroll = ScrollTrigger.update;
+    lenis.on('scroll', handleLenisScroll);
     let lenisRafId;
     function lenisRaf(time) { lenis.raf(time); lenisRafId = requestAnimationFrame(lenisRaf); }
     lenisRafId = requestAnimationFrame(lenisRaf);
+    window.requestAnimationFrame(() => ScrollTrigger.refresh());
 
     const hasAnyFinePointer = window.matchMedia('(any-pointer: fine)').matches;
     const hasPrimaryFinePointer = window.matchMedia('(pointer: fine)').matches;
@@ -157,6 +163,7 @@ function App() {
     document.addEventListener('mouseout', onOut);
 
     return () => {
+      lenis.off('scroll', handleLenisScroll);
       lenis.destroy();
       cancelAnimationFrame(lenisRafId);
       document.body.classList.remove('custom-cursor-enabled');

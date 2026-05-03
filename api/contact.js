@@ -117,7 +117,7 @@ export default async function handler(req, res) {
 
   const clientIp = getClientIp(req);
   if (isRateLimited(clientIp)) {
-    return res.status(200).json({ success: true, message: "Inquiry submitted! We'll get back to you soon." });
+    return res.status(200).json({ success: true, message: "Enquiry submitted! We'll get back to you soon." });
   }
 
   if (allowedOrigin) {
@@ -129,13 +129,13 @@ export default async function handler(req, res) {
       refererOrigin === normalizedAllowedOrigin;
 
     if (!originAllowed) {
-      return res.status(200).json({ success: true, message: "Inquiry submitted! We'll get back to you soon." });
+      return res.status(200).json({ success: true, message: "Enquiry submitted! We'll get back to you soon." });
     }
   }
 
   // Honeypot for simple bot filtering.
   if (data.website) {
-    return res.status(200).json({ success: true, message: "Inquiry submitted! We'll get back to you soon." });
+    return res.status(200).json({ success: true, message: "Enquiry submitted! We'll get back to you soon." });
   }
 
 
@@ -201,7 +201,7 @@ export default async function handler(req, res) {
       });
     }
 
-    return res.status(200).json({ success: true, message: "Inquiry submitted! We'll get back to you soon." });
+    return res.status(200).json({ success: true, message: "Enquiry submitted! We'll get back to you soon." });
   } catch (error) {
     return res.status(502).json({
       success: false,
