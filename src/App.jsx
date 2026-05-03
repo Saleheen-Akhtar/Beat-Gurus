@@ -65,14 +65,12 @@ function App() {
       smooth: true,
       smoothTouch: false,
     });
-    const handleLenisScroll = () => {
-      ScrollTrigger.update();
-    };
+    const handleLenisScroll = ScrollTrigger.update;
     lenis.on('scroll', handleLenisScroll);
     let lenisRafId;
     function lenisRaf(time) { lenis.raf(time); lenisRafId = requestAnimationFrame(lenisRaf); }
     lenisRafId = requestAnimationFrame(lenisRaf);
-    ScrollTrigger.refresh();
+    window.requestAnimationFrame(() => ScrollTrigger.refresh());
 
     const hasAnyFinePointer = window.matchMedia('(any-pointer: fine)').matches;
     const hasPrimaryFinePointer = window.matchMedia('(pointer: fine)').matches;
