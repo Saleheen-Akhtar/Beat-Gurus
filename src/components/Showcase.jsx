@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const projects = [
-  { id: 2, title: 'Wine Festival', category: 'Cultural', img: 'https://github.com/user-attachments/assets/67efac60-a47e-4fb0-aaa6-2e22772a58c0', desc: 'Rhythmic energy at Bangalore\'s finest festivals' },
+  { id: 2, title: 'DJ Nights', category: 'Cultural', img: 'https://github.com/user-attachments/assets/3ea36c7c-be32-485f-8cb9-2e833de1794c', desc: 'Rhythmic energy at Bangalore\'s finest festivals' },
   { id: 3, title: 'Corporate Gala', category: 'Event', img: 'https://github.com/user-attachments/assets/ffaf31f2-1ca7-4097-9a35-2ddba0a8b344', desc: 'High-energy performances for prestigious events' },
-  { id: 4, title: 'Norway Cultural Evening', category: 'International', img: 'https://github.com/user-attachments/assets/5c853a32-e9c0-4882-934d-31a024853c7e', desc: 'Vibe with Fun' },
+  { id: 4, title: 'Cultural Evening', category: 'International', img: 'https://github.com/user-attachments/assets/ce35c80c-66a9-4563-acf3-4d55071c62ce', desc: 'Vibe with Fun' },
   { id: 5, title: 'Gather & Groove', category: 'Team Building', img: 'https://github.com/user-attachments/assets/4ed58045-5745-452c-a44b-d1adba32fca3', desc: 'Interactive drum circles that unite teams' },
 ];
 

@@ -16,15 +16,18 @@ const Preloader = ({ onComplete }) => {
       setLoading(false);
     };
 
-    if (document.readyState === 'complete') {
-      completeOnce();
-      return undefined;
+    const fallbackTimeout = window.setTimeout(completeOnce, 800);
+
+    if (document.readyState !== 'loading') {
+      window.requestAnimationFrame(completeOnce);
+      return () => window.clearTimeout(fallbackTimeout);
     }
 
-    window.addEventListener('load', completeOnce);
+    window.addEventListener('DOMContentLoaded', completeOnce);
 
     return () => {
-      window.removeEventListener('load', completeOnce);
+      window.clearTimeout(fallbackTimeout);
+      window.removeEventListener('DOMContentLoaded', completeOnce);
     };
   }, []);
 

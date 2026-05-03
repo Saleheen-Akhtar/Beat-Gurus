@@ -85,8 +85,9 @@ const Hero = () => {
               src={logoImg}
               alt="Beat Gurus"
               className="hero-logo"
-              width={14998}
-              height={8438}
+              width={640}
+              height={360}
+              loading="eager"
               decoding="async"
               fetchPriority="high"
             />
