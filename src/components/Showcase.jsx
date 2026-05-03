@@ -78,7 +78,7 @@ const Showcase = () => {
       </div>
 
       {/* Main Carousel */}
-      <div className="showcase-carousel" onMouseEnter={pause} onMouseLeave={resume}>
+      <div className="showcase-carousel">
         {/* Side preview cards */}
         <div className="showcase-side-card showcase-side-left" onClick={() => { pause(); prev(); }} data-cursor-hover>
           <img src={projects[getIndex(-1)].img} alt={projects[getIndex(-1)].title} />

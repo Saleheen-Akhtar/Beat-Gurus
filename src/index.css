@@ -1994,3 +1994,13 @@ input[type="date"].contact-input::-webkit-datetime-edit-year-field {
 
 
 .service-list-num, .showtype-num, .showcase-counter, .showcase-card-num { display: none !important; }
+
+/* Legal links */
+.footer-legal-link {
+  color: rgba(245, 241, 236, 0.5);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer-legal-link:hover {
+  color: var(--gold);
+}
