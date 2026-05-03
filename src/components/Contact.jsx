@@ -114,7 +114,7 @@ const Contact = () => {
     const elapsedMs = now - lastSubmitRef.current;
     if (elapsedMs < SUBMIT_COOLDOWN_MS) {
       const secondsLeft = Math.ceil((SUBMIT_COOLDOWN_MS - elapsedMs) / 1000);
-      setSubmitState({ loading: false, error: true, message: `Please wait ${secondsLeft}s before sending another inquiry.`, field: '' });
+      setSubmitState({ loading: false, error: true, message: `Please wait ${secondsLeft}s before sending another enquiry.`, field: '' });
       return;
     }
 
@@ -153,7 +153,7 @@ const Contact = () => {
         setSubmitState({
           loading: false,
           error: false,
-          message: "Thank you! Your inquiry has been sent successfully.",
+          message: "Thank you! Your enquiry has been sent successfully.",
           field: ''
         });
         setFormData({ name: '', email: '', phone: '', eventType: '', date: '', location: '', message: '', website: '' });
@@ -330,7 +330,7 @@ const Contact = () => {
               onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.background = 'var(--bg-sand)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.background = 'var(--gold)'; }}
               >
-                {submitState.loading ? 'Sending...' : 'Send Inquiry'}
+                {submitState.loading ? 'Sending...' : 'Send Enquiry'}
               </button>
               {submitState.message && (
                 <p
