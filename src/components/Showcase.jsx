@@ -81,7 +81,7 @@ const Showcase = () => {
       <div className="showcase-carousel" onMouseEnter={pause} onMouseLeave={resume}>
         {/* Side preview cards */}
         <div className="showcase-side-card showcase-side-left" onClick={() => { pause(); prev(); }} data-cursor-hover>
-          <img src={projects[getIndex(-1)].img} alt={projects[getIndex(-1)].title} />
+          <img src={projects[getIndex(-1)].img} alt={projects[getIndex(-1)].title} loading="lazy" decoding="async" />
           <div className="showcase-side-overlay" />
         </div>
 
@@ -106,7 +106,7 @@ const Showcase = () => {
               exit="exit"
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             >
-              <img src={projects[active].img} alt={projects[active].title} />
+              <img src={projects[active].img} alt={projects[active].title} loading="lazy" decoding="async" />
               <div className="showcase-card-info">
                 <motion.span
                   className="showcase-card-cat"
@@ -139,7 +139,7 @@ const Showcase = () => {
 
         {/* Right preview */}
         <div className="showcase-side-card showcase-side-right" onClick={() => { pause(); next(); }} data-cursor-hover>
-          <img src={projects[getIndex(1)].img} alt={projects[getIndex(1)].title} />
+          <img src={projects[getIndex(1)].img} alt={projects[getIndex(1)].title} loading="lazy" decoding="async" />
           <div className="showcase-side-overlay" />
         </div>
       </div>
