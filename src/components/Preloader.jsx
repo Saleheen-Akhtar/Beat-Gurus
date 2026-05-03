@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import logoImg from '../../images/logo.webp';
 import './Preloader.css';
 
+const PRELOADER_FALLBACK_TIMEOUT_MS = 800;
+
 const Preloader = ({ onComplete }) => {
   const [loading, setLoading] = useState(true);
   const hasCompletedRef = useRef(false);
@@ -16,7 +18,7 @@ const Preloader = ({ onComplete }) => {
       setLoading(false);
     };
 
-    const fallbackTimeout = window.setTimeout(completeOnce, 800);
+    const fallbackTimeout = window.setTimeout(completeOnce, PRELOADER_FALLBACK_TIMEOUT_MS);
 
     if (document.readyState !== 'loading') {
       window.requestAnimationFrame(completeOnce);
