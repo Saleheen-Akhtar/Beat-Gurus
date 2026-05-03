@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 
-const tags = ['BBC World Award', 'Norway Cultural Evening', 'Wine Festivals', 'Corporate Galas', 'International Stages'];
+const tags = ['BBC World Award', 'Cultural Evening', 'DJ Nights', 'Corporate Galas', 'International Stages'];
 
 const stats = [
   { end: 20, suffix: '+', label: 'Years', desc: 'Two decades of live performance, refining the craft on stages worldwide.' },
@@ -72,7 +72,7 @@ const About = () => {
           <p>
             Our passion for music transcends boundaries, gracing prestigious stages from the{' '}
             <strong style={{ color: 'var(--text-dark)' }}>BBC World Travel Awards</strong> to the{' '}
-            <strong style={{ color: 'var(--text-dark)' }}>International Cultural Evening in Norway</strong>.
+            <strong style={{ color: 'var(--text-dark)' }}>Cultural Evening in Norway</strong>.
           </p>
           <div className="about-tags">
             {tags.map(t => (

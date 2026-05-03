@@ -3,28 +3,39 @@ import { motion, AnimatePresence } from 'framer-motion';
 import logoImg from '../../images/logo.webp';
 import './Preloader.css';
 
+const PRELOADER_FALLBACK_TIMEOUT_MS = 800;
+
 const Preloader = ({ onComplete }) => {
   const [loading, setLoading] = useState(true);
   const hasCompletedRef = useRef(false);
 
   useEffect(() => {
+    let fallbackTimeout;
     const completeOnce = () => {
       if (hasCompletedRef.current) {
         return;
       }
       hasCompletedRef.current = true;
+      if (fallbackTimeout) {
+        window.clearTimeout(fallbackTimeout);
+        fallbackTimeout = undefined;
+      }
       setLoading(false);
     };
 
-    if (document.readyState === 'complete') {
-      completeOnce();
+    if (document.readyState !== 'loading') {
+      window.requestAnimationFrame(completeOnce);
       return undefined;
     }
 
-    window.addEventListener('load', completeOnce);
+    fallbackTimeout = window.setTimeout(completeOnce, PRELOADER_FALLBACK_TIMEOUT_MS);
+    window.addEventListener('DOMContentLoaded', completeOnce);
 
     return () => {
-      window.removeEventListener('load', completeOnce);
+      if (fallbackTimeout) {
+        window.clearTimeout(fallbackTimeout);
+      }
+      window.removeEventListener('DOMContentLoaded', completeOnce);
     };
   }, []);
 

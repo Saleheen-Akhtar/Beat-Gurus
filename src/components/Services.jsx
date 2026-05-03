@@ -3,10 +3,10 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
 
 export const services = [
-  { title: 'Corporate Events', desc: 'High-energy performances for galas & launches. We craft custom rhythmic experiences that align with your corporate brand, leaving a lasting impression on stakeholders and employees alike.', tag: 'Events' },
-  { title: 'Private Weddings', desc: 'Traditional rhythms meet modern groove. Elevate your special day with authentic acoustic energy that brings families together on the dance floor.', tag: 'Ceremonies' },
-  { title: 'Music Festivals', desc: 'Main stage performances worldwide. Our massive stage presence and raw acoustic power are designed to captivate thousands and create unforgettable festival moments.', tag: 'Festivals' },
-  { title: 'Drum Workshops', desc: 'Interactive hands-on percussion sessions. Perfect for schools, communities, and corporate retreats, teaching rhythm, listening, and collaborative harmony.', tag: 'Education' },
+  { title: 'Corporate Event', desc: 'High-energy performances for galas & launches. We craft custom rhythmic experiences that align with your corporate brand, leaving a lasting impression on stakeholders and employees alike.', tag: 'Events' },
+  { title: 'Private Wedding', desc: 'Traditional rhythms meet modern groove. Elevate your special day with authentic acoustic energy that brings families together on the dance floor.', tag: 'Ceremonies' },
+  { title: 'Music Festival', desc: 'Main stage performances worldwide. Our massive stage presence and raw acoustic power are designed to captivate thousands and create unforgettable festival moments.', tag: 'Festivals' },
+  { title: 'Drum Workshop', desc: 'Interactive hands-on percussion sessions. Perfect for schools, communities, and corporate retreats, teaching rhythm, listening, and collaborative harmony.', tag: 'Education' },
   { title: 'Team Building', desc: 'Corporate team bonding through rhythm & music. Break down barriers and foster unity as your team learns to play together as a cohesive rhythmic unit.', tag: 'Corporate' },
   { title: 'Gather & Groove', desc: 'Community drumming circles for all skill levels. A space for expression, connection, and pure joy through shared acoustic rhythms.', tag: 'Experience' },
 ];

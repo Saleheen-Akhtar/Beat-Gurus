@@ -57,10 +57,10 @@ function App() {
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.25,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smooth: true,
-      smoothTouch: false,
+      smoothTouch: true,
     });
     let lenisRafId;
     function lenisRaf(time) { lenis.raf(time); lenisRafId = requestAnimationFrame(lenisRaf); }

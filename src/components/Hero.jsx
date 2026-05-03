@@ -87,6 +87,7 @@ const Hero = () => {
               className="hero-logo"
               width={14998}
               height={8438}
+              loading="eager"
               decoding="async"
               fetchPriority="high"
             />
