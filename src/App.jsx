@@ -12,10 +12,20 @@ import ShowDetailPage from './pages/ShowDetailPage';
 import QrCodePage from './pages/QrCodePage';
 import { showTypeMap } from './data/showData';
 
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfUse from './pages/TermsOfUse';
+import Disclaimer from './pages/Disclaimer';
+
+
 const getRouteInfo = (pathname) => {
   if (pathname === '/') {
     return { page: 'home' };
   }
+
+  if (pathname === '/privacy-policy') return { page: 'privacy-policy' };
+  if (pathname === '/terms-of-use') return { page: 'terms-of-use' };
+  if (pathname === '/disclaimer') return { page: 'disclaimer' };
+
   if (pathname === '/qr-code') {
     return { page: 'qr-code' };
   }
@@ -198,7 +208,12 @@ function App() {
       {routeInfo.page === 'qr-code' && <QrCodePage />}
       {routeInfo.page === 'home' && <HomePage navigate={navigate} />}
       {routeInfo.page === 'show' && showExists && <ShowDetailPage slug={routeInfo.slug} />}
+
       {routeInfo.page === 'show' && !showExists && <ShowDetailPage slug="" />}
+      {routeInfo.page === 'privacy-policy' && <PrivacyPolicy />}
+      {routeInfo.page === 'terms-of-use' && <TermsOfUse />}
+      {routeInfo.page === 'disclaimer' && <Disclaimer />}
+
     </div>
   );
 }

@@ -57,7 +57,7 @@ const VideoSection = () => {
           ) : (
             <>
               <img
-                src="/images/hero-bg.jpg"
+                src="/images/hero-bg.webp"
                 alt="Beat Gurus live djembe performance on stage"
                 loading="lazy"
                 decoding="async"

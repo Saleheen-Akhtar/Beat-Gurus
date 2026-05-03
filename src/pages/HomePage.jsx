@@ -33,7 +33,7 @@ const HomePage = ({ navigate }) => (
     <Instruments />
     <Testimonials />
     <FAQ />
-    <Contact />
+    <Contact navigate={navigate} />
   </main>
 );
 

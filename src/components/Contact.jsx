@@ -11,7 +11,7 @@ const SUBMIT_COOLDOWN_MS = 30000;
 const MAX_MESSAGE_LENGTH = 5000;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const Contact = () => {
+const Contact = ({ navigate }) => {
   const CONTACT_API_URL = import.meta.env.VITE_CONTACT_API_URL || '/api/contact';
   const lastSubmitRef = useRef(0);
   const [formData, setFormData] = useState({
@@ -418,7 +418,14 @@ const Contact = () => {
           color: 'rgba(245, 241, 236, 0.5)'
         }}>
           <span>&copy; {new Date().getFullYear()} <span className="font-brand-name">Beat Gurus</span>. All Rights Reserved.</span>
+
+          <div className="legal-links" style={{ display: 'flex', gap: '20px' }}>
+            <a href="/privacy-policy" onClick={(e) => { e.preventDefault(); navigate('/privacy-policy'); }} className="footer-legal-link">Privacy Policy</a>
+            <a href="/terms-of-use" onClick={(e) => { e.preventDefault(); navigate('/terms-of-use'); }} className="footer-legal-link">Terms of Use</a>
+            <a href="/disclaimer" onClick={(e) => { e.preventDefault(); navigate('/disclaimer'); }} className="footer-legal-link">Disclaimer</a>
+          </div>
           <span style={{ color: 'var(--gold)' }}>Raw Acoustic Energy</span>
+
         </div>
 
       </div>
