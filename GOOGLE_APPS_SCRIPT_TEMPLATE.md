@@ -88,9 +88,9 @@ function doPost(e) {
       payload.submittedAt
     ]);
 
-    const subject = 'New Beat Gurus Contact Inquiry';
+    const subject = 'New Beat Gurus Contact Enquiry';
     const body =
-      'A new inquiry was received:\n\n' +
+      'A new enquiry was received:\n\n' +
       `Name: ${payload.name}\n` +
       `Email: ${payload.email}\n` +
       `Phone: ${payload.phone}\n` +
