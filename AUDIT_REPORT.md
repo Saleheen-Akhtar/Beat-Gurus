@@ -76,3 +76,12 @@ This audit focused on:
 4. Implement a production-ready contact submission flow.
 5. Add lint/test scripts and wire them into CI.
 
+## Improvement Backlog (2026-05-03)
+
+- Reduce hero/logo payload size further (current build emits `logo.webp` near 1 MB); add responsive sources and consider AVIF for LCP.
+- Compress QR page imagery (`/images/qr-hero-bg.png`, `/images/perc-image.png`) and apply responsive sizes for mobile.
+- Add reduced-motion fallbacks for the heaviest GSAP/ScrollTrigger timelines and Lenis smoothing, especially on low-power devices.
+- Code-split `QrCodePage` and `ShowDetailPage` to cut initial bundle size; lazy load heavy media sections.
+- Revisit custom cursor behavior so native cursor remains the default for broader usability/accessibility.
+- Expand contact form reliability: surface server errors, add retry guidance, and confirm delivery telemetry.
+- Review SEO/meta/OpenGraph tags per route and ensure focus states are visible across interactive controls.

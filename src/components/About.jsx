@@ -41,7 +41,7 @@ const About = () => {
   }, []);
 
   return (
-  <section id="about" className="about-section">
+  <section id="about" className="about-section" data-testid="section-about">
     <div className="container">
 
       <motion.div

@@ -271,7 +271,7 @@ const QrCodePage = () => {
   };
 
   return (
-    <div className="gritty-campaign-page relative min-h-screen" style={{ backgroundColor: '#0B0B0B', color: '#E8E1D9' }}>
+    <div className="gritty-campaign-page relative min-h-screen" style={{ backgroundColor: '#0B0B0B', color: '#E8E1D9' }} data-testid="qr-page">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
         .gritty-campaign-page {
@@ -362,6 +362,7 @@ const QrCodePage = () => {
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
             transition={{ delay: 0.7, duration: 0.6 }}
+            data-testid="qr-book-performance"
           >
             Book a Performance
           </motion.a>
@@ -377,6 +378,7 @@ const QrCodePage = () => {
         ref={percSectionRef}
         className="relative w-full min-h-screen py-24 flex flex-col md:flex-row bg-[#0B0B0B] z-10 border-t-4 border-[#E8E1D9]"
         style={{ overflow: 'hidden' }}
+        data-testid="qr-percussion-section"
       >
         {/* Gravity-physics floating links — rendered over the whole section */}
         {floatingMediaLinks.map((link, idx) => (
@@ -398,6 +400,7 @@ const QrCodePage = () => {
               pointerEvents: percSectionVisible ? 'auto' : 'none',
               transition: 'opacity 0.35s ease',
             }}
+            data-testid={`qr-floating-link-${idx}`}
           >
             {link.name}
           </a>
@@ -492,6 +495,7 @@ const QrCodePage = () => {
                 transition={{ duration: 0.2 }}
                 className={`street-tag hover-${link.id} ${link.primary ? 'ring-2 ring-[#D4A72C]/60' : ''} flex items-center gap-4 px-7 md:px-8 py-4 md:py-5 text-[#E8E1D9] font-bold text-xl md:text-2xl uppercase transition-colors hover:text-white`}
                 style={{ transform: `rotate(${rot}deg)` }}
+                data-testid={`qr-social-link-${link.id}`}
               >
                 {link.icon}
                 {link.name}

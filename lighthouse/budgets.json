@@ -1,0 +1,26 @@
+[
+  {
+    "path": "/",
+    "timings": [
+      { "metric": "largest-contentful-paint", "budget": 8000 },
+      { "metric": "total-blocking-time", "budget": 6000 },
+      { "metric": "cumulative-layout-shift", "budget": 0.1 }
+    ]
+  },
+  {
+    "path": "/shows/flute-fusion",
+    "timings": [
+      { "metric": "largest-contentful-paint", "budget": 8000 },
+      { "metric": "total-blocking-time", "budget": 10000 },
+      { "metric": "cumulative-layout-shift", "budget": 0.1 }
+    ]
+  },
+  {
+    "path": "/qr-code",
+    "timings": [
+      { "metric": "largest-contentful-paint", "budget": 15000 },
+      { "metric": "total-blocking-time", "budget": 7000 },
+      { "metric": "cumulative-layout-shift", "budget": 0.1 }
+    ]
+  }
+]

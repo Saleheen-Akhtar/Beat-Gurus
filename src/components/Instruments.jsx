@@ -81,7 +81,7 @@ export default function Instruments() {
   const inst = instruments[active];
 
   return (
-    <section id="instruments" className="instruments-section">
+    <section id="instruments" className="instruments-section" data-testid="section-instruments">
       <div className="container">
 
         {/* ── Heading ── */}

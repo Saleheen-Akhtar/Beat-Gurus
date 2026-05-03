@@ -72,7 +72,7 @@ const ShowDetailPage = ({ slug }) => {
   if (!show) {
     return (
       <section className="show-detail-page">
-        <div className="container show-detail-empty">
+        <div className="container show-detail-empty" data-testid="show-not-found">
           <h1>Show not found</h1>
           <p>We could not find this show format. Please return to the home page and choose a listed show.</p>
           <a className="btn-dark" href="/">Go Home</a>
@@ -117,16 +117,16 @@ const ShowDetailPage = ({ slug }) => {
   };
 
   return (
-    <main className="show-detail-page" id="main-content" ref={containerRef}>
+    <main className="show-detail-page" id="main-content" ref={containerRef} data-testid="show-detail-page">
       <section className="show-detail-hero" style={{ backgroundImage: `linear-gradient(rgba(5,5,5,0.5), rgba(5,5,5,0.5)), url(${show.heroImage})` }}>
         <div className="container show-detail-hero-inner" style={{ paddingTop: '160px', paddingBottom: '100px' }}>
           {/* Changed motion.h1 to h1 for GSAP animation */}
-          <h1 className="hero-title-anim" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>{show.title}</h1>
+          <h1 className="hero-title-anim" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }} data-testid="show-detail-title">{show.title}</h1>
           <p className="hero-desc-anim" style={{ fontSize: '1.25rem', maxWidth: '800px', marginBottom: '2rem' }}>{show.cardDescription}</p>
 
           <div className="show-detail-hero-cta">
             <a className="btn-dark" href={contactUrl} onClick={handleContactClick}>Submit Enquiry for this show <FaArrowRight size={12} /></a>
-            <a className="btn-outline" href={show.mediaLink} target="_blank" rel="noreferrer noopener">Media Link <FaArrowRight size={12} /></a>
+            <a className="btn-outline" href={show.mediaLink} target="_blank" rel="noreferrer noopener" data-testid="show-detail-media-link">Media Link <FaArrowRight size={12} /></a>
           </div>
         </div>
       </section>

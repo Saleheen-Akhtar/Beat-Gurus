@@ -50,7 +50,7 @@ const Showcase = () => {
   };
 
   return (
-    <section id="work" className="showcase-section">
+    <section id="work" className="showcase-section" data-testid="section-work">
       <div className="container">
         <div className="showcase-header">
           <motion.div
@@ -70,6 +70,7 @@ const Showcase = () => {
               rel="noreferrer"
               className="btn-outline"
               whileHover={{ scale: 1.04 }}
+              data-testid="showcase-youtube-link"
             >
               View All <FaArrowRight size={11} />
             </motion.a>

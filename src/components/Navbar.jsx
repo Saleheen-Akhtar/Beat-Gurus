@@ -26,6 +26,7 @@ const Navbar = ({ isHomeRoute }) => {
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
   const lastY = useRef(0);
+  const makeTestId = (prefix, label) => `${prefix}-${label.toLowerCase().replace(/\s+/g, '-')}`;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,6 +53,7 @@ const Navbar = ({ isHomeRoute }) => {
         animate={{ y: visible ? 0 : '-100%' }}
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
         style={{ willChange: 'transform' }}
+        data-testid="navbar"
       >
         <div className="container nav-container">
           <a href="/" className="logo" style={logoStyle}>BEAT<span style={logoSpanStyle}>GURUS</span></a>
@@ -60,7 +62,7 @@ const Navbar = ({ isHomeRoute }) => {
             <ul className="nav-links-list">
               {navItems.map((n) => (
                 <li key={n.label}>
-                  <a href={scopedHref(n.href)}>{n.label}</a>
+                  <a href={scopedHref(n.href)} data-testid={makeTestId('nav-link', n.label)}>{n.label}</a>
                 </li>
               ))}
             </ul>
@@ -68,6 +70,7 @@ const Navbar = ({ isHomeRoute }) => {
               className="menu-btn lg:hidden"
               onClick={() => setIsOpen(true)}
               whileTap={{ scale: 0.95 }}
+              data-testid="mobile-menu-button"
             >
               <FaBars size={13} />
               <span>Menu</span>
@@ -84,10 +87,11 @@ const Navbar = ({ isHomeRoute }) => {
             animate={{ clipPath: 'inset(0 0 0% 0)' }}
             exit={{ clipPath: 'inset(0 0 100% 0)' }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+            data-testid="mobile-menu"
           >
             <div className="container menu-header">
               <a href="/" className="logo-light" onClick={close}>BEAT<span style={{ color: 'var(--gold)' }}>GURUS</span></a>
-              <button className="close-btn" onClick={close}>
+              <button className="close-btn" onClick={close} data-testid="mobile-menu-close">
                 <FaTimes size={14} />
               </button>
             </div>
@@ -103,7 +107,7 @@ const Navbar = ({ isHomeRoute }) => {
                     transition={{ delay: 0.15 + i * 0.08, ease: [0.22, 1, 0.36, 1], duration: 0.6 }}
                   >
                     <span className="menu-nav-num">0{i + 1}</span>
-                    <a href={scopedHref(item.href)} onClick={close}>{item.label}</a>
+                    <a href={scopedHref(item.href)} onClick={close} data-testid={makeTestId('menu-link', item.label)}>{item.label}</a>
                   </motion.div>
                 ))}
               </nav>

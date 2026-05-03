@@ -44,6 +44,7 @@ const Preloader = ({ onComplete }) => {
       {loading && (
         <motion.div
           className="preloader-shell"
+          data-testid="preloader"
           initial={{ opacity: 1, scale: 1.02 }}
           animate={{ opacity: 1, scale: 1, transition: { duration: 0.35, ease: 'easeOut' } }}
           exit={{ opacity: 0, scale: 1, transition: { duration: 0.6, ease: 'easeInOut' } }}

@@ -37,7 +37,7 @@ const FAQ = () => {
       background: 'var(--text-dark)', /* Using Grey Black from our palette */
       color: 'var(--bg-sand)', /* Using Ivory White */
       borderTop: '2px solid rgba(245, 241, 236, 0.1)'
-    }}>
+    }} data-testid="section-faq">
       <div className="container" style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 20px' }}>
 
         <motion.div
@@ -80,6 +80,7 @@ const FAQ = () => {
                     aria-expanded={isActive}
                     aria-controls={`faq-panel-${index}`}
                     id={`faq-trigger-${index}`}
+                    data-testid={`faq-toggle-${index}`}
                     style={{
                       display: 'flex',
                       justifyContent: 'space-between',
@@ -120,6 +121,7 @@ const FAQ = () => {
                   id={`faq-panel-${index}`}
                   role="region"
                   aria-labelledby={`faq-trigger-${index}`}
+                  data-testid={`faq-panel-${index}`}
                   initial={false}
                   animate={{
                     height: isActive ? 'auto' : 0,

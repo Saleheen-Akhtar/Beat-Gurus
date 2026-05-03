@@ -182,7 +182,7 @@ const Contact = () => {
       color: 'var(--bg-sand)',
       borderTop: 'none',
       marginTop: '0'
-    }}>
+    }} data-testid="section-contact">
       <div className="container" style={{ maxWidth: '1400px' }}>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '80px', marginBottom: '100px' }}>
@@ -232,11 +232,11 @@ const Contact = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '30px' }} data-testid="contact-form">
 
               <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
                 <div style={{ flex: '1 1 200px' }}>
-                  <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your Name" required className="contact-input" />
+                  <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your Name" required className="contact-input" data-testid="contact-name" />
                 </div>
                 <div style={{ flex: '1 1 200px' }}>
                   <input
@@ -251,9 +251,10 @@ const Contact = () => {
                     placeholder="Email Address"
                     required
                     className="contact-input"
+                    data-testid="contact-email"
                   />
                   {emailError && (
-                    <p style={{ marginTop: '10px', color: '#ef4444', fontSize: '0.9rem' }}>
+                    <p style={{ marginTop: '10px', color: '#ef4444', fontSize: '0.9rem' }} data-testid="contact-email-error">
                       {emailError}
                     </p>
                   )}
@@ -262,7 +263,7 @@ const Contact = () => {
 
               <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
                 <div style={{ flex: '1 1 200px' }}>
-                  <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" className="contact-input" />
+                  <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" className="contact-input" data-testid="contact-phone" />
                 </div>
                 <div style={{ flex: '1 1 200px' }}>
                   <select
@@ -271,6 +272,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     className="contact-input"
+                    data-testid="contact-event-type"
                     style={{
                       appearance: 'none',
                       backgroundColor: 'transparent',
@@ -292,15 +294,15 @@ const Contact = () => {
 
               <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
                 <div style={{ flex: '1 1 200px' }}>
-                  <input type="text" name="date" placeholder="DD/MM/YYYY" value={formData.date} onChange={handleChange} className="contact-input" />
+                  <input type="text" name="date" placeholder="DD/MM/YYYY" value={formData.date} onChange={handleChange} className="contact-input" data-testid="contact-date" />
                 </div>
                 <div style={{ flex: '1 1 200px' }}>
-                  <input type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Event Location/City" className="contact-input" />
+                  <input type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Event Location/City" className="contact-input" data-testid="contact-location" />
                 </div>
               </div>
 
               <div>
-                <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Tell us about your event..." rows="4" required className="contact-input" style={{ resize: 'vertical' }}></textarea>
+                <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Tell us about your event..." rows="4" required className="contact-input" style={{ resize: 'vertical' }} data-testid="contact-message"></textarea>
               </div>
               <input
                 type="text"
@@ -329,6 +331,7 @@ const Contact = () => {
               disabled={submitState.loading}
               onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.background = 'var(--bg-sand)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.background = 'var(--gold)'; }}
+              data-testid="contact-submit"
               >
                 {submitState.loading ? 'Submitting...' : 'Submit Enquiry'}
               </button>
@@ -340,6 +343,7 @@ const Contact = () => {
                     color: submitState.error ? '#ffb4b4' : 'var(--bg-sand)',
                     fontSize: '1rem'
                   }}
+                  data-testid="contact-status"
                 >
                   {submitState.message}
                 </p>

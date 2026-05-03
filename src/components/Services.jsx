@@ -25,7 +25,7 @@ const Services = () => {
   };
 
   return (
-    <section id="services" className="services-section" style={{ position: 'relative' }}>
+    <section id="services" className="services-section" style={{ position: 'relative' }} data-testid="section-services">
         <div className="container" style={{ width: '100%' }}>
           <div className="services-grid" style={{ alignItems: 'start' }}>
             {/* Left Side: Sticky Header */}

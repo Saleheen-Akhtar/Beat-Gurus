@@ -1,0 +1,25 @@
+{
+  "ci": {
+    "collect": {
+      "startServerCommand": "npm run preview -- --host --port=4173",
+      "startServerReadyPattern": "http://localhost:4173",
+      "url": [
+        "http://localhost:4173/",
+        "http://localhost:4173/shows/flute-fusion",
+        "http://localhost:4173/qr-code"
+      ],
+      "numberOfRuns": 1,
+      "chromeFlags": "--no-sandbox --disable-dev-shm-usage",
+      "settings": {
+        "formFactor": "mobile",
+        "onlyCategories": ["performance"]
+      }
+    },
+    "assert": {
+      "budgetsFile": "./lighthouse/budgets.json"
+    },
+    "upload": {
+      "target": "filesystem"
+    }
+  }
+}

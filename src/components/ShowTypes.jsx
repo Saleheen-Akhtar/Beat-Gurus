@@ -28,7 +28,7 @@ const ShowRow = ({ show, index, navigate }) => {
       className={`showtype-row ${isLeft ? 'align-left' : 'align-right'}`}
       style={{ x: xContainer, opacity: opacityContainer }}
     >
-      <a href={`/shows/${show.slug}`} onClick={toShowPage} className="showtype-img-wrapper" aria-label={`Open ${show.title} details`}>
+      <a href={`/shows/${show.slug}`} onClick={toShowPage} className="showtype-img-wrapper" aria-label={`Open ${show.title} details`} data-testid={`show-type-link-${show.slug}`}>
         <motion.img
           style={{ y: yImg }}
           src={show.heroImage}
@@ -60,7 +60,7 @@ const ShowRow = ({ show, index, navigate }) => {
 
 const ShowTypes = ({ navigate }) => {
   return (
-    <section id="showtypes" className="showtypes-section">
+    <section id="showtypes" className="showtypes-section" data-testid="section-showtypes">
       <div className="container" style={{ overflowX: 'hidden' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}

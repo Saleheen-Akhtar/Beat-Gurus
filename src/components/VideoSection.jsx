@@ -6,7 +6,7 @@ const VideoSection = () => {
   const [playing, setPlaying] = useState(false);
 
   return (
-  <section className="video-section">
+  <section className="video-section" data-testid="section-video">
     <div className="container">
       <div className="video-grid">
 
@@ -53,6 +53,7 @@ const VideoSection = () => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+              data-testid="video-iframe"
             />
           ) : (
             <>
@@ -68,6 +69,7 @@ const VideoSection = () => {
                 onClick={() => setPlaying(true)}
                 aria-label="Play Beat Gurus live performance video"
                 style={{ background: 'transparent', border: 'none', padding: 0 }}
+                data-testid="video-play-button"
               >
                 <motion.div
                   className="play-circle"

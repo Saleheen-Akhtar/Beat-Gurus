@@ -1,0 +1,92 @@
+[
+  {
+    "name": "maxNumericValue",
+    "expected": 5000,
+    "actual": 7660.55955,
+    "values": [
+      7660.55955
+    ],
+    "operator": "<=",
+    "passed": false,
+    "auditId": "largest-contentful-paint",
+    "level": "error",
+    "url": "http://localhost:4173/",
+    "auditTitle": "Largest Contentful Paint",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/"
+  },
+  {
+    "name": "maxNumericValue",
+    "expected": 600,
+    "actual": 5770.500000000002,
+    "values": [
+      5770.500000000002
+    ],
+    "operator": "<=",
+    "passed": false,
+    "auditId": "total-blocking-time",
+    "level": "error",
+    "url": "http://localhost:4173/",
+    "auditTitle": "Total Blocking Time",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/lighthouse-total-blocking-time/"
+  },
+  {
+    "name": "maxNumericValue",
+    "expected": 5000,
+    "actual": 7206.640949999999,
+    "values": [
+      7206.640949999999
+    ],
+    "operator": "<=",
+    "passed": false,
+    "auditId": "largest-contentful-paint",
+    "level": "error",
+    "url": "http://localhost:4173/shows/flute-fusion",
+    "auditTitle": "Largest Contentful Paint",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/"
+  },
+  {
+    "name": "maxNumericValue",
+    "expected": 600,
+    "actual": 9804.5,
+    "values": [
+      9804.5
+    ],
+    "operator": "<=",
+    "passed": false,
+    "auditId": "total-blocking-time",
+    "level": "error",
+    "url": "http://localhost:4173/shows/flute-fusion",
+    "auditTitle": "Total Blocking Time",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/lighthouse-total-blocking-time/"
+  },
+  {
+    "name": "maxNumericValue",
+    "expected": 5000,
+    "actual": 14561.226450000002,
+    "values": [
+      14561.226450000002
+    ],
+    "operator": "<=",
+    "passed": false,
+    "auditId": "largest-contentful-paint",
+    "level": "error",
+    "url": "http://localhost:4173/qr-code",
+    "auditTitle": "Largest Contentful Paint",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/"
+  },
+  {
+    "name": "maxNumericValue",
+    "expected": 600,
+    "actual": 6427,
+    "values": [
+      6427
+    ],
+    "operator": "<=",
+    "passed": false,
+    "auditId": "total-blocking-time",
+    "level": "error",
+    "url": "http://localhost:4173/qr-code",
+    "auditTitle": "Total Blocking Time",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/lighthouse-total-blocking-time/"
+  }
+]
