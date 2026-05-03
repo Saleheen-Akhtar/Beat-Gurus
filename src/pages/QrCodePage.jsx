@@ -2,6 +2,14 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaYoutube, FaFacebookF, FaInstagram, FaGlobe, FaGoogle } from 'react-icons/fa';
 
+const liveMomentImages = [
+  'https://github.com/user-attachments/assets/3ea36c7c-be32-485f-8cb9-2e833de1794c',
+  'https://github.com/user-attachments/assets/ffaf31f2-1ca7-4097-9a35-2ddba0a8b344',
+  'https://github.com/user-attachments/assets/ce35c80c-66a9-4563-acf3-4d55071c62ce',
+  'https://github.com/user-attachments/assets/4ed58045-5745-452c-a44b-d1adba32fca3'
+];
+
+
 
 const socialLinks = [
   { name: 'Instagram',          url: 'https://www.instagram.com/beat_gurus?igsh=NWRxaWV2amo5bW94', icon: <FaInstagram size={32} />, id: 'instagram' },
@@ -182,6 +190,8 @@ function useGravityLinks(containerRef, links, shouldStart, onImpact) {
 
   return { measureNode, onPointerDown, onLinkClick };
 }
+
+
 
 const QrCodePage = () => {
   useEffect(() => {
@@ -457,18 +467,14 @@ const QrCodePage = () => {
           >
             {[...Array(6)].map((_, j) => (
                <React.Fragment key={j}>
-                 <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-[19rem] md:w-[34rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[6px_6px_0_#E8E1D9]">
-                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1200&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                       <FaYoutube className="text-[#C89B3C] text-5xl drop-shadow-md" />
-                    </div>
-                 </a>
-                 <a href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-[19rem] md:w-[34rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[6px_6px_0_#E8E1D9]">
-                    <img src="https://images.unsplash.com/photo-1526478806334-5fd488fcaabc?q=80&w=1200&auto=format&fit=crop" alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                       <FaYoutube className="text-[#C89B3C] text-5xl drop-shadow-md" />
-                    </div>
-                 </a>
+                 {liveMomentImages.map((imgSrc, idx) => (
+                   <a key={`${j}-${idx}`} href="https://m.youtube.com/@BeatGurus" target="_blank" rel="noopener noreferrer" className="relative w-[19rem] md:w-[34rem] aspect-video shrink-0 border-4 border-[#0B0B0B] group block overflow-hidden shadow-[6px_6px_0_#E8E1D9]">
+                      <img src={imgSrc} alt="Show" loading="lazy" decoding="async" className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 flex items-center justify-center bg-[#0B0B0B]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                         <FaYoutube className="text-[#C89B3C] text-5xl drop-shadow-md" />
+                      </div>
+                   </a>
+                 ))}
                </React.Fragment>
             ))}
           </motion.div>
