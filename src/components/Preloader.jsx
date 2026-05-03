@@ -10,25 +10,36 @@ const Preloader = ({ onComplete }) => {
   const hasCompletedRef = useRef(false);
 
   useEffect(() => {
+    let fallbackTimeout;
     const completeOnce = () => {
       if (hasCompletedRef.current) {
         return;
       }
       hasCompletedRef.current = true;
+      if (fallbackTimeout) {
+        window.clearTimeout(fallbackTimeout);
+        fallbackTimeout = undefined;
+      }
       setLoading(false);
     };
 
-    const fallbackTimeout = window.setTimeout(completeOnce, PRELOADER_FALLBACK_TIMEOUT_MS);
+    fallbackTimeout = window.setTimeout(completeOnce, PRELOADER_FALLBACK_TIMEOUT_MS);
 
     if (document.readyState !== 'loading') {
       window.requestAnimationFrame(completeOnce);
-      return () => window.clearTimeout(fallbackTimeout);
+      return () => {
+        if (fallbackTimeout) {
+          window.clearTimeout(fallbackTimeout);
+        }
+      };
     }
 
     window.addEventListener('DOMContentLoaded', completeOnce);
 
     return () => {
-      window.clearTimeout(fallbackTimeout);
+      if (fallbackTimeout) {
+        window.clearTimeout(fallbackTimeout);
+      }
       window.removeEventListener('DOMContentLoaded', completeOnce);
     };
   }, []);
