@@ -408,7 +408,7 @@ const Contact = ({ navigate }) => {
           <div className="text-center md:text-left flex flex-col gap-2">
             <span>&copy; {new Date().getFullYear()} <span className="font-brand-name text-[var(--gold)]">Beat Gurus</span>. All Rights Reserved.</span>
             <span className="text-[0.85rem] normal-case tracking-wider opacity-70">
-              If you’re reading this, it didn’t crash. Miracle by <a href="https://wa.me/916361718607" target="_blank" rel="noopener noreferrer" className="font-brand-name text-[1.2rem] capitalize underline cursor-pointer hover:text-[var(--gold)] transition-all inline-block hover:-translate-y-0.5 duration-300 ml-1 mr-1">Mohammed Sahil</a>.
+              If you’re reading this, it didn’t crash. Miracle by <a href="https://wa.me/916361718607" target="_blank" rel="noopener noreferrer" className="font-brand-name text-[1.2rem] capitalize cursor-pointer ml-1 mr-1 glitch-name">Mohammed Sahil</a>.
             </span>
           </div>
 
