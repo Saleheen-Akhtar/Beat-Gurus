@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
 import { FaArrowRight, FaPlay } from 'react-icons/fa';
 import logoImg from '../../images/logo.webp';
-import heroBg from '../../images/hero_bg.webp';
 
 const Hero = () => {
   const ref = useRef(null);
@@ -54,9 +53,9 @@ const Hero = () => {
       <div
         className="hero-bg-media"
         style={{
-          position: 'absolute', inset: 0, zIndex: 0,
-          backgroundImage: `url(${heroBg})`,
-          backgroundSize: 'cover', backgroundPosition: 'center',
+          position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', zIndex: 0,
+          backgroundImage: 'url("/images/hero-bg.webp")',
+          backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
           opacity: 0.15, mixBlendMode: 'multiply', pointerEvents: 'none',
         }}
       />
