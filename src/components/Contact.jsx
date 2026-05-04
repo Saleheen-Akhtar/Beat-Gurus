@@ -405,12 +405,17 @@ const Contact = ({ navigate }) => {
 
         {/* Bottom Copyright */}
         <div className="mt-[100px] py-[30px] border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4 text-[0.9rem] uppercase font-bold text-white/50" style={{ fontFamily: 'var(--font-main)' }}>
-          <span className="text-center md:text-left">&copy; {new Date().getFullYear()} <span className="font-brand-name text-[var(--gold)]">Beat Gurus</span>. All Rights Reserved.</span>
+          <div className="text-center md:text-left flex flex-col gap-2">
+            <span>&copy; {new Date().getFullYear()} <span className="font-brand-name text-[var(--gold)]">Beat Gurus</span>. All Rights Reserved.</span>
+            <span className="text-[0.7rem] lowercase tracking-wider opacity-70">
+              handcrafted with 🥁 & ☕ by <a href="https://wa.me/916361718607" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--gold)] transition-colors inline-block hover:-translate-y-0.5 duration-300">Mohammed Sahil</a> (no instruments were harmed)
+            </span>
+          </div>
 
           <div className="legal-links flex flex-wrap justify-center gap-x-6 gap-y-2">
-            <a href="/privacy-policy" onClick={(e) => { e.preventDefault(); navigate('/privacy-policy'); }} className="footer-legal-link hover:text-[var(--gold)] transition-colors duration-300">Privacy Policy</a>
-            <a href="/terms-of-use" onClick={(e) => { e.preventDefault(); navigate('/terms-of-use'); }} className="footer-legal-link hover:text-[var(--gold)] transition-colors duration-300">Terms of Use</a>
-            <a href="/disclaimer" onClick={(e) => { e.preventDefault(); navigate('/disclaimer'); }} className="footer-legal-link hover:text-[var(--gold)] transition-colors duration-300">Disclaimer</a>
+            <a href="/privacy-policy" onClick={(e) => { if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return; e.preventDefault(); navigate('/privacy-policy'); }} className="footer-legal-link hover:text-[var(--gold)] transition-colors duration-300">Privacy Policy</a>
+            <a href="/terms-of-use" onClick={(e) => { if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return; e.preventDefault(); navigate('/terms-of-use'); }} className="footer-legal-link hover:text-[var(--gold)] transition-colors duration-300">Terms of Use</a>
+            <a href="/disclaimer" onClick={(e) => { if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return; e.preventDefault(); navigate('/disclaimer'); }} className="footer-legal-link hover:text-[var(--gold)] transition-colors duration-300">Disclaimer</a>
           </div>
           <span className="text-[var(--gold)] text-center md:text-right">Raw Acoustic Energy</span>
 
