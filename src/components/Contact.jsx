@@ -408,7 +408,7 @@ const Contact = ({ navigate }) => {
           <div className="text-center md:text-left flex flex-col gap-2">
             <span>&copy; {new Date().getFullYear()} <span className="font-brand-name text-[var(--gold)]">Beat Gurus</span>. All Rights Reserved.</span>
             <span className="text-[0.7rem] lowercase tracking-wider opacity-70">
-              CODE TAMED & BANGED OUT BY <a href="https://wa.me/916361718607" target="_blank" rel="noopener noreferrer" className="font-brand-name text-[1.1rem] capitalize underline decoration-[var(--gold)] underline-offset-4 hover:text-[var(--gold)] transition-all inline-block hover:-translate-y-0.5 duration-300 ml-1 mr-1">Mohammed Sahil</a> (without missing a beat)
+              If you’re reading this, it didn’t crash. Miracle by <a href="https://wa.me/916361718607" target="_blank" rel="noopener noreferrer" className="font-brand-name text-[1.1rem] capitalize hover:text-[var(--gold)] transition-all inline-block hover:-translate-y-0.5 duration-300 ml-1 mr-1">Mohammed Sahil</a>.
             </span>
           </div>
 
