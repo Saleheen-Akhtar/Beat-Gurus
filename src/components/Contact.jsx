@@ -404,27 +404,15 @@ const Contact = ({ navigate }) => {
         </motion.div>
 
         {/* Bottom Copyright */}
-        <div style={{
-          marginTop: '100px',
-          padding: '30px 0',
-          borderTop: '1px solid rgba(245, 241, 236, 0.2)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          fontFamily: 'var(--font-main)',
-          fontSize: '0.9rem',
-          textTransform: 'uppercase',
-          fontWeight: 'bold',
-          color: 'rgba(245, 241, 236, 0.5)'
-        }}>
-          <span>&copy; {new Date().getFullYear()} <span className="font-brand-name">Beat Gurus</span>. All Rights Reserved.</span>
+        <div className="mt-[100px] py-[30px] border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4 text-[0.9rem] uppercase font-bold text-white/50" style={{ fontFamily: 'var(--font-main)' }}>
+          <span className="text-center md:text-left">&copy; {new Date().getFullYear()} <span className="font-brand-name text-[var(--gold)]">Beat Gurus</span>. All Rights Reserved.</span>
 
-          <div className="legal-links" style={{ display: 'flex', gap: '20px' }}>
-            <a href="/privacy-policy" onClick={(e) => { e.preventDefault(); navigate('/privacy-policy'); }} className="footer-legal-link">Privacy Policy</a>
-            <a href="/terms-of-use" onClick={(e) => { e.preventDefault(); navigate('/terms-of-use'); }} className="footer-legal-link">Terms of Use</a>
-            <a href="/disclaimer" onClick={(e) => { e.preventDefault(); navigate('/disclaimer'); }} className="footer-legal-link">Disclaimer</a>
+          <div className="legal-links flex flex-wrap justify-center gap-x-6 gap-y-2">
+            <a href="/privacy-policy" onClick={(e) => { e.preventDefault(); navigate('/privacy-policy'); }} className="footer-legal-link hover:text-[var(--gold)] transition-colors duration-300">Privacy Policy</a>
+            <a href="/terms-of-use" onClick={(e) => { e.preventDefault(); navigate('/terms-of-use'); }} className="footer-legal-link hover:text-[var(--gold)] transition-colors duration-300">Terms of Use</a>
+            <a href="/disclaimer" onClick={(e) => { e.preventDefault(); navigate('/disclaimer'); }} className="footer-legal-link hover:text-[var(--gold)] transition-colors duration-300">Disclaimer</a>
           </div>
-          <span style={{ color: 'var(--gold)' }}>Raw Acoustic Energy</span>
+          <span className="text-[var(--gold)] text-center md:text-right">Raw Acoustic Energy</span>
 
         </div>
 
