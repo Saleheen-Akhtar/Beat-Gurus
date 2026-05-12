@@ -8,6 +8,7 @@ import Showcase from '../components/Showcase';
 import USP from '../components/USP';
 import Instruments from '../components/Instruments';
 import Testimonials from '../components/Testimonials';
+import Achievements from '../components/Achievements';
 import FAQ from '../components/FAQ';
 import Contact from '../components/Contact';
 
@@ -32,6 +33,7 @@ const HomePage = ({ navigate }) => (
     <USP />
     <Instruments />
     <Testimonials />
+    <Achievements />
     <FAQ />
     <Contact navigate={navigate} />
   </main>
