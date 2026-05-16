@@ -37,14 +37,7 @@ const achievements = [
     desc: "Featured performers for the Marriott Holiday Spirit season, bringing festive acoustic energy.",
     image: "/assets/achievements/IMG-20260503-WA0039.webp",
     size: "small",
-  },
-  {
-    title: "Cultural Fest, Norway",
-    desc: "Mr. Ganeshan Govindswamy has represented India at the Cultural fest held at Norway.",
-    image: "/assets/achievements/Screenshot_20260514_122859_(1).webp",
-    size: "large",
-  }
-];
+  }];
 
 
 const AchievementCard = ({ item }) => {
