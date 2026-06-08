@@ -183,51 +183,58 @@ export default async function handler(req, res) {
     // Debug
 console.log(
   "WEB3FORMS KEY EXISTS:",
-  !!process.env.VITE_WEB3FORMS_ACCESS_KEY
+  !!process.env.WEB3FORMS_ACCESS_KEY
 );
 
 console.log(
   "WEB3FORMS KEY LENGTH:",
-  process.env.VITE_WEB3FORMS_ACCESS_KEY?.length || 0
+  process.env.WEB3FORMS_ACCESS_KEY?.length || 0
 );
 
 // Secondary: forward to Web3Forms for email notification.
-const web3formsKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
+// Secondary: forward to Web3Forms for email notification.
+const web3formsKey = process.env.WEB3FORMS_ACCESS_KEY;
+
+console.log("WEB3 KEY EXISTS:", !!web3formsKey);
 
 if (web3formsKey) {
   try {
+    const payload = {
+      access_key: web3formsKey,
+      subject: `New Beat Gurus Enquiry - ${sanitize(data.eventType)}`,
+      from_name: sanitize(data.name),
+
+      name: sanitize(data.name),
+      email: sanitize(data.email),
+      phone: sanitize(data.phone),
+      message: sanitize(data.message),
+
+      eventType: sanitize(data.eventType),
+      date: sanitize(data.date),
+      location: sanitize(data.location),
+    };
+
+    console.log("SENDING TO WEB3FORMS", payload);
+
     const web3Response = await fetch(
-      'https://api.web3forms.com/submit',
+      "https://api.web3forms.com/submit",
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
+          "Content-Type": "application/json",
+          "Accept": "application/json",
         },
-        body: JSON.stringify({
-          access_key: web3formsKey,
-
-          subject: `New Beat Gurus Enquiry - ${sanitize(data.eventType)}`,
-          from_name: sanitize(data.name),
-
-          name: sanitize(data.name),
-          email: sanitize(data.email),
-          phone: sanitize(data.phone),
-          message: sanitize(data.message),
-
-          eventType: sanitize(data.eventType),
-          date: sanitize(data.date),
-          location: sanitize(data.location),
-        }),
+        body: JSON.stringify(payload),
       }
     );
 
     const web3Result = await web3Response.json();
 
-    console.log('WEB3 STATUS:', web3Response.status);
-    console.log('WEB3 RESPONSE:', web3Result);
+    console.log("WEB3 STATUS:", web3Response.status);
+    console.log("WEB3 RESPONSE:", JSON.stringify(web3Result));
+
   } catch (err) {
-    console.error('WEB3 ERROR:', err);
+    console.error("WEB3 ERROR:", err);
   }
 }
 
