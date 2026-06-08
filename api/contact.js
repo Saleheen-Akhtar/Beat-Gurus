@@ -193,17 +193,23 @@ console.log(
 
 const web3formsKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
 
-    // Secondary: forward to Web3Forms for email notification. Fire-and-forget; never blocks the response.
-    const web3formsKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
-    if (web3formsKey) {
+console.log("WEB3FORMS KEY EXISTS:", !!web3formsKey);
+
+if (web3formsKey) {
   try {
     const web3Response = await fetch(
       'https://api.web3forms.com/submit',
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
         body: JSON.stringify({
           access_key: web3formsKey,
+          subject: 'New Beat Gurus Enquiry',
+          from_name: 'Beat Gurus Website',
+
           name: sanitize(data.name),
           email: sanitize(data.email),
           phone: sanitize(data.phone),
@@ -215,10 +221,10 @@ const web3formsKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
       }
     );
 
-    const web3Data = await web3Response.text();
+    const web3Result = await web3Response.text();
 
     console.log('WEB3 STATUS:', web3Response.status);
-    console.log('WEB3 RESPONSE:', web3Data);
+    console.log('WEB3 RESPONSE:', web3Result);
 
   } catch (err) {
     console.error('WEB3 ERROR:', err);
