@@ -180,6 +180,19 @@ export default async function handler(req, res) {
       });
     }
 
+    // Debug
+console.log(
+  "WEB3FORMS KEY EXISTS:",
+  !!process.env.VITE_WEB3FORMS_ACCESS_KEY
+);
+
+console.log(
+  "WEB3FORMS KEY LENGTH:",
+  process.env.VITE_WEB3FORMS_ACCESS_KEY?.length || 0
+);
+
+const web3formsKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
+
     // Secondary: forward to Web3Forms for email notification. Fire-and-forget; never blocks the response.
     const web3formsKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
     if (web3formsKey) {
