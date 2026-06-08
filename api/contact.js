@@ -191,9 +191,8 @@ console.log(
   process.env.VITE_WEB3FORMS_ACCESS_KEY?.length || 0
 );
 
+// Secondary: forward to Web3Forms for email notification.
 const web3formsKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
-
-console.log("WEB3FORMS KEY EXISTS:", !!web3formsKey);
 
 if (web3formsKey) {
   try {
@@ -207,13 +206,15 @@ if (web3formsKey) {
         },
         body: JSON.stringify({
           access_key: web3formsKey,
-          subject: 'New Beat Gurus Enquiry',
-          from_name: 'Beat Gurus Website',
+
+          subject: `New Beat Gurus Enquiry - ${sanitize(data.eventType)}`,
+          from_name: sanitize(data.name),
 
           name: sanitize(data.name),
           email: sanitize(data.email),
           phone: sanitize(data.phone),
           message: sanitize(data.message),
+
           eventType: sanitize(data.eventType),
           date: sanitize(data.date),
           location: sanitize(data.location),
@@ -221,11 +222,10 @@ if (web3formsKey) {
       }
     );
 
-    const web3Result = await web3Response.text();
+    const web3Result = await web3Response.json();
 
     console.log('WEB3 STATUS:', web3Response.status);
     console.log('WEB3 RESPONSE:', web3Result);
-
   } catch (err) {
     console.error('WEB3 ERROR:', err);
   }
