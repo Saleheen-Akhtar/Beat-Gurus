@@ -196,7 +196,10 @@ const web3formsKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
     // Secondary: forward to Web3Forms for email notification. Fire-and-forget; never blocks the response.
     const web3formsKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
     if (web3formsKey) {
-      fetch('https://api.web3forms.com/submit', {
+  try {
+    const web3Response = await fetch(
+      'https://api.web3forms.com/submit',
+      {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -209,10 +212,18 @@ const web3formsKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
           date: sanitize(data.date),
           location: sanitize(data.location),
         }),
-      }).catch(() => {
-        // Web3Forms failure is intentionally ignored; Google Sheets write already succeeded.
-      });
-    }
+      }
+    );
+
+    const web3Data = await web3Response.text();
+
+    console.log('WEB3 STATUS:', web3Response.status);
+    console.log('WEB3 RESPONSE:', web3Data);
+
+  } catch (err) {
+    console.error('WEB3 ERROR:', err);
+  }
+}
 
     return res.status(200).json({ success: true, message: "Enquiry submitted! We'll get back to you soon." });
   } catch (error) {
